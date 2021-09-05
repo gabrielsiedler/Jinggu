@@ -24,7 +24,7 @@ const run = async () => {
 
     let movement = [0, 0]
 
-    if (pos < 6) {
+    if (pos < 8) {
       movement = [0, step * pos]
 
       if (pos === 0) {
@@ -34,18 +34,18 @@ const run = async () => {
       } else {
         sprite = sprites[3484]
       }
-    } else if (pos < 12) {
-      movement = [step * (pos % 6), 6 * step]
+    } else if (pos < 16) {
+      movement = [step * (pos % 8), 8 * step]
 
-      if (pos === 6) {
+      if (pos === 8) {
         sprite = sprites[3488]
       } else if (pos % 2 === 1) {
         sprite = sprites[3489]
       } else {
         sprite = sprites[3490]
       }
-    } else if (pos < 18) {
-      movement = [6 * step, 6 * step - step * (pos % 6)]
+    } else if (pos < 24) {
+      movement = [8 * step, 8 * step - step * (pos % 8)]
 
       if (pos === 12) {
         sprite = sprites[3485]
@@ -55,7 +55,7 @@ const run = async () => {
         sprite = sprites[3487]
       }
     } else {
-      movement = [6 * step - step * (pos % 6), 0]
+      movement = [8 * step - step * (pos % 8), 0]
 
       if (pos === 18) {
         sprite = sprites[3491]
@@ -86,7 +86,7 @@ const run = async () => {
       drawMephis(pos)
 
       pos += 1
-      if (pos === 24) {
+      if (pos === 32) {
         pos = 0
       }
     },
