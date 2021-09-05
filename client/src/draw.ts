@@ -1,4 +1,4 @@
-import { context, sprites, WINDOW_HEIGHT, WINDOW_WIDTH } from '.'
+import { context, player, sprites, WINDOW_HEIGHT, WINDOW_WIDTH } from '.'
 
 export const drawBackground = () => {
   for (let i = 0; i < WINDOW_WIDTH; i += 32) {
@@ -10,9 +10,7 @@ export const drawBackground = () => {
 
 // const step = 8
 
-export const drawPlayer = (x: number, y: number) => {
-  let sprite = sprites[3482]
-
+export const drawPlayer = () => {
   // let movement = [0, 0]
 
   // if (pos < 8) {
@@ -57,5 +55,5 @@ export const drawPlayer = (x: number, y: number) => {
   //   }
   // }
 
-  context.drawImage(sprite, x, y)
+  context.drawImage(player.sprite, player.x, player.y)
 }

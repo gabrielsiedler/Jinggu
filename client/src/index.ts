@@ -26,8 +26,7 @@ const setup = async () => {
 
 const loop = async () => {
   drawBackground()
-
-  drawPlayer(player.x, player.y)
+  drawPlayer()
 }
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
