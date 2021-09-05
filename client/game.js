@@ -10,6 +10,7 @@ loadRoot('http://localhost:5000/sprites/')
 layers(['field', 'top'], 'game')
 await loadSprite('grass', '43.png')
 await loadSprite('player', '3482.png')
+await loadSprite('shrub', '1049.png')
 
 const player = add([
   sprite('player'),
@@ -22,6 +23,29 @@ const player = add([
     speed: 10,
   },
 ])
+
+const addShrub = (posX, posY) => {
+  add([
+    sprite('shrub'),
+    pos(posX, posY),
+    layer('top'),
+    'shrub',
+    {
+      dir: vec2(-1, 0),
+      dead: false,
+      speed: 10,
+    },
+  ])
+}
+
+const getRandom = (min, max) => Math.floor(Math.random()*(max-min+1)+min);
+
+let x, y;
+for(let i = 0; i < 20; i++) {
+  x = getRandom(0, Math.floor(screen.width / 32)) * 32;
+  y = getRandom(0, Math.floor(screen.height / 32)) * 32;
+  addShrub(x, y)
+}
 
 const dirs = {
   left: vec2(-1, 0),
