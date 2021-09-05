@@ -49,6 +49,11 @@ export const checkKeyPress = (e: KeyboardEvent) => {
   }
 
   switch (code) {
+    case 'Escape':
+      if(player.traveling) {
+        player.traveling = false
+      }
+      break;
     case 'ArrowLeft':
       player.move(Direction.Left)
       break
