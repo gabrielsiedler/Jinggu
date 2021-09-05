@@ -53,4 +53,23 @@ export class Player {
 
     setTimeout(() => (this.walking = false), 250)
   }
+
+  dance = (direction: Direction) => {
+    switch (direction) {
+      case Direction.Up:
+        this.sprite = sprites[3485]
+        break
+      case Direction.Down:
+        this.sprite = sprites[3482]
+        break
+      case Direction.Left:
+        this.sprite = sprites[3491]
+        break
+      case Direction.Right:
+        this.sprite = sprites[3488]
+        break
+    }
+
+    setTimeout(() => (this.walking = false), 50)
+  }
 }

@@ -1,5 +1,5 @@
 import { drawBackground, drawPlayer } from './draw'
-import { checkKeyPress } from './input'
+import { checkKeyPress, keysSetup } from './input'
 import { Player } from './Player'
 import { loadSprites } from './sprites'
 
@@ -21,7 +21,7 @@ const setup = async () => {
 
   player = new Player(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
 
-  window.addEventListener('keydown', checkKeyPress, false)
+  keysSetup()
 }
 
 const loop = async () => {
