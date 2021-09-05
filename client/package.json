@@ -9,8 +9,8 @@
     "typescript": "^4.4.2"
   },
   "scripts": {
-    "dev": "parcel -p 3000 watch src/index.html",
-    "build": "parcel build src/index.html"
+    "dev": "parcel -p 3000 watch index.html",
+    "build": "parcel build index.html"
   },
   "staticFiles": {
     "staticPath": "public"
