@@ -1,39 +1,36 @@
 import { loadSprites } from './sprites'
 
-const run = () => {
+const WINDOW_WIDTH = 1280
+const WINDOW_HEIGHT = 640
+
+const run = async () => {
   let canvas = document.createElement('canvas')
   let context: any
   let sprites: any
 
   const drawBackground = () => {
-    for (let i = 0; i < 640; i += 32) {
-      for (let j = 0; j < 640; j += 32) {
+    for (let i = 0; i < WINDOW_WIDTH; i += 32) {
+      for (let j = 0; j < WINDOW_HEIGHT; j += 32) {
         context.drawImage(sprites[0], i, j)
       }
     }
-
-    drawMephis()
   }
 
-  const drawMephis = () => {
-    context.drawImage(sprites[1], 0, 64)
-    context.drawImage(sprites[2], 32, 64)
-    context.drawImage(sprites[3], 64, 64)
-    context.drawImage(sprites[4], 96, 64)
-    context.drawImage(sprites[5], 128, 64)
-    context.drawImage(sprites[6], 160, 64)
-    context.drawImage(sprites[7], 192, 64)
-    context.drawImage(sprites[8], 224, 64)
-    context.drawImage(sprites[9], 256, 64)
-    context.drawImage(sprites[10], 288, 64)
-    context.drawImage(sprites[11], 320, 64)
-    context.drawImage(sprites[12], 352, 64)
+  let pos = 32
+  const drawMephis = (pos: number) => {
+    let sprite = sprites[1]
+
+    if (pos === 64) {
+      sprite = sprites[2]
+    }
+    const center = [WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2]
+    context.drawImage(sprite, center[0], center[1] + pos)
   }
 
   const Jinggu = {
-    start: async function () {
-      canvas.width = 640
-      canvas.height = 640
+    start: async () => {
+      canvas.width = WINDOW_WIDTH
+      canvas.height = WINDOW_HEIGHT
       context = canvas.getContext('2d')
       document.body.insertBefore(canvas, document.body.childNodes[0])
 
@@ -41,9 +38,25 @@ const run = () => {
 
       drawBackground()
     },
+    loop: () => {
+      drawBackground()
+      drawMephis(pos)
+
+      pos = pos === 32 ? 64 : 32
+    },
   }
 
-  Jinggu.start()
+  await Jinggu.start()
+
+  const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+  let i = 0
+  while (i < 500) {
+    Jinggu.loop()
+
+    await sleep(500)
+    i += 1
+  }
 }
 
 run()
