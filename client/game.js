@@ -1,6 +1,5 @@
 kaboom({
   global: true,
-  fullscreen: true,
   scale: 1,
   debug: true,
 })
@@ -38,12 +37,12 @@ const addShrub = (posX, posY) => {
   ])
 }
 
-const getRandom = (min, max) => Math.floor(Math.random()*(max-min+1)+min);
+const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
-let x, y;
-for(let i = 0; i < 20; i++) {
-  x = getRandom(0, Math.floor(screen.width / 32)) * 32;
-  y = getRandom(0, Math.floor(screen.height / 32)) * 32;
+let x, y
+for (let i = 0; i < 20; i++) {
+  x = getRandom(0, Math.floor(screen.width / 32)) * 32
+  y = getRandom(0, Math.floor(screen.height / 32)) * 32
   addShrub(x, y)
 }
 
@@ -56,11 +55,7 @@ const dirs = {
 
 for (const dir in dirs) {
   keyDown(dir, () => {
-    const destination = dirs[dir].scale(32 * 10)
-
-    console.log('destination', destination)
-
-    player.move(destination)
+    player.move(dirs[dir].scale(32 * 10))
   })
 }
 
