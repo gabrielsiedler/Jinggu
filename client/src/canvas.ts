@@ -11,17 +11,17 @@ const run = async () => {
   const drawBackground = () => {
     for (let i = 0; i < WINDOW_WIDTH; i += 32) {
       for (let j = 0; j < WINDOW_HEIGHT; j += 32) {
-        context.drawImage(sprites[0], i, j)
+        context.drawImage(sprites[43], i, j)
       }
     }
   }
 
   let pos = 32
   const drawMephis = (pos: number) => {
-    let sprite = sprites[1]
+    let sprite = sprites[3482]
 
     if (pos === 64) {
-      sprite = sprites[2]
+      sprite = sprites[3483]
     }
     const center = [WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2]
     context.drawImage(sprite, center[0], center[1] + pos)

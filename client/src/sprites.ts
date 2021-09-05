@@ -1,4 +1,4 @@
-const loadSprite = async (id: string | number) =>
+const loadSprite = async (id: number) =>
   new Promise((resolve, reject) => {
     const url = `./sprites/${id}.png`
     const sprite = new Image()
@@ -46,7 +46,10 @@ const loadSprite = async (id: string | number) =>
 export const loadSprites = async () => {
   const ids = [43, 3482, 3483, 3484, 3485, 3486, 3487, 3488, 3489, 3490, 3491, 3492, 3493]
 
-  const sprites = ids.map(loadSprite)
+  let sprites: { [key: number]: any } = {}
+  const spritesPromise = ids.map(async (id: number) => (sprites[id] = await loadSprite(id)))
 
-  return Promise.all(sprites)
+  await Promise.all(spritesPromise)
+
+  return sprites
 }
