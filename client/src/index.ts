@@ -1,5 +1,5 @@
 import { drawBackground, drawPlayer } from './draw'
-import { checkKeyPress, keysSetup } from './input'
+import { checkKeyPress, inputsSetup } from './input'
 import { Player } from './Player'
 import { loadSprites } from './sprites'
 
@@ -21,12 +21,15 @@ const setup = async () => {
 
   player = new Player(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
 
-  keysSetup()
+  inputsSetup()
 }
 
 const loop = async () => {
   drawBackground()
   drawPlayer()
+  if(player.traveling) {
+    player.travel()
+  }
 }
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
