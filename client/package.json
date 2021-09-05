@@ -13,7 +13,6 @@
     "build": "parcel build src/index.html"
   },
   "staticFiles": {
-    "staticPath": "public",
-    "watcherGlob": "**"
+    "staticPath": "public"
   }
 }
