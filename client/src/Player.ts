@@ -11,6 +11,7 @@ export class Player {
   x: number
   y: number
   walking: boolean = false
+  dancing: boolean = false
   sprite = sprites[3482]
 
   constructor(x: number, y: number) {
@@ -55,6 +56,8 @@ export class Player {
   }
 
   dance = (direction: Direction) => {
+    if (this.walking || this.dancing) return
+
     switch (direction) {
       case Direction.Up:
         this.sprite = sprites[3485]
@@ -69,7 +72,8 @@ export class Player {
         this.sprite = sprites[3488]
         break
     }
+    this.dancing = true
 
-    setTimeout(() => (this.walking = false), 50)
+    setTimeout(() => (this.dancing = false), 50)
   }
 }
