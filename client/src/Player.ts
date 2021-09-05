@@ -7,17 +7,14 @@ export enum Direction {
   Right,
 }
 
-interface Point {
-  x: number
-  y: number
-}
-
 export class Player {
   x: number
   y: number
   walking: boolean = false
   dancing: boolean = false
   sprite = sprites[3482]
+  level: number = 1
+  speed = Math.max(800 - this.level * 5, 200)
 
   constructor(x: number, y: number) {
     this.x = x
@@ -61,7 +58,7 @@ export class Player {
     }
     this.walking = true
 
-    setTimeout(() => (this.walking = false), 800)
+    setTimeout(() => (this.walking = false), this.speed)
   }
 
   dance = (direction: Direction) => {
@@ -92,7 +89,7 @@ export class Player {
     const spr = [sprites[spriteBase + 1], sprites[spriteBase + 2]]
     let sprI = 0
 
-    const moveInterval = setInterval(() => (this[property] = this[property] + tick * signal), 100)
+    const moveInterval = setInterval(() => (this[property] = this[property] + tick * signal), this.speed / 8)
     const walkInterval = setInterval(() => {
       if (sprI === spr.length) {
         sprI = 0
@@ -101,13 +98,13 @@ export class Player {
       this.sprite = spr[sprI]
 
       sprI += 1
-    }, 100)
+    }, this.speed / 8)
 
     setTimeout(() => {
       clearInterval(moveInterval)
       clearInterval(walkInterval)
 
       this.sprite = sprites[spriteBase]
-    }, 800)
+    }, this.speed)
   }
 }
