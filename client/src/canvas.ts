@@ -16,15 +16,58 @@ const run = async () => {
     }
   }
 
-  let pos = 32
-  const drawMephis = (pos: number) => {
-    let sprite = sprites[3482]
+  let pos = 0
+  const step = 8
 
-    if (pos === 64) {
-      sprite = sprites[3483]
+  const drawMephis = (pos: number) => {
+    let sprite = sprites[3483]
+
+    let movement = [0, 0]
+
+    if (pos < 6) {
+      movement = [0, step * pos]
+
+      if (pos === 0) {
+        sprite = sprites[3482]
+      } else if (pos % 2 === 1) {
+        sprite = sprites[3483]
+      } else {
+        sprite = sprites[3484]
+      }
+    } else if (pos < 12) {
+      movement = [step * (pos % 6), 6 * step]
+
+      if (pos === 6) {
+        sprite = sprites[3488]
+      } else if (pos % 2 === 1) {
+        sprite = sprites[3489]
+      } else {
+        sprite = sprites[3490]
+      }
+    } else if (pos < 18) {
+      movement = [6 * step, 6 * step - step * (pos % 6)]
+
+      if (pos === 12) {
+        sprite = sprites[3485]
+      } else if (pos % 2 === 1) {
+        sprite = sprites[3486]
+      } else {
+        sprite = sprites[3487]
+      }
+    } else {
+      movement = [6 * step - step * (pos % 6), 0]
+
+      if (pos === 18) {
+        sprite = sprites[3491]
+      } else if (pos % 2 === 1) {
+        sprite = sprites[3492]
+      } else {
+        sprite = sprites[3493]
+      }
     }
+
     const center = [WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2]
-    context.drawImage(sprite, center[0], center[1] + pos)
+    context.drawImage(sprite, center[0] + movement[0], center[1] + movement[1])
   }
 
   const Jinggu = {
@@ -42,7 +85,10 @@ const run = async () => {
       drawBackground()
       drawMephis(pos)
 
-      pos = pos === 32 ? 64 : 32
+      pos += 1
+      if (pos === 24) {
+        pos = 0
+      }
     },
   }
 
@@ -54,7 +100,7 @@ const run = async () => {
   while (i < 500) {
     Jinggu.loop()
 
-    await sleep(500)
+    await sleep(200)
     i += 1
   }
 }
