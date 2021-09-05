@@ -1,4 +1,4 @@
-import { sprites } from '.'
+import { sprites, WINDOW_HEIGHT, WINDOW_WIDTH } from '.'
 
 export enum Direction {
   Up,
@@ -23,18 +23,28 @@ export class Player {
 
     switch (direction) {
       case Direction.Up:
+        if (this.y === 0) return
+
         this.y = this.y - 32
         this.sprite = sprites[3485]
+
         break
       case Direction.Down:
+        if (this.y === WINDOW_HEIGHT - 32) return
+
         this.y = this.y + 32
         this.sprite = sprites[3482]
+
         break
       case Direction.Left:
+        if (this.x === 0) return
+
         this.x = this.x - 32
         this.sprite = sprites[3491]
         break
       case Direction.Right:
+        if (this.x === WINDOW_WIDTH - 32) return
+
         this.x = this.x + 32
         this.sprite = sprites[3488]
         break
