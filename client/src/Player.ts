@@ -8,6 +8,7 @@ export enum Direction {
 export class Player {
   x: number
   y: number
+  walking: boolean = false
 
   constructor(x: number, y: number) {
     this.x = x
@@ -15,6 +16,8 @@ export class Player {
   }
 
   move = (direction: Direction) => {
+    if (this.walking) return
+
     switch (direction) {
       case Direction.Up:
         this.y = this.y - 32
@@ -29,5 +32,8 @@ export class Player {
         this.x = this.x + 32
         break
     }
+    this.walking = true
+
+    setTimeout(() => (this.walking = false), 300)
   }
 }
