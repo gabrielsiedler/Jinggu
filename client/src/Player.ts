@@ -29,31 +29,23 @@ export class Player {
         if (this.y === 0) return
 
         this.animateWalk('y', -1, 3485)
-        // this.y = this.y - 32
-        this.sprite = sprites[3485]
 
         break
       case Direction.Down:
         if (this.y === WINDOW_HEIGHT - 32) return
 
         this.animateWalk('y', 1, 3482)
-        // this.y = this.y + 32
-        this.sprite = sprites[3482]
 
         break
       case Direction.Left:
         if (this.x === 0) return
 
         this.animateWalk('x', -1, 3491)
-        // this.x = this.x - 32
-        this.sprite = sprites[3491]
         break
       case Direction.Right:
         if (this.x === WINDOW_WIDTH - 32) return
 
         this.animateWalk('x', 1, 3488)
-        // this.x = this.x + 32
-        this.sprite = sprites[3488]
         break
     }
     this.walking = true
