@@ -1,5 +1,5 @@
-const loadSprite = async (id) =>
-  new Promise((resolve) => {
+const loadSprite = async (id: string | number) =>
+  new Promise((resolve, reject) => {
     const url = `./sprites/${id}.png`
     const sprite = new Image()
     sprite.src = url
@@ -8,7 +8,7 @@ const loadSprite = async (id) =>
       const tempCanvas = document.createElement('canvas')
       tempCanvas.width = 32
       tempCanvas.height = 32
-      const tempContext = tempCanvas.getContext('2d')
+      const tempContext: any = tempCanvas.getContext('2d')
 
       tempContext.drawImage(sprite, 0, 0)
       const image = tempContext.getImageData(0, 0, 32, 32)
@@ -35,9 +35,15 @@ const loadSprite = async (id) =>
 
       resolve(transparentSprite)
     }
+
+    sprite.onerror = (error) => {
+      console.error('error', error)
+
+      reject(error)
+    }
   })
 
-const loadSprites = async () => {
+export const loadSprites = async () => {
   const ids = [43, 3482, 3483, 3484, 3485, 3486, 3487, 3488, 3489, 3490, 3491, 3492, 3493]
 
   const sprites = ids.map(loadSprite)
