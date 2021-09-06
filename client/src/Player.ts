@@ -1,5 +1,7 @@
 import { sprites, WINDOW_HEIGHT, WINDOW_WIDTH } from '.'
 
+import { getGridDistance } from './utils'
+
 export enum Direction {
   Up,
   Down,
@@ -12,6 +14,11 @@ export class Player {
   y: number
   walking: boolean = false
   dancing: boolean = false
+  traveling: boolean = false
+  travelDestination = {
+    x: 0,
+    y: 0
+  }
   sprite = sprites[3482]
   level: number = 1
   speed = Math.max(800 - this.level * 5, 200)
@@ -98,5 +105,26 @@ export class Player {
 
       this.sprite = sprites[spriteBase]
     }, this.speed)
+  }
+
+  setTravelDestination = (x: number, y: number) => {
+    this.travelDestination = {x, y}
+  }
+
+  travel = () => {
+    const distanceToTarget = getGridDistance(this.travelDestination.x, this.travelDestination.y, this.x, this.y)
+    if(distanceToTarget.x === 0 && distanceToTarget.y === 0) {
+      this.traveling = false
+      return
+    } else if( distanceToTarget.x > 0) {
+      this.move(Direction.Right)
+    } else if( distanceToTarget.x < 0) {
+      this.move(Direction.Left)
+    } else if(distanceToTarget.y > 0) {
+      this.move(Direction.Down)
+    } else if(distanceToTarget.y < 0) {
+      this.move(Direction.Up)
+    }
+    return
   }
 }
