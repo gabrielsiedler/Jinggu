@@ -1,4 +1,4 @@
-import { sprites, WINDOW_HEIGHT, WINDOW_WIDTH } from '.'
+import { gameMap, spriteLibrary, WINDOW_HEIGHT, WINDOW_WIDTH } from '.'
 
 import { getGridDistance } from './utils'
 
@@ -17,10 +17,10 @@ export class Player {
   traveling: boolean = false
   travelDestination = {
     x: 0,
-    y: 0
+    y: 0,
   }
-  sprite = sprites[3482]
-  level: number = 1
+  sprite = spriteLibrary[3482]
+  level: number = 50
   speed = Math.max(800 - this.level * 5, 200)
 
   constructor(x: number, y: number) {
@@ -29,7 +29,27 @@ export class Player {
   }
 
   move = (direction: Direction) => {
-    if (this.walking) return
+    let destinationTilePos
+    const realX = this.x / 32
+    const realY = this.y / 32
+
+    switch (direction) {
+      case Direction.Up:
+        destinationTilePos = [realX, realY - 1]
+        break
+      case Direction.Down:
+        destinationTilePos = [realX, realY + 1]
+        break
+      case Direction.Left:
+        destinationTilePos = [realX - 1, realY]
+        break
+      case Direction.Right:
+        destinationTilePos = [realX + 1, realY]
+        break
+    }
+    const destinationTile = gameMap.tiles[destinationTilePos[1]][destinationTilePos[0]]
+
+    if (!destinationTile.walkable || this.walking) return
 
     switch (direction) {
       case Direction.Up:
@@ -65,16 +85,16 @@ export class Player {
 
     switch (direction) {
       case Direction.Up:
-        this.sprite = sprites[3485]
+        this.sprite = spriteLibrary[3485]
         break
       case Direction.Down:
-        this.sprite = sprites[3482]
+        this.sprite = spriteLibrary[3482]
         break
       case Direction.Left:
-        this.sprite = sprites[3491]
+        this.sprite = spriteLibrary[3491]
         break
       case Direction.Right:
-        this.sprite = sprites[3488]
+        this.sprite = spriteLibrary[3488]
         break
     }
     this.dancing = true
@@ -85,7 +105,7 @@ export class Player {
   animateWalk = (property: 'x' | 'y', signal: -1 | 1, spriteBase: number) => {
     const tick = 32 / 8
 
-    const spr = [sprites[spriteBase + 1], sprites[spriteBase + 2]]
+    const spr = [spriteLibrary[spriteBase + 1], spriteLibrary[spriteBase + 2]]
     let sprI = 0
 
     const moveInterval = setInterval(() => (this[property] = this[property] + tick * signal), this.speed / 8)
@@ -103,26 +123,26 @@ export class Player {
       clearInterval(moveInterval)
       clearInterval(walkInterval)
 
-      this.sprite = sprites[spriteBase]
+      this.sprite = spriteLibrary[spriteBase]
     }, this.speed)
   }
 
   setTravelDestination = (x: number, y: number) => {
-    this.travelDestination = {x, y}
+    this.travelDestination = { x, y }
   }
 
   travel = () => {
     const distanceToTarget = getGridDistance(this.travelDestination.x, this.travelDestination.y, this.x, this.y)
-    if(distanceToTarget.x === 0 && distanceToTarget.y === 0) {
+    if (distanceToTarget.x === 0 && distanceToTarget.y === 0) {
       this.traveling = false
       return
-    } else if( distanceToTarget.x > 0) {
+    } else if (distanceToTarget.x > 0) {
       this.move(Direction.Right)
-    } else if( distanceToTarget.x < 0) {
+    } else if (distanceToTarget.x < 0) {
       this.move(Direction.Left)
-    } else if(distanceToTarget.y > 0) {
+    } else if (distanceToTarget.y > 0) {
       this.move(Direction.Down)
-    } else if(distanceToTarget.y < 0) {
+    } else if (distanceToTarget.y < 0) {
       this.move(Direction.Up)
     }
     return

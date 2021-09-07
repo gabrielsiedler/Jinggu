@@ -1,15 +1,18 @@
-import { drawBackground, drawPlayer } from './draw'
-import { checkKeyPress, inputsSetup } from './input'
+import { drawMap, drawPlayer } from './draw'
+import { GameMap } from './GameMap'
+import { inputsSetup } from './input'
 import { Player } from './Player'
 import { loadSprites } from './sprites'
+import { loadMap } from './map'
 
-export const WINDOW_WIDTH = 1280
-export const WINDOW_HEIGHT = 640
+export const WINDOW_WIDTH = 42 * 32
+export const WINDOW_HEIGHT = 24 * 32
 
 export let canvas = document.createElement('canvas')
 export let context: any
-export let sprites: any
 export let player: Player
+export let gameMap: GameMap
+export let spriteLibrary: any
 
 const setup = async () => {
   canvas.width = WINDOW_WIDTH
@@ -17,17 +20,19 @@ const setup = async () => {
   context = canvas.getContext('2d')
   document.body.insertBefore(canvas, document.body.childNodes[0])
 
-  sprites = await loadSprites()
+  spriteLibrary = await loadSprites()
 
   player = new Player(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
+  gameMap = new GameMap(loadMap())
 
   inputsSetup()
 }
 
 const loop = async () => {
-  drawBackground()
+  drawMap()
   drawPlayer()
-  if(player.traveling) {
+
+  if (player.traveling) {
     player.travel()
   }
 }

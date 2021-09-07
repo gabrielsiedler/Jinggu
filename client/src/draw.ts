@@ -1,59 +1,17 @@
-import { context, player, sprites, WINDOW_HEIGHT, WINDOW_WIDTH } from '.'
-
-export const drawBackground = () => {
-  for (let i = 0; i < WINDOW_WIDTH; i += 32) {
-    for (let j = 0; j < WINDOW_HEIGHT; j += 32) {
-      context.drawImage(sprites[43], i, j)
-    }
-  }
-}
-
-// const step = 8
+import { context, gameMap, player } from '.'
 
 export const drawPlayer = () => {
-  // let movement = [0, 0]
+  context.drawImage(player.sprite.image, player.x, player.y)
+}
 
-  // if (pos < 8) {
-  //   movement = [0, step * pos]
+export const drawMap = () => {
+  for (let y = 0; y < gameMap.tiles.length; y += 1) {
+    for (let x = 0; x < gameMap.tiles[0].length; x += 1) {
+      const currentTile = gameMap.tiles[y][x]
 
-  //   if (pos === 0) {
-  //     sprite = sprites[3482]
-  //   } else if (pos % 2 === 1) {
-  //     sprite = sprites[3483]
-  //   } else {
-  //     sprite = sprites[3484]
-  //   }
-  // } else if (pos < 16) {
-  //   movement = [step * (pos % 8), 8 * step]
-
-  //   if (pos === 8) {
-  //     sprite = sprites[3488]
-  //   } else if (pos % 2 === 1) {
-  //     sprite = sprites[3489]
-  //   } else {
-  //     sprite = sprites[3490]
-  //   }
-  // } else if (pos < 24) {
-  //   movement = [8 * step, 8 * step - step * (pos % 8)]
-
-  //   if (pos === 12) {
-  //     sprite = sprites[3485]
-  //   } else if (pos % 2 === 1) {
-  //     sprite = sprites[3486]
-  //   } else {
-  //     sprite = sprites[3487]
-  //   }
-  // } else {
-  //   movement = [8 * step - step * (pos % 8), 0]
-
-  //   if (pos === 18) {
-  //     sprite = sprites[3491]
-  //   } else if (pos % 2 === 1) {
-  //     sprite = sprites[3492]
-  //   } else {
-  //     sprite = sprites[3493]
-  //   }
-  // }
-
-  context.drawImage(player.sprite, player.x, player.y)
+      currentTile.sprites.forEach((sprite) => {
+        context.drawImage(sprite.image, x * 32, y * 32)
+      })
+    }
+  }
 }
