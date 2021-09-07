@@ -32,9 +32,9 @@ const loop = async () => {
   drawMap()
   drawPlayer()
 
-  if (player.traveling) {
-    player.travel()
-  }
+  // if (player.traveling) {
+  //   player.travel()
+  // }
 }
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))

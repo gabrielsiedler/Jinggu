@@ -14,13 +14,13 @@ export class Player {
   y: number
   walking: boolean = false
   dancing: boolean = false
-  traveling: boolean = false
-  travelDestination = {
-    x: 0,
-    y: 0,
-  }
+  // traveling: boolean = false
+  // travelDestination = {
+  //   x: 0,
+  //   y: 0,
+  // }
   sprite = spriteLibrary[3482]
-  level: number = 50
+  level: number = 150
   speed = Math.max(800 - this.level * 5, 200)
 
   constructor(x: number, y: number) {
@@ -29,6 +29,8 @@ export class Player {
   }
 
   move = (direction: Direction) => {
+    if (this.walking) return
+
     let destinationTilePos
     const realX = this.x / 32
     const realY = this.y / 32
@@ -49,7 +51,9 @@ export class Player {
     }
     const destinationTile = gameMap.tiles[destinationTilePos[1]][destinationTilePos[0]]
 
-    if (!destinationTile.walkable || this.walking) return
+    if (!destinationTile.walkable) return
+
+    this.walking = true
 
     switch (direction) {
       case Direction.Up:
@@ -75,9 +79,6 @@ export class Player {
         this.animateWalk('x', 1, 3488)
         break
     }
-    this.walking = true
-
-    setTimeout(() => (this.walking = false), this.speed)
   }
 
   dance = (direction: Direction) => {
@@ -108,43 +109,49 @@ export class Player {
     const spr = [spriteLibrary[spriteBase + 1], spriteLibrary[spriteBase + 2]]
     let sprI = 0
 
-    const moveInterval = setInterval(() => (this[property] = this[property] + tick * signal), this.speed / 8)
-    const walkInterval = setInterval(() => {
+    let tickRuns = 0
+    const runMove = () => {
+      this[property] = this[property] + tick * signal
+
       if (sprI === spr.length) {
         sprI = 0
       }
 
       this.sprite = spr[sprI]
-
       sprI += 1
-    }, this.speed / 8)
 
-    setTimeout(() => {
-      clearInterval(moveInterval)
-      clearInterval(walkInterval)
+      tickRuns += 1
+      if (tickRuns < 8) {
+        setTimeout(runMove, this.speed / 8)
+
+        return
+      }
 
       this.sprite = spriteLibrary[spriteBase]
-    }, this.speed)
-  }
-
-  setTravelDestination = (x: number, y: number) => {
-    this.travelDestination = { x, y }
-  }
-
-  travel = () => {
-    const distanceToTarget = getGridDistance(this.travelDestination.x, this.travelDestination.y, this.x, this.y)
-    if (distanceToTarget.x === 0 && distanceToTarget.y === 0) {
-      this.traveling = false
-      return
-    } else if (distanceToTarget.x > 0) {
-      this.move(Direction.Right)
-    } else if (distanceToTarget.x < 0) {
-      this.move(Direction.Left)
-    } else if (distanceToTarget.y > 0) {
-      this.move(Direction.Down)
-    } else if (distanceToTarget.y < 0) {
-      this.move(Direction.Up)
+      this.walking = false
     }
-    return
+
+    setTimeout(runMove, this.speed / 8)
   }
+
+  // setTravelDestination = (x: number, y: number) => {
+  //   this.travelDestination = { x, y }
+  // }
+
+  // travel = () => {
+  //   const distanceToTarget = getGridDistance(this.travelDestination.x, this.travelDestination.y, this.x, this.y)
+  //   if (distanceToTarget.x === 0 && distanceToTarget.y === 0) {
+  //     this.traveling = false
+  //     return
+  //   } else if (distanceToTarget.x > 0) {
+  //     this.move(Direction.Right)
+  //   } else if (distanceToTarget.x < 0) {
+  //     this.move(Direction.Left)
+  //   } else if (distanceToTarget.y > 0) {
+  //     this.move(Direction.Down)
+  //   } else if (distanceToTarget.y < 0) {
+  //     this.move(Direction.Up)
+  //   }
+  //   return
+  // }
 }
