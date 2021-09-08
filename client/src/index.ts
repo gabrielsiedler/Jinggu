@@ -3,7 +3,6 @@ import { GameMap } from './GameMap'
 import { inputsSetup } from './input'
 import { Player } from './Player'
 import { loadSprites } from './sprites'
-import { loadMap } from './map'
 
 export const WINDOW_WIDTH = 42 * 32
 export const WINDOW_HEIGHT = 24 * 32
@@ -11,10 +10,10 @@ export const WINDOW_HEIGHT = 24 * 32
 export let canvas = document.createElement('canvas')
 export let context: any
 export let player: Player
-export let gameMap: GameMap
+export let gameMap: GameMap = [[]] as any
 export let spriteLibrary: any
 
-const setup = async () => {
+const setup = async (map: GameMap) => {
   canvas.width = WINDOW_WIDTH
   canvas.height = WINDOW_HEIGHT
   context = canvas.getContext('2d')
@@ -23,7 +22,7 @@ const setup = async () => {
   spriteLibrary = await loadSprites()
 
   player = new Player(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
-  gameMap = new GameMap(loadMap())
+  gameMap = map
 
   inputsSetup()
 }
@@ -48,9 +47,9 @@ const theLoop = async () => {
   window.requestAnimationFrame(theLoop)
 }
 
-;(async () => {
-  await setup()
+export const startEngine = async (map: GameMap) => {
+  await setup(map)
 
   theLoop()
   window.requestAnimationFrame(theLoop)
-})()
+}

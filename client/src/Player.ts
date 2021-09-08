@@ -1,4 +1,4 @@
-import { gameMap, spriteLibrary, WINDOW_HEIGHT, WINDOW_WIDTH } from '.'
+import { gameMap, WINDOW_HEIGHT, WINDOW_WIDTH } from '.'
 
 import { getGridDistance } from './utils'
 
@@ -19,7 +19,7 @@ export class Player {
   //   x: 0,
   //   y: 0,
   // }
-  sprite = spriteLibrary[3482]
+  sprite = 3482
   level: number = 150
   speed = Math.max(800 - this.level * 5, 200)
 
@@ -51,6 +51,7 @@ export class Player {
     }
     const destinationTile = gameMap.tiles[destinationTilePos[1]][destinationTilePos[0]]
 
+    console.log('destinationTile', destinationTile)
     if (!destinationTile.walkable) return
 
     this.walking = true
@@ -86,16 +87,16 @@ export class Player {
 
     switch (direction) {
       case Direction.Up:
-        this.sprite = spriteLibrary[3485]
+        this.sprite = 3485
         break
       case Direction.Down:
-        this.sprite = spriteLibrary[3482]
+        this.sprite = 3482
         break
       case Direction.Left:
-        this.sprite = spriteLibrary[3491]
+        this.sprite = 3491
         break
       case Direction.Right:
-        this.sprite = spriteLibrary[3488]
+        this.sprite = 3488
         break
     }
     this.dancing = true
@@ -106,7 +107,7 @@ export class Player {
   animateWalk = (property: 'x' | 'y', signal: -1 | 1, spriteBase: number) => {
     const tick = 32 / 8
 
-    const spr = [spriteLibrary[spriteBase + 1], spriteLibrary[spriteBase + 2]]
+    const spr = [spriteBase + 1, spriteBase + 2]
     let sprI = 0
 
     let tickRuns = 0
@@ -127,7 +128,7 @@ export class Player {
         return
       }
 
-      this.sprite = spriteLibrary[spriteBase]
+      this.sprite = spriteBase
       this.walking = false
     }
 

@@ -1,7 +1,7 @@
-import { context, gameMap, player } from '.'
+import { context, gameMap, player, spriteLibrary } from '.'
 
 export const drawPlayer = () => {
-  context.drawImage(player.sprite.image, player.x, player.y)
+  context.drawImage(spriteLibrary[player.sprite].image, player.x, player.y)
 }
 
 export const drawMap = () => {
@@ -10,7 +10,7 @@ export const drawMap = () => {
       const currentTile = gameMap.tiles[y][x]
 
       currentTile.sprites.forEach((sprite) => {
-        context.drawImage(sprite.image, x * 32, y * 32)
+        context.drawImage(spriteLibrary[sprite.id].image, x * 32, y * 32)
       })
     }
   }

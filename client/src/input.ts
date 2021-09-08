@@ -29,7 +29,6 @@ const removeKey = (e: any) => {
 export const checkKeyPress = (e: KeyboardEvent) => {
   keysPressed[e.key] = true
   var code = e.key
-
   if (keysPressed.Control) {
     switch (code) {
       case 'ArrowLeft':

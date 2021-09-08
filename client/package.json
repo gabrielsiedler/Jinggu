@@ -14,5 +14,8 @@
   },
   "staticFiles": {
     "staticPath": "public"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.2.0"
   }
 }
