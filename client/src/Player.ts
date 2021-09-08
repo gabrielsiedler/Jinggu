@@ -1,17 +1,24 @@
 import { gameMap, WINDOW_HEIGHT, WINDOW_WIDTH } from '.'
-
-import { getGridDistance } from './utils'
+import { emitMove } from './socket'
 
 export enum Direction {
-  Up,
-  Down,
-  Left,
-  Right,
+  Up = 'up',
+  Down = 'down',
+  Left = 'left',
+  Right = 'right',
 }
 
 const possibleSkins = [3398, 3410, 3422, 3434, 3446, 3458, 3470, 3482, 3494]
 
+export interface PlayerFromServer {
+  id: number
+  x: number
+  y: number
+  spriteBase: number
+  level: number
+}
 export class Player {
+  id: number
   x: number
   y: number
   walking: boolean = false
@@ -26,13 +33,18 @@ export class Player {
   level: number = 150
   speed = Math.max(800 - this.level * 5, 200)
 
-  constructor(x: number, y: number) {
+  constructor({ id, x, y, spriteBase, level }: PlayerFromServer) {
+    this.id = id
     this.x = x
     this.y = y
+    this.spriteBase = spriteBase
+    this.sprite = spriteBase
+    this.level = level
+    this.speed = Math.max(800 - level * 5, 200)
   }
 
   move = (direction: Direction) => {
-    if (this.walking) return
+    // if (this.walking) return
 
     let destinationTilePos
     const realX = this.x / 32
@@ -54,7 +66,6 @@ export class Player {
     }
     const destinationTile = gameMap.tiles[destinationTilePos[1]][destinationTilePos[0]]
 
-    console.log('destinationTile', destinationTile)
     if (!destinationTile.walkable) return
 
     this.walking = true
