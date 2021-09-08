@@ -9,6 +9,8 @@ export enum Direction {
   Right,
 }
 
+const possibleSkins = [3398, 3410, 3422, 3434, 3446, 3458, 3470, 3482, 3494]
+
 export class Player {
   x: number
   y: number
@@ -19,7 +21,8 @@ export class Player {
   //   x: 0,
   //   y: 0,
   // }
-  sprite = 3482
+  spriteBase = possibleSkins[Math.floor(Math.random() * possibleSkins.length)]
+  sprite = this.spriteBase
   level: number = 150
   speed = Math.max(800 - this.level * 5, 200)
 
@@ -60,24 +63,24 @@ export class Player {
       case Direction.Up:
         if (this.y === 0) return
 
-        this.animateWalk('y', -1, 3485)
+        this.animateWalk('y', -1, this.spriteBase + 3)
 
         break
       case Direction.Down:
         if (this.y === WINDOW_HEIGHT - 32) return
 
-        this.animateWalk('y', 1, 3482)
+        this.animateWalk('y', 1, this.spriteBase)
 
         break
       case Direction.Left:
         if (this.x === 0) return
 
-        this.animateWalk('x', -1, 3491)
+        this.animateWalk('x', -1, this.spriteBase + 9)
         break
       case Direction.Right:
         if (this.x === WINDOW_WIDTH - 32) return
 
-        this.animateWalk('x', 1, 3488)
+        this.animateWalk('x', 1, this.spriteBase + 6)
         break
     }
   }
@@ -87,16 +90,16 @@ export class Player {
 
     switch (direction) {
       case Direction.Up:
-        this.sprite = 3485
+        this.sprite = this.spriteBase + 3
         break
       case Direction.Down:
-        this.sprite = 3482
+        this.sprite = this.spriteBase
         break
       case Direction.Left:
-        this.sprite = 3491
+        this.sprite = this.spriteBase + 9
         break
       case Direction.Right:
-        this.sprite = 3488
+        this.sprite = this.spriteBase + 6
         break
     }
     this.dancing = true
@@ -104,10 +107,10 @@ export class Player {
     setTimeout(() => (this.dancing = false), 50)
   }
 
-  animateWalk = (property: 'x' | 'y', signal: -1 | 1, spriteBase: number) => {
+  animateWalk = (property: 'x' | 'y', signal: -1 | 1, movementSpriteBase: number) => {
     const tick = 32 / 8
 
-    const spr = [spriteBase + 1, spriteBase + 2]
+    const spr = [movementSpriteBase + 1, movementSpriteBase + 2]
     let sprI = 0
 
     let tickRuns = 0
@@ -128,7 +131,7 @@ export class Player {
         return
       }
 
-      this.sprite = spriteBase
+      this.sprite = movementSpriteBase
       this.walking = false
     }
 
