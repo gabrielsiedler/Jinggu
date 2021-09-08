@@ -44,7 +44,7 @@ export class Player {
   }
 
   move = (direction: Direction) => {
-    // if (this.walking) return
+    if (this.walking) return
 
     let destinationTilePos
     const realX = this.x / 32
@@ -124,29 +124,32 @@ export class Player {
     const spr = [movementSpriteBase + 1, movementSpriteBase + 2]
     let sprI = 0
 
-    let tickRuns = 0
-    const runMove = () => {
-      this[property] = this[property] + tick * signal
+    this[property] = this[property] + 32 * signal
+    this.walking = false
 
-      if (sprI === spr.length) {
-        sprI = 0
-      }
+    // let tickRuns = 0
+    // const runMove = () => {
+    //   this[property] = this[property] + tick * signal
 
-      this.sprite = spr[sprI]
-      sprI += 1
+    //   if (sprI === spr.length) {
+    //     sprI = 0
+    //   }
 
-      tickRuns += 1
-      if (tickRuns < 8) {
-        setTimeout(runMove, this.speed / 8)
+    //   this.sprite = spr[sprI]
+    //   sprI += 1
 
-        return
-      }
+    //   tickRuns += 1
+    //   if (tickRuns < 8) {
+    //     setTimeout(runMove, this.speed / 8)
 
-      this.sprite = movementSpriteBase
-      this.walking = false
-    }
+    //     return
+    //   }
 
-    setTimeout(runMove, this.speed / 8)
+    //   this.sprite = movementSpriteBase
+    //   this.walking = false
+    // }
+
+    // setTimeout(runMove, this.speed / 8)
   }
 
   // setTravelDestination = (x: number, y: number) => {

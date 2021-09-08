@@ -48,6 +48,8 @@ export const checkKeyPress = (e: KeyboardEvent) => {
     return
   }
 
+  if (player.walking) return
+
   let dir
   switch (code) {
     // case 'Escape':
