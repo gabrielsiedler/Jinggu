@@ -17,12 +17,10 @@ export let entities: any = []
 export const addEntity = (entity: PlayerFromServer) => {
   console.log(entity.id, 'connected')
   entities.push(new Player(entity))
-
-  console.log(entities)
 }
 
 export const removeEntity = (entity: PlayerFromServer) => {
-  console.log(entity.id, 'dicconnected')
+  console.log(entity.id, 'disconnected')
   entities = entities.filter((e: any) => e.id !== entity.id)
 }
 
@@ -51,8 +49,7 @@ export const entityMoved = (playerId: any, direction: any) => {
   entity.move(d as Direction)
 }
 
-const setup = async (myPlayer: PlayerFromServer, map: GameMap, serverEntities: any[]) => {
-  console.log('received entities', entities)
+const setup = async (myPlayer: PlayerFromServer, map: any, serverEntities: any[], sprites: any) => {
   canvas.width = WINDOW_WIDTH
   canvas.height = WINDOW_HEIGHT
   context = canvas.getContext('2d')
@@ -60,10 +57,10 @@ const setup = async (myPlayer: PlayerFromServer, map: GameMap, serverEntities: a
 
   entities = serverEntities.map((entity) => new Player(entity))
 
-  spriteLibrary = await loadSprites()
+  spriteLibrary = await loadSprites(sprites)
 
   player = new Player(myPlayer)
-  gameMap = map
+  gameMap = new GameMap(map.tiles)
 
   inputsSetup()
 }
@@ -86,11 +83,11 @@ const theLoop = async () => {
   loop()
 
   await sleep(FRAME)
-  window.requestAnimationFrame(theLoop)
+  // window.requestAnimationFrame(theLoop)
 }
 
-export const startEngine = async (myPlayer: PlayerFromServer, map: GameMap, entities: any[]) => {
-  await setup(myPlayer, map, entities)
+export const startEngine = async (myPlayer: PlayerFromServer, map: any, sprites: any, entities: any[]) => {
+  await setup(myPlayer, map, entities, sprites)
 
   theLoop()
   window.requestAnimationFrame(theLoop)

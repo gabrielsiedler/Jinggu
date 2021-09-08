@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev index.ts"
+    "dev": "ts-node-dev src/index.ts"
   },
   "dependencies": {
     "socket.io": "^4.2.0",

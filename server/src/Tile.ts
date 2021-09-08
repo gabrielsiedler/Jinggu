@@ -1,4 +1,4 @@
-import { Sprite } from './sprites'
+import { Sprite } from './spriteLib'
 
 export class Tile {
   x: number
@@ -10,6 +10,6 @@ export class Tile {
     this.x = x
     this.y = y
     this.sprites = sprites
-    this.walkable = sprites.every((sprite) => sprite.walkable !== false)
+    this.walkable = sprites.every((sprite: any) => sprite.walkable !== false)
   }
 }

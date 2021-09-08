@@ -71,5 +71,6 @@ export const checkKeyPress = (e: KeyboardEvent) => {
       dir = Direction.Down
       break
   }
+
   emitMove(dir as any)
 }

@@ -1,5 +1,7 @@
 import { Server } from 'socket.io'
-import { gameMap } from './src/map'
+
+import { gameMap } from './mapLib'
+import { spriteLibrary } from './spriteLib'
 
 const io = new Server(3008, {
   cors: {
@@ -25,10 +27,11 @@ io.on('connection', (socket) => {
   console.log(`(${io.sockets.sockets.size}) Connected:`, socket.conn.id)
   socket.broadcast.emit('playerConnected', myself)
 
-  console.log(entities.map((entity) => entity.id))
-
-  socket.on('getInitial', () => {
-    socket.emit('initialData', { myself, map: gameMap, entities: entities.filter((e) => e.id !== myself.id) })
+  socket.emit('initialData', {
+    myself,
+    map: gameMap,
+    sprites: spriteLibrary,
+    entities: entities.filter((e: any) => e.id !== myself.id),
   })
 
   socket.on('playerMove', (direction) => {
@@ -53,7 +56,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', (reason) => {
     socket.broadcast.emit('playerDisconnected', myself)
-    entities = entities.filter((e) => e.id !== myself.id)
+    entities = entities.filter((e: any) => e.id !== myself.id)
     console.log(`(${io.sockets.sockets.size}) Disconnected: ${socket.conn.id} ${reason}`)
   })
 })

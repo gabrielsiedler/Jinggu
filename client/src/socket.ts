@@ -14,13 +14,8 @@ socket.on('connect', () => {
   socket.emit('getInitial')
 })
 
-socket.on('initialize', function (payload) {
-  console.log(payload)
-  socket.emit('fromClient', { hello: 'world from client' })
-})
-
-socket.on('initialData', ({ myself, map, entities }) => {
-  startEngine(myself, map, entities)
+socket.on('initialData', ({ myself, map, sprites, entities }) => {
+  startEngine(myself, map, sprites, entities)
 })
 
 socket.on('playerConnected', (player) => {
