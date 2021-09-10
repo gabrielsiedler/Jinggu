@@ -1,4 +1,4 @@
-import { Sprite } from './spriteLib'
+import { Sprite } from './sprite.i'
 
 export class Tile {
   x: number
