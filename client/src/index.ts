@@ -1,4 +1,4 @@
-import { drawEntities, drawMap, drawPlayer } from './draw'
+import { drawMap, drawPlayers } from './draw'
 import { GameMap } from './GameMap'
 import { inputsSetup } from './input'
 import { Direction, Player, PlayerFromServer } from './Player'
@@ -67,8 +67,7 @@ const setup = async (myPlayer: PlayerFromServer, map: any, serverEntities: any[]
 
 const loop = async () => {
   drawMap()
-  drawPlayer()
-  drawEntities()
+  drawPlayers()
 
   // if (player.traveling) {
   //   player.travel()
