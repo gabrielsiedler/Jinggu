@@ -34,11 +34,10 @@ export class Player {
   speed = Math.max(800 - this.level * 5, 200)
 
   constructor(player: PlayerFromServer) {
-    console.log('received', player)
     const { id, x, y, spriteBase, level } = player
     this.id = id
-    this.x = x
-    this.y = y
+    this.x = x * 32
+    this.y = y * 32
     this.spriteBase = spriteBase
     this.sprite = spriteBase
     this.level = level
@@ -101,10 +100,6 @@ export class Player {
     let sprI = 0
 
     this.walking = true
-    console.log('changing property', property, 'to', this[property] + 32 * signal)
-
-    // this[property] = this[property] + 32 * signal
-    // this.walking = false
 
     let tickRuns = 0
     const runMove = () => {

@@ -11,7 +11,6 @@ socket.on('error', (error) => {
 
 socket.on('connect', () => {
   console.log('connected', socket.id)
-  socket.emit('getInitial')
 })
 
 socket.on('initial-data', ({ player, map, sprites, entities }) => {
@@ -27,11 +26,9 @@ socket.on('player-disconnected', (player) => {
 })
 
 socket.on('player-moved', (playerId: any, direction: any) => {
-  console.log('received player-moved', playerId, direction)
   entityMoved(playerId, direction)
 })
 
 export const emitMove = (direction: Direction) => {
-  console.log('emitting playerMove')
   socket.emit('move', direction)
 }
