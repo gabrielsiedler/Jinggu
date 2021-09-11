@@ -33,7 +33,9 @@ export class Player {
   level: number = 150
   speed = Math.max(800 - this.level * 5, 200)
 
-  constructor({ id, x, y, spriteBase, level }: PlayerFromServer) {
+  constructor(player: PlayerFromServer) {
+    console.log('received', player)
+    const { id, x, y, spriteBase, level } = player
     this.id = id
     this.x = x
     this.y = y
@@ -44,32 +46,6 @@ export class Player {
   }
 
   move = (direction: Direction) => {
-    if (this.walking) return
-
-    let destinationTilePos
-    const realX = this.x / 32
-    const realY = this.y / 32
-
-    switch (direction) {
-      case Direction.Up:
-        destinationTilePos = [realX, realY - 1]
-        break
-      case Direction.Down:
-        destinationTilePos = [realX, realY + 1]
-        break
-      case Direction.Left:
-        destinationTilePos = [realX - 1, realY]
-        break
-      case Direction.Right:
-        destinationTilePos = [realX + 1, realY]
-        break
-    }
-    const destinationTile = gameMap.tiles[destinationTilePos[1]][destinationTilePos[0]]
-
-    if (!destinationTile.walkable) return
-
-    this.walking = true
-
     switch (direction) {
       case Direction.Up:
         if (this.y === 0) return
@@ -124,32 +100,35 @@ export class Player {
     const spr = [movementSpriteBase + 1, movementSpriteBase + 2]
     let sprI = 0
 
-    this[property] = this[property] + 32 * signal
-    this.walking = false
+    this.walking = true
+    console.log('changing property', property, 'to', this[property] + 32 * signal)
 
-    // let tickRuns = 0
-    // const runMove = () => {
-    //   this[property] = this[property] + tick * signal
+    // this[property] = this[property] + 32 * signal
+    // this.walking = false
 
-    //   if (sprI === spr.length) {
-    //     sprI = 0
-    //   }
+    let tickRuns = 0
+    const runMove = () => {
+      this[property] = this[property] + tick * signal
 
-    //   this.sprite = spr[sprI]
-    //   sprI += 1
+      if (sprI === spr.length) {
+        sprI = 0
+      }
 
-    //   tickRuns += 1
-    //   if (tickRuns < 8) {
-    //     setTimeout(runMove, this.speed / 8)
+      this.sprite = spr[sprI]
+      sprI += 1
 
-    //     return
-    //   }
+      tickRuns += 1
+      if (tickRuns < 8) {
+        setTimeout(runMove, this.speed / 8)
 
-    //   this.sprite = movementSpriteBase
-    //   this.walking = false
-    // }
+        return
+      }
 
-    // setTimeout(runMove, this.speed / 8)
+      this.sprite = movementSpriteBase
+      this.walking = false
+    }
+
+    setTimeout(runMove, this.speed / 8)
   }
 
   // setTravelDestination = (x: number, y: number) => {

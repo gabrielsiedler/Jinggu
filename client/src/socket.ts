@@ -14,24 +14,24 @@ socket.on('connect', () => {
   socket.emit('getInitial')
 })
 
-socket.on('initialData', ({ myself, map, sprites, entities }) => {
-  startEngine(myself, map, sprites, entities)
+socket.on('initial-data', ({ player, map, sprites, entities }) => {
+  startEngine(player, map, sprites, entities)
 })
 
-socket.on('playerConnected', (player) => {
+socket.on('player-connected', (player) => {
   addEntity(player)
 })
 
-socket.on('playerDisconnected', (player) => {
+socket.on('player-disconnected', (player) => {
   removeEntity(player)
 })
 
-socket.on('playerMoved', (playerId: any, direction: any) => {
-  console.log('received playerMoved', playerId, direction)
+socket.on('player-moved', (playerId: any, direction: any) => {
+  console.log('received player-moved', playerId, direction)
   entityMoved(playerId, direction)
 })
 
 export const emitMove = (direction: Direction) => {
   console.log('emitting playerMove')
-  socket.emit('playerMove', direction)
+  socket.emit('move', direction)
 }

@@ -83,7 +83,7 @@ const theLoop = async () => {
   loop()
 
   await sleep(FRAME)
-  // window.requestAnimationFrame(theLoop)
+  window.requestAnimationFrame(theLoop)
 }
 
 export const startEngine = async (myPlayer: PlayerFromServer, map: any, sprites: any, entities: any[]) => {

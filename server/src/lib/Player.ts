@@ -30,7 +30,7 @@ export class Player {
   move = (direction: Direction) => {
     if (this.walking) return
 
-    let destinationTilePos
+    let destinationTilePos: [number, number]
 
     switch (direction) {
       case Direction.Up:
@@ -49,13 +49,18 @@ export class Player {
 
     const destinationTile = map.tiles[destinationTilePos[1]][destinationTilePos[0]]
 
+    console.log(destinationTile)
     if (!destinationTile.walkable) return
 
     this.walking = true
 
-    // emit player move
+    setTimeout(() => {
+      this.walking = false
+      this.x = destinationTilePos[0]
+      this.y = destinationTilePos[1]
+    }, this.speed)
 
-    setTimeout(() => (this.walking = false), this.speed)
+    return true
   }
 
   dance = (direction: Direction) => {

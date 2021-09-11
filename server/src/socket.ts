@@ -4,51 +4,51 @@ import { map, memory } from './core'
 import sprites from './data/sprites.json'
 import { Player } from './lib/Player'
 
-const handShake = (io: Server, socket: Socket) => {
-  const myself = new Player(socket.conn.id)
-  socket.data.player = myself
-  memory.players.push(myself)
+const onPlayerMove = (socket: Socket, io: Server, direction: any) => {
+  const { player } = socket.data
 
+  console.log('tryong to move', direction)
+  if (player.move(direction)) {
+    console.log('motion ok')
+    io.emit('player-moved', player.id, direction)
+  }
+}
+
+const onConnection = (socket: Socket) => {
   console.log(`* Connected:`, socket.conn.id)
-  socket.broadcast.emit('playerConnected', myself)
+  const myself = new Player(socket.conn.id)
 
-  socket.emit('initialData', {
-    myself,
+  socket.data.player = myself
+  memory.connected(myself)
+
+  socket.broadcast.emit('player-connected', myself)
+}
+
+const sendInitialData = (socket: Socket) => {
+  const player = socket.data.player
+
+  socket.emit('initial-data', {
+    player,
     map,
     sprites,
-    entities: memory.players.filter((e: any) => e.id !== myself.id),
-  })
-
-  socket.on('playerMove', (direction: any) => {
-    console.log('player moved', myself.id, direction)
-    switch (direction) {
-      case 'up':
-        myself.y -= 1
-        break
-      case 'down':
-        myself.y += 1
-        break
-      case 'left':
-        myself.x -= 1
-        break
-      case 'right':
-        myself.x += 1
-        break
-    }
-
-    io.emit('playerMoved', myself.id, direction)
+    entities: memory.listOtherPlayers(player.id),
   })
 }
+
 const onDisconection = (reason: string, socket: Socket) => {
-  socket.broadcast.emit('playerDisconnected', socket.data.player)
-  memory.players = memory.players.filter((e: any) => e.id !== socket.data.player.id)
   console.log(`* Disconnected: ${socket.conn.id} ${reason}`)
+
+  memory.disconnected(socket.data.player.id)
+
+  socket.broadcast.emit('player-disconnected', socket.data.player)
 }
 
 export const setupCommunication = (io: Server) => {
   io.on('connection', (socket) => {
-    handShake(io, socket)
+    onConnection(socket)
+    sendInitialData(socket)
 
+    socket.on('move', (direction: any) => onPlayerMove(socket, io, direction))
     socket.on('disconnect', (reason) => onDisconection(reason, socket))
   })
 }
