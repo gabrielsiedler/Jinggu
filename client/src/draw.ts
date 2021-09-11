@@ -16,16 +16,25 @@ export const drawMap = () => {
 const drawPlayer = (player: Player) => {
   context.drawImage(spriteLibrary[player.sprite].image, player.x, player.y)
 
-  const healthBarStart = [player.x - 10, player.y - 10]
+  const healthBarStart = [player.x - 3, player.y - 8]
   // health bar
 
+  // table.insert(LifeBarColors, {percentAbove = 92, color = '#00BC00' } )
+  // table.insert(LifeBarColors, {percentAbove = 60, color = '#50A150' } )
+  // table.insert(LifeBarColors, {percentAbove = 30, color = '#A1A100' } )
+  // table.insert(LifeBarColors, {percentAbove = 8, color = '#BF0A0A' } )
+  // table.insert(LifeBarColors, {percentAbove = 3, color = '#910F0F' } )
+  // table.insert(LifeBarColors, {percentAbove = -1, color = '#850C0C' } )
+
   context.beginPath()
-  context.fillStyle = 'green'
-  context.strokeStyle = 'black'
-  context.strokeWidth = 1
-  context.rect(...healthBarStart, 40, 6)
+  context.fillStyle = 'black'
+  context.rect(healthBarStart[0] - 1, healthBarStart[1] - 1, 32, 6)
   context.fill()
-  context.stroke()
+
+  context.beginPath()
+  context.fillStyle = '#A1A100'
+  context.rect(...healthBarStart, 16, 4)
+  context.fill()
 }
 
 export const drawPlayers = () => {
