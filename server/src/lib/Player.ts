@@ -1,4 +1,4 @@
-import { map } from '../core'
+import { map, VIEW_HEIGHT, VIEW_WIDTH } from '../core'
 
 export enum Direction {
   Up = 'up',
@@ -47,10 +47,16 @@ export class Player {
         break
     }
 
-    const destinationTile = map.tiles[destinationTilePos[1]][destinationTilePos[0]]
+    if (
+      destinationTilePos[0] < 0 ||
+      destinationTilePos[1] < 0 ||
+      destinationTilePos[0] >= VIEW_WIDTH ||
+      destinationTilePos[1] >= VIEW_HEIGHT
+    )
+      return false
 
-    console.log(destinationTile)
-    if (!destinationTile.walkable) return
+    const destinationTile = map.tiles[destinationTilePos[1]][destinationTilePos[0]]
+    if (!destinationTile.walkable) return false
 
     this.walking = true
 

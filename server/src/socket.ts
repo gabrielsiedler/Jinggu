@@ -7,9 +7,7 @@ import { Player } from './lib/Player'
 const onPlayerMove = (socket: Socket, io: Server, direction: any) => {
   const { player } = socket.data
 
-  console.log('tryong to move', direction)
   if (player.move(direction)) {
-    console.log('motion ok')
     io.emit('player-moved', player.id, direction)
   }
 }
