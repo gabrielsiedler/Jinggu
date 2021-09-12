@@ -16,11 +16,14 @@ export interface PlayerFromServer {
   y: number
   spriteBase: number
   level: number
+  health: number
+  name: string
 }
 export class Player {
   id: number
   x: number
   y: number
+  health: number
   walking: boolean = false
   dancing: boolean = false
   // traveling: boolean = false
@@ -32,9 +35,10 @@ export class Player {
   sprite = this.spriteBase
   level: number = 150
   speed = Math.max(800 - this.level * 5, 200)
+  name: string
 
   constructor(player: PlayerFromServer) {
-    const { id, x, y, spriteBase, level } = player
+    const { id, x, y, spriteBase, level, health, name } = player
     this.id = id
     this.x = x * 32
     this.y = y * 32
@@ -42,6 +46,8 @@ export class Player {
     this.sprite = spriteBase
     this.level = level
     this.speed = Math.max(800 - level * 5, 200)
+    this.health = health
+    this.name = name
   }
 
   move = (direction: Direction) => {

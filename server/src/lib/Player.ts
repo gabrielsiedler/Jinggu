@@ -9,6 +9,18 @@ export enum Direction {
 
 const possibleSkins = [3398, 3410, 3422, 3434, 3446, 3458, 3470, 3482, 3494]
 
+const makeid = (length: number) => {
+  let result = ''
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  const charactersLength = characters.length
+
+  for (let i = 0; i < length; i += 1) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength))
+  }
+
+  return result
+}
+
 export class Player {
   id: string
   x: number
@@ -17,6 +29,8 @@ export class Player {
   spriteBase: number
   level: number
   speed: number
+  health: number
+  name: string
 
   constructor(id: string) {
     this.id = id
@@ -25,6 +39,9 @@ export class Player {
     this.spriteBase = possibleSkins[Math.floor(Math.random() * possibleSkins.length)]
     this.level = 150
     this.speed = Math.max(800 - this.level * 5, 200)
+    this.health = Math.floor(Math.random() * 100 + 1)
+    const nameLength = Math.floor(Math.random() * 10 + 3)
+    this.name = makeid(nameLength)
   }
 
   move = (direction: Direction) => {

@@ -15,26 +15,6 @@ export const drawMap = () => {
 
 const drawPlayer = (player: Player) => {
   context.drawImage(spriteLibrary[player.sprite].image, player.x, player.y)
-
-  const healthBarStart = [player.x - 3, player.y - 8]
-  // health bar
-
-  // table.insert(LifeBarColors, {percentAbove = 92, color = '#00BC00' } )
-  // table.insert(LifeBarColors, {percentAbove = 60, color = '#50A150' } )
-  // table.insert(LifeBarColors, {percentAbove = 30, color = '#A1A100' } )
-  // table.insert(LifeBarColors, {percentAbove = 8, color = '#BF0A0A' } )
-  // table.insert(LifeBarColors, {percentAbove = 3, color = '#910F0F' } )
-  // table.insert(LifeBarColors, {percentAbove = -1, color = '#850C0C' } )
-
-  context.beginPath()
-  context.fillStyle = 'black'
-  context.rect(healthBarStart[0] - 1, healthBarStart[1] - 1, 32, 6)
-  context.fill()
-
-  context.beginPath()
-  context.fillStyle = '#A1A100'
-  context.rect(...healthBarStart, 16, 4)
-  context.fill()
 }
 
 export const drawPlayers = () => {
@@ -42,5 +22,49 @@ export const drawPlayers = () => {
 
   entities.forEach((entity: Player) => {
     drawPlayer(entity)
+  })
+}
+
+const getHealthColor = (health: number) => {
+  if (health >= 92) return '#00BC00'
+  if (health >= 60) return '#50A150'
+  if (health >= 30) return '#A1A100'
+  if (health >= 8) return '#BF0A0A'
+  if (health >= 3) return '#910F0F'
+
+  return '#850C0C'
+}
+
+const drawHealthBar = (player: Player) => {
+  const healthBarStart = [player.x - 3, player.y - 6]
+
+  const healthColor = getHealthColor(player.health)
+  const healthPercent = (30 * player.health) / 100
+
+  context.beginPath()
+  context.fillStyle = 'black'
+  context.rect(healthBarStart[0] - 1, healthBarStart[1] - 1, 32, 5)
+  context.fill()
+
+  context.beginPath()
+  context.fillStyle = healthColor
+  context.rect(...healthBarStart, healthPercent, 3)
+  // context.rect(...healthBarStart, 16, 4)
+  context.fill()
+
+  const textPos = [player.x - 6, player.y - 10]
+  context.font = '10px Tahoma'
+  context.strokeStyle = 'black'
+  context.lineWidth = 3
+  context.strokeText(player.name, ...textPos)
+  context.fillStyle = healthColor
+  context.fillText(player.name, ...textPos)
+}
+
+export const drawHealthBars = () => {
+  drawHealthBar(player)
+
+  entities.forEach((entity: Player) => {
+    drawHealthBar(entity)
   })
 }
