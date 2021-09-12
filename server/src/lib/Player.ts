@@ -8,18 +8,7 @@ export enum Direction {
 }
 
 const possibleSkins = [3398, 3410, 3422, 3434, 3446, 3458, 3470, 3482, 3494]
-
-const makeid = (length: number) => {
-  let result = ''
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  const charactersLength = characters.length
-
-  for (let i = 0; i < length; i += 1) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength))
-  }
-
-  return result
-}
+const possibleNames = ['Allan Dryst', 'Aurea Lee', 'Mephistophelian', 'Lady Florzinha', 'Pademo', 'Dark Chacal']
 
 export class Player {
   id: string
@@ -40,8 +29,7 @@ export class Player {
     this.level = 150
     this.speed = Math.max(800 - this.level * 5, 200)
     this.health = Math.floor(Math.random() * 100 + 1)
-    const nameLength = Math.floor(Math.random() * 10 + 3)
-    this.name = makeid(nameLength)
+    this.name = possibleNames[Math.floor(Math.random() * possibleNames.length)]
   }
 
   move = (direction: Direction) => {

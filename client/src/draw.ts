@@ -36,7 +36,7 @@ const getHealthColor = (health: number) => {
 }
 
 const drawHealthBar = (player: Player) => {
-  const healthBarStart = [player.x - 3, player.y - 6]
+  const healthBarStart = [player.x + 1, player.y - 6]
 
   const healthColor = getHealthColor(player.health)
   const healthPercent = (30 * player.health) / 100
@@ -49,13 +49,14 @@ const drawHealthBar = (player: Player) => {
   context.beginPath()
   context.fillStyle = healthColor
   context.rect(...healthBarStart, healthPercent, 3)
-  // context.rect(...healthBarStart, 16, 4)
   context.fill()
 
-  const textPos = [player.x - 6, player.y - 10]
-  context.font = '10px Tahoma'
+  context.font = 'bold 10px Tahoma'
   context.strokeStyle = 'black'
-  context.lineWidth = 3
+  context.lineWidth = 2
+
+  const textWidth = context.measureText(player.name).width
+  const textPos = [player.x + 16 - textWidth / 2, player.y - 10]
   context.strokeText(player.name, ...textPos)
   context.fillStyle = healthColor
   context.fillText(player.name, ...textPos)

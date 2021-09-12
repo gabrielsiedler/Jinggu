@@ -7,7 +7,7 @@ import { loadSprites } from './sprites'
 export const WINDOW_WIDTH = 42 * 32
 export const WINDOW_HEIGHT = 24 * 32
 
-export let canvas = document.createElement('canvas')
+export let canvas: any
 export let context: any
 export let player: Player
 export let gameMap: GameMap = [[]] as any
@@ -49,9 +49,32 @@ export const entityMoved = (playerId: any, direction: any) => {
   entity.move(d as Direction)
 }
 
+var PIXEL_RATIO = (function () {
+  var ctx: any = document.createElement('canvas').getContext('2d')!,
+    dpr = window.devicePixelRatio || 1,
+    bsr =
+      ctx.webkitBackingStorePixelRatio ||
+      ctx.mozBackingStorePixelRatio ||
+      ctx.msBackingStorePixelRatio ||
+      ctx.oBackingStorePixelRatio ||
+      ctx.backingStorePixelRatio ||
+      1
+
+  return dpr / bsr
+})()
+
+const createHiDPICanvas = (w: number, h: number, ratio: number = PIXEL_RATIO) => {
+  var can = document.createElement('canvas')
+  can.width = w * ratio
+  can.height = h * ratio
+  can.style.width = w + 'px'
+  can.style.height = h + 'px'
+  can.getContext('2d')!.setTransform(ratio, 0, 0, ratio, 0, 0)
+  return can
+}
+
 const setup = async (myPlayer: PlayerFromServer, map: any, serverEntities: any[], sprites: any) => {
-  canvas.width = WINDOW_WIDTH
-  canvas.height = WINDOW_HEIGHT
+  canvas = createHiDPICanvas(WINDOW_WIDTH, WINDOW_HEIGHT)
   context = canvas.getContext('2d')
   document.body.insertBefore(canvas, document.body.childNodes[0])
 
