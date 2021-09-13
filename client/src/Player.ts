@@ -1,5 +1,4 @@
-import { gameMap, WINDOW_HEIGHT, WINDOW_WIDTH } from '.'
-import { emitMove } from './socket'
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from './Core'
 
 export enum Direction {
   Up = 'up',

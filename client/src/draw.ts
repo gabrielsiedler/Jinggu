@@ -1,26 +1,26 @@
-import { context, entities, gameMap, player, spriteLibrary } from '.'
 import { Player } from './Player'
+import { core } from './socket'
 
 export const drawMap = () => {
-  for (let y = 0; y < gameMap.tiles.length; y += 1) {
-    for (let x = 0; x < gameMap.tiles[0].length; x += 1) {
-      const currentTile = gameMap.tiles[y][x]
+  for (let y = 0; y < core.gameMap.tiles.length; y += 1) {
+    for (let x = 0; x < core.gameMap.tiles[0].length; x += 1) {
+      const currentTile = core.gameMap.tiles[y][x]
 
       currentTile.sprites.forEach((sprite) => {
-        context.drawImage(spriteLibrary[sprite.id].image, x * 32, y * 32)
+        core.canvas.context.drawImage(core.spriteLibrary[sprite.id].image, x * 32, y * 32)
       })
     }
   }
 }
 
 const drawPlayer = (player: Player) => {
-  context.drawImage(spriteLibrary[player.sprite].image, player.x, player.y)
+  core.canvas.context.drawImage(core.spriteLibrary[player.sprite].image, player.x, player.y)
 }
 
 export const drawPlayers = () => {
-  drawPlayer(player)
+  drawPlayer(core.player)
 
-  entities.forEach((entity: Player) => {
+  core.entities.forEach((entity: Player) => {
     drawPlayer(entity)
   })
 }
@@ -41,31 +41,31 @@ const drawHealthBar = (player: Player) => {
   const healthColor = getHealthColor(player.health)
   const healthPercent = (30 * player.health) / 100
 
-  context.beginPath()
-  context.fillStyle = 'black'
-  context.rect(healthBarStart[0] - 1, healthBarStart[1] - 1, 32, 5)
-  context.fill()
+  core.canvas.context.beginPath()
+  core.canvas.context.fillStyle = 'black'
+  core.canvas.context.rect(healthBarStart[0] - 1, healthBarStart[1] - 1, 32, 5)
+  core.canvas.context.fill()
 
-  context.beginPath()
-  context.fillStyle = healthColor
-  context.rect(...healthBarStart, healthPercent, 3)
-  context.fill()
+  core.canvas.context.beginPath()
+  core.canvas.context.fillStyle = healthColor
+  core.canvas.context.rect(healthBarStart[0], healthBarStart[1], healthPercent, 3)
+  core.canvas.context.fill()
 
-  context.font = 'bold 10px Tahoma'
-  context.strokeStyle = 'black'
-  context.lineWidth = 2
+  core.canvas.context.font = 'bold 10px Tahoma'
+  core.canvas.context.strokeStyle = 'black'
+  core.canvas.context.lineWidth = 2
 
-  const textWidth = context.measureText(player.name).width
+  const textWidth = core.canvas.context.measureText(player.name).width
   const textPos = [player.x + 16 - textWidth / 2, player.y - 10]
-  context.strokeText(player.name, ...textPos)
-  context.fillStyle = healthColor
-  context.fillText(player.name, ...textPos)
+  core.canvas.context.strokeText(player.name, textPos[0], textPos[1])
+  core.canvas.context.fillStyle = healthColor
+  core.canvas.context.fillText(player.name, textPos[0], textPos[1])
 }
 
 export const drawHealthBars = () => {
-  drawHealthBar(player)
+  drawHealthBar(core.player)
 
-  entities.forEach((entity: Player) => {
+  core.entities.forEach((entity: Player) => {
     drawHealthBar(entity)
   })
 }
