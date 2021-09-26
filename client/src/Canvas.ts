@@ -33,6 +33,7 @@ export class Canvas {
   constructor() {
     this.canvas = this.createHiDPICanvas(WINDOW_WIDTH, WINDOW_HEIGHT)
     this.context = this.canvas.getContext('2d')!
+    this.context.scale(1.2, 1.2)
 
     document.body.appendChild(this.canvas)
   }

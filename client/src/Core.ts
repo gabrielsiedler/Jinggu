@@ -7,9 +7,9 @@ import { loadSprites } from './sprites'
 import { sleep } from './utils'
 
 // export const WINDOW_WIDTH = 42 * 32
-export const WINDOW_WIDTH = 14 * 32
+export const WINDOW_WIDTH = 13 * 32 * 1.2
 // export const WINDOW_HEIGHT = 24 * 32
-export const WINDOW_HEIGHT = 14 * 32
+export const WINDOW_HEIGHT = 13 * 32 * 1.2
 export const FRAME = 34 // 1000 / 30 = 30 frames per second
 
 export class Core {
