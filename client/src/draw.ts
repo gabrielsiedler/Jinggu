@@ -11,7 +11,7 @@ export const drawMap = () => {
     for (let x = core.player.realX - 6, i = 0; x < core.player.realX + 7; x += 1, i += 1) {
       let currentTile
 
-      if (y < 0 || x < 0) {
+      if (y < 0 || x < 0 || y >= core.gameMap.tiles.length || x >= core.gameMap.tiles[y].length) {
         core.canvas.context.beginPath()
         core.canvas.context.fillStyle = 'black'
         core.canvas.context.fillRect(i * 32, j * 32, 32, 32)
