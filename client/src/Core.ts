@@ -1,13 +1,15 @@
 import { Canvas } from './Canvas'
-import { drawHealthBars, drawMap, drawPlayers } from './draw'
+import { draw } from './draw'
 import { GameMap } from './GameMap'
 import { inputsSetup } from './input'
 import { Direction, Player, PlayerFromServer } from './Player'
 import { loadSprites } from './sprites'
 import { sleep } from './utils'
 
-export const WINDOW_WIDTH = 42 * 32
-export const WINDOW_HEIGHT = 24 * 32
+// export const WINDOW_WIDTH = 42 * 32
+export const WINDOW_WIDTH = 14 * 32
+// export const WINDOW_HEIGHT = 24 * 32
+export const WINDOW_HEIGHT = 14 * 32
 export const FRAME = 34 // 1000 / 30 = 30 frames per second
 
 export class Core {
@@ -31,9 +33,7 @@ export class Core {
   }
 
   drawLoop = () => {
-    drawMap()
-    drawPlayers()
-    drawHealthBars()
+    draw()
   }
 
   gameLoop = async () => {

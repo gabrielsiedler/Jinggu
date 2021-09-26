@@ -20,6 +20,8 @@ export interface PlayerFromServer {
 }
 export class Player {
   id: number
+  realX: number
+  realY: number
   x: number
   y: number
   health: number
@@ -41,6 +43,8 @@ export class Player {
     this.id = id
     this.x = x * 32
     this.y = y * 32
+    this.realX = x
+    this.realY = y
     this.spriteBase = spriteBase
     this.sprite = spriteBase
     this.level = level
@@ -52,26 +56,32 @@ export class Player {
   move = (direction: Direction) => {
     switch (direction) {
       case Direction.Up:
-        if (this.y === 0) return
+        // if (this.y === 0) return
 
         this.animateWalk('y', -1, this.spriteBase + 3)
+        this.realY -= 1
 
         break
       case Direction.Down:
-        if (this.y === WINDOW_HEIGHT - 32) return
+        // if (this.y === WINDOW_HEIGHT - 32) return
 
         this.animateWalk('y', 1, this.spriteBase)
+        this.realY += 1
 
         break
       case Direction.Left:
-        if (this.x === 0) return
+        // if (this.x === 0) return
 
         this.animateWalk('x', -1, this.spriteBase + 9)
+        this.realX -= 1
+
         break
       case Direction.Right:
-        if (this.x === WINDOW_WIDTH - 32) return
+        // if (this.x === WINDOW_WIDTH - 32) return
 
         this.animateWalk('x', 1, this.spriteBase + 6)
+        this.realX += 1
+
         break
     }
   }

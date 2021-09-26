@@ -1,20 +1,53 @@
 import { Player } from './Player'
 import { core } from './socket'
+import { loadSprite, Sprite } from './sprites'
+import { Tile } from './Tile'
 
 export const drawMap = () => {
-  for (let y = 0; y < core.gameMap.tiles.length; y += 1) {
-    for (let x = 0; x < core.gameMap.tiles[0].length; x += 1) {
-      const currentTile = core.gameMap.tiles[y][x]
+  const blankTile = new Tile(0, 0, [new Sprite(0, false, core.spriteLibrary[0])])
+  // for (let y = 0; y < core.gameMap.tiles.length; y += 1) {
+  //   for (let x = 0; x < core.gameMap.tiles[0].length; x += 1) {
+  for (let y = core.player.realY - 6, j = 0; y < core.player.realY + 7; y += 1, j += 1) {
+    for (let x = core.player.realX - 6, i = 0; x < core.player.realX + 7; x += 1, i += 1) {
+      let currentTile
+
+      if (y < 0 || x < 0) {
+        core.canvas.context.beginPath()
+        core.canvas.context.fillStyle = 'black'
+        core.canvas.context.fillRect(i * 32, j * 32, 32, 32)
+        // core.canvas.context.drawImage(core.spriteLibrary[0].image, i * 32, j * 32)
+
+        continue
+      }
+      currentTile = core.gameMap.tiles[y][x]
 
       currentTile.sprites.forEach((sprite) => {
-        core.canvas.context.drawImage(core.spriteLibrary[sprite.id].image, x * 32, y * 32)
+        core.canvas.context.drawImage(core.spriteLibrary[sprite.id].image, i * 32, j * 32)
       })
     }
   }
+
+  // for (let y = core.player.realY - 3; y < core.player.realY + 3; y += 1) {
+  //   for (let x = core.player.realX - 3; x < core.player.realX + 3; x += 1) {
+  //     if (x >= 0 && x < core.gameMap.tiles[0].length && y >= 0 && y < core.gameMap.tiles.length) {
+  //       const currentTile = core.gameMap.tiles[y][x]
+
+  //       if (currentTile) {
+  //         currentTile.sprites.forEach((sprite) => {
+  //           core.canvas.context.drawImage(core.spriteLibrary[sprite.id].image, x * 32, y * 32)
+  //         })
+  //       }
+  //     } else {
+  //       core.canvas.context.fillStyle = '#000'
+  //       core.canvas.context.fillRect(x, y, x * 32, y * 32)
+  //     }
+  //   }
+  // }
 }
 
 const drawPlayer = (player: Player) => {
-  core.canvas.context.drawImage(core.spriteLibrary[player.sprite].image, player.x, player.y)
+  // core.canvas.context.drawImage(core.spriteLibrary[player.sprite].image, player.x, player.y)
+  core.canvas.context.drawImage(core.spriteLibrary[player.sprite].image, 6 * 32, 6 * 32)
 }
 
 export const drawPlayers = () => {
@@ -36,7 +69,8 @@ const getHealthColor = (health: number) => {
 }
 
 const drawHealthBar = (player: Player) => {
-  const healthBarStart = [player.x + 1, player.y - 6]
+  // const healthBarStart = [player.x + 1, player.y - 6]
+  const healthBarStart = [6 * 32 + 1, 6 * 32 - 6]
 
   const healthColor = getHealthColor(player.health)
   const healthPercent = (30 * player.health) / 100
@@ -56,7 +90,8 @@ const drawHealthBar = (player: Player) => {
   core.canvas.context.lineWidth = 2
 
   const textWidth = core.canvas.context.measureText(player.name).width
-  const textPos = [player.x + 16 - textWidth / 2, player.y - 10]
+  // const textPos = [player.x + 16 - textWidth / 2, player.y - 10]
+  const textPos = [6 * 32 + 16 - textWidth / 2, 6 * 32 - 10]
   core.canvas.context.strokeText(player.name, textPos[0], textPos[1])
   core.canvas.context.fillStyle = healthColor
   core.canvas.context.fillText(player.name, textPos[0], textPos[1])
@@ -68,4 +103,21 @@ export const drawHealthBars = () => {
   core.entities.forEach((entity: Player) => {
     drawHealthBar(entity)
   })
+}
+
+export const draw = () => {
+  drawMap()
+  drawPlayers()
+  drawHealthBars()
+
+  // const pXStart = core.player.realX - 3
+  // const pXEnd = (core.player.realX + 3) * 32
+
+  // const pYStart = core.player.realY - 3
+  // const pYEnd = (core.player.realY + 3) * 32
+
+  // console.log(pXStart, pYStart, pXEnd, pYEnd)
+  // core.canvas.context.rect(pXStart, pYStart, pXEnd, pYEnd)
+  // core.canvas.context.stroke()
+  // core.canvas.context.clip()
 }

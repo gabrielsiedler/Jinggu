@@ -53,6 +53,7 @@ export class Player {
     }
 
     if (
+      !destinationTilePos || //TODO: check why this is necessary
       destinationTilePos[0] < 0 ||
       destinationTilePos[1] < 0 ||
       destinationTilePos[0] >= VIEW_WIDTH ||

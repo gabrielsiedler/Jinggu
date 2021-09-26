@@ -10,7 +10,7 @@ export class Sprite {
   }
 }
 
-const loadSprite = async (id: number) =>
+export const loadSprite = async (id: number) =>
   new Promise((resolve, reject) => {
     const url = `./sprites/${id}.png`
     const sprite = new Image()
@@ -66,9 +66,13 @@ export const loadSprites = async (spriteTiles: any) => {
 
   const spritesAsObject: any = {}
 
+  const blankTile = await loadSprite(0)
+
   sprites.forEach((sprite: Sprite) => {
     spritesAsObject[sprite.id] = sprite
   })
+
+  spritesAsObject[0] = blankTile
 
   return spritesAsObject
 }
