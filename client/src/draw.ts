@@ -7,14 +7,17 @@ export const drawMap = () => {
   const blankTile = new Tile(0, 0, [new Sprite(0, false, core.spriteLibrary[0])])
   // for (let y = 0; y < core.gameMap.tiles.length; y += 1) {
   //   for (let x = 0; x < core.gameMap.tiles[0].length; x += 1) {
-  for (let y = core.player.realY - 6, j = 0; y < core.player.realY + 7; y += 1, j += 1) {
-    for (let x = core.player.realX - 6, i = 0; x < core.player.realX + 7; x += 1, i += 1) {
+
+  // console.log(core.player.x / 32, core.player.realX, offsetX)
+
+  for (let y = core.player.tile.y - 6, j = 0; y < core.player.tile.y + 7; y += 1, j += 1) {
+    for (let x = core.player.tile.x - 6, i = 0; x < core.player.tile.x + 7; x += 1, i += 1) {
       let currentTile
 
       if (y < 0 || x < 0 || y >= core.gameMap.tiles.length || x >= core.gameMap.tiles[y].length) {
         core.canvas.context.beginPath()
         core.canvas.context.fillStyle = 'black'
-        core.canvas.context.fillRect(i * 32, j * 32, 32, 32)
+        core.canvas.context.fillRect(i * 32 - core.player.offset.x, j * 32 - core.player.offset.y, 32, 32)
         // core.canvas.context.drawImage(core.spriteLibrary[0].image, i * 32, j * 32)
 
         continue
@@ -22,7 +25,13 @@ export const drawMap = () => {
       currentTile = core.gameMap.tiles[y][x]
 
       currentTile.sprites.forEach((sprite) => {
-        core.canvas.context.drawImage(core.spriteLibrary[sprite.id].image, i * 32, j * 32)
+        // const offsetY = core.player.y - core.player.realY
+
+        core.canvas.context.drawImage(
+          core.spriteLibrary[sprite.id].image,
+          i * 32 - core.player.offset.x,
+          j * 32 - core.player.offset.y,
+        )
       })
     }
   }

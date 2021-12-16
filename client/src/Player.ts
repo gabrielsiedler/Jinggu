@@ -9,8 +9,14 @@ export enum Direction {
 
 const possibleSkins = [3398, 3410, 3422, 3434, 3446, 3458, 3470, 3482, 3494]
 
+interface Point {
+  x: number
+  y: number
+}
+
 export interface PlayerFromServer {
   id: number
+  pos: Point
   x: number
   y: number
   spriteBase: number
@@ -20,10 +26,8 @@ export interface PlayerFromServer {
 }
 export class Player {
   id: number
-  realX: number
-  realY: number
-  x: number
-  y: number
+  offset: Point
+  tile: Point
   health: number
   walking: boolean = false
   dancing: boolean = false
@@ -41,10 +45,14 @@ export class Player {
   constructor(player: PlayerFromServer) {
     const { id, x, y, spriteBase, level, health, name } = player
     this.id = id
-    this.x = x * 32
-    this.y = y * 32
-    this.realX = x
-    this.realY = y
+    this.offset = {
+      x: x % 32,
+      y: y % 32,
+    }
+    this.tile = {
+      x: x,
+      y: y,
+    }
     this.spriteBase = spriteBase
     this.sprite = spriteBase
     this.level = level
@@ -59,28 +67,28 @@ export class Player {
         // if (this.y === 0) return
 
         this.animateWalk('y', -1, this.spriteBase + 3)
-        this.realY -= 1
+        // this.tile.y -= 1
 
         break
       case Direction.Down:
         // if (this.y === WINDOW_HEIGHT - 32) return
 
         this.animateWalk('y', 1, this.spriteBase)
-        this.realY += 1
+        // this.tile.y += 1
 
         break
       case Direction.Left:
         // if (this.x === 0) return
 
         this.animateWalk('x', -1, this.spriteBase + 9)
-        this.realX -= 1
+        // this.tile.x -= 1
 
         break
       case Direction.Right:
         // if (this.x === WINDOW_WIDTH - 32) return
 
         this.animateWalk('x', 1, this.spriteBase + 6)
-        this.realX += 1
+        // this.tile.x += 1
 
         break
     }
@@ -118,7 +126,7 @@ export class Player {
 
     let tickRuns = 0
     const runMove = () => {
-      this[property] = this[property] + tick * signal
+      this.offset[property] = (this.offset[property] + tick * signal) % 32
 
       if (sprI === spr.length) {
         sprI = 0
@@ -136,6 +144,7 @@ export class Player {
 
       this.sprite = movementSpriteBase
       this.walking = false
+      this.tile[property] += signal * 1
     }
 
     setTimeout(runMove, this.speed / 8)
