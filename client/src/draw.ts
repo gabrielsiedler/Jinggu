@@ -1,32 +1,36 @@
+import { VIEW_HEIGHT_SQUARE, VIEW_WIDTH_SQUARE } from './constants'
 import { Player } from './Player'
 import { core } from './socket'
-import { loadSprite, Sprite } from './sprites'
+import { Sprite } from './sprites'
 import { Tile } from './Tile'
 
+const viewSquareMinW = VIEW_WIDTH_SQUARE / 2 - 1
+const viewSquareMaxW = VIEW_WIDTH_SQUARE / 2
+
+const viewSquareMinH = VIEW_HEIGHT_SQUARE / 2 - 1
+const viewSquareMaxH = VIEW_HEIGHT_SQUARE / 2
+
+// console.log('viewSquareMinY', viewSquareMinY)
+// console.log('viewSquareMaxX', viewSquareMaxX)
+// console.log('viewSquareMaxY', viewSquareMaxY)
 export const drawMap = () => {
+  // const virtualCanvas =
   const blankTile = new Tile(0, 0, [new Sprite(0, false, core.spriteLibrary[0])])
-  // for (let y = 0; y < core.gameMap.tiles.length; y += 1) {
-  //   for (let x = 0; x < core.gameMap.tiles[0].length; x += 1) {
 
-  // console.log(core.player.x / 32, core.player.realX, offsetX)
-
-  for (let y = core.player.tile.y - 6, j = 0; y < core.player.tile.y + 7; y += 1, j += 1) {
-    for (let x = core.player.tile.x - 6, i = 0; x < core.player.tile.x + 7; x += 1, i += 1) {
+  for (let y = core.player.tile.y - viewSquareMinH, j = 0; y < core.player.tile.y + viewSquareMaxH; y += 1, j += 1) {
+    for (let x = core.player.tile.x - viewSquareMinW, i = 0; x < core.player.tile.x + viewSquareMaxW; x += 1, i += 1) {
       let currentTile
 
       if (y < 0 || x < 0 || y >= core.gameMap.tiles.length || x >= core.gameMap.tiles[y].length) {
         core.canvas.context.beginPath()
         core.canvas.context.fillStyle = 'black'
         core.canvas.context.fillRect(i * 32 - core.player.offset.x, j * 32 - core.player.offset.y, 32, 32)
-        // core.canvas.context.drawImage(core.spriteLibrary[0].image, i * 32, j * 32)
 
         continue
       }
       currentTile = core.gameMap.tiles[y][x]
 
       currentTile.sprites.forEach((sprite) => {
-        // const offsetY = core.player.y - core.player.realY
-
         core.canvas.context.drawImage(
           core.spriteLibrary[sprite.id].image,
           i * 32 - core.player.offset.x,
@@ -35,28 +39,10 @@ export const drawMap = () => {
       })
     }
   }
-
-  // for (let y = core.player.realY - 3; y < core.player.realY + 3; y += 1) {
-  //   for (let x = core.player.realX - 3; x < core.player.realX + 3; x += 1) {
-  //     if (x >= 0 && x < core.gameMap.tiles[0].length && y >= 0 && y < core.gameMap.tiles.length) {
-  //       const currentTile = core.gameMap.tiles[y][x]
-
-  //       if (currentTile) {
-  //         currentTile.sprites.forEach((sprite) => {
-  //           core.canvas.context.drawImage(core.spriteLibrary[sprite.id].image, x * 32, y * 32)
-  //         })
-  //       }
-  //     } else {
-  //       core.canvas.context.fillStyle = '#000'
-  //       core.canvas.context.fillRect(x, y, x * 32, y * 32)
-  //     }
-  //   }
-  // }
 }
 
 const drawPlayer = (player: Player) => {
-  // core.canvas.context.drawImage(core.spriteLibrary[player.sprite].image, player.x, player.y)
-  core.canvas.context.drawImage(core.spriteLibrary[player.sprite].image, 6 * 32, 6 * 32)
+  core.canvas.context.drawImage(core.spriteLibrary[player.sprite].image, viewSquareMinW * 32, viewSquareMinH * 32)
 }
 
 export const drawPlayers = () => {
@@ -78,8 +64,7 @@ const getHealthColor = (health: number) => {
 }
 
 const drawHealthBar = (player: Player) => {
-  // const healthBarStart = [player.x + 1, player.y - 6]
-  const healthBarStart = [6 * 32 + 1, 6 * 32 - 6]
+  const healthBarStart = [viewSquareMinW * 32 + 1, viewSquareMinH * 32 - 6]
 
   const healthColor = getHealthColor(player.health)
   const healthPercent = (30 * player.health) / 100
@@ -99,8 +84,7 @@ const drawHealthBar = (player: Player) => {
   core.canvas.context.lineWidth = 2
 
   const textWidth = core.canvas.context.measureText(player.name).width
-  // const textPos = [player.x + 16 - textWidth / 2, player.y - 10]
-  const textPos = [6 * 32 + 16 - textWidth / 2, 6 * 32 - 10]
+  const textPos = [viewSquareMinW * 32 + 16 - textWidth / 2, viewSquareMinH * 32 - 10]
   core.canvas.context.strokeText(player.name, textPos[0], textPos[1])
   core.canvas.context.fillStyle = healthColor
   core.canvas.context.fillText(player.name, textPos[0], textPos[1])

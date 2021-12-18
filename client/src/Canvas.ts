@@ -1,4 +1,4 @@
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from './Core'
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from './constants'
 
 export class Canvas {
   canvas: HTMLCanvasElement
