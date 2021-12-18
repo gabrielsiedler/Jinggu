@@ -1,8 +1,11 @@
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from './constants'
+import { SCALE, WINDOW_HEIGHT, WINDOW_WIDTH } from './constants'
 
 export class Canvas {
   canvas: HTMLCanvasElement
   context: CanvasRenderingContext2D
+
+  virtualCanvas: HTMLCanvasElement
+  virtualCanvasContext: CanvasRenderingContext2D
 
   private getPixelRatio = () => {
     const ctx: any = document.createElement('canvas').getContext('2d')!
@@ -33,7 +36,11 @@ export class Canvas {
   constructor() {
     this.canvas = this.createHiDPICanvas(WINDOW_WIDTH, WINDOW_HEIGHT)
     this.context = this.canvas.getContext('2d')!
-    this.context.scale(1.2, 1.2)
+    this.context.scale(SCALE, SCALE)
+
+    this.virtualCanvas = this.createHiDPICanvas(WINDOW_WIDTH + 64, WINDOW_HEIGHT + 64)
+    this.virtualCanvasContext = this.virtualCanvas.getContext('2d')!
+    this.virtualCanvasContext.scale(SCALE, SCALE)
 
     document.body.appendChild(this.canvas)
   }

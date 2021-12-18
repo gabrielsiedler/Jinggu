@@ -9,6 +9,7 @@ import { sleep } from './utils'
 
 export class Core {
   canvas!: Canvas
+  virtualCanvas!: Canvas
   player!: Player
   gameMap: GameMap = [[]] as any
   spriteLibrary: any

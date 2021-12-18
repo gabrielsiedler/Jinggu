@@ -1,4 +1,4 @@
-import { VIEW_HEIGHT_SQUARE, VIEW_WIDTH_SQUARE } from './constants'
+import { SCALE, TILE_SQUARE, VIEW_HEIGHT_SQUARE, VIEW_WIDTH_SQUARE, WINDOW_HEIGHT, WINDOW_WIDTH } from './constants'
 import { Player } from './Player'
 import { core } from './socket'
 import { Sprite } from './sprites'
@@ -6,29 +6,44 @@ import { Tile } from './Tile'
 
 const viewSquareHalfW = Math.floor(VIEW_WIDTH_SQUARE / 2)
 const viewSquareHalfH = Math.floor(VIEW_HEIGHT_SQUARE / 2)
-export const drawMap = () => {
-  // const virtualCanvas =
-  const blankTile = new Tile(0, 0, [new Sprite(0, false, core.spriteLibrary[0])])
 
-  for (let y = core.player.tile.y - viewSquareHalfH, j = 0; y <= core.player.tile.y + viewSquareHalfH; y += 1, j += 1) {
-    for (
-      let x = core.player.tile.x - viewSquareHalfW, i = 0;
-      x <= core.player.tile.x + viewSquareHalfW;
-      x += 1, i += 1
-    ) {
+const cropVirtualMap = () => {
+  core.canvas.context.drawImage(
+    core.canvas.virtualCanvas,
+    TILE_SQUARE * SCALE,
+    TILE_SQUARE * SCALE,
+    WINDOW_WIDTH,
+    WINDOW_HEIGHT,
+    0,
+    0,
+    WINDOW_WIDTH,
+    WINDOW_HEIGHT,
+  )
+}
+
+export const drawMap = () => {
+  // const blankTile = new Tile(0, 0, [new Sprite(0, false, core.spriteLibrary[0])])
+
+  const topBoundary = core.player.tile.y - viewSquareHalfH - 1
+  const bottomBoundary = core.player.tile.y + viewSquareHalfH + 1
+  const leftBoundary = core.player.tile.x - viewSquareHalfW - 1
+  const rightBoundary = core.player.tile.x + viewSquareHalfW + 1
+
+  for (let y = topBoundary, j = 0; y <= bottomBoundary; y += 1, j += 1) {
+    for (let x = leftBoundary, i = 0; x <= rightBoundary; x += 1, i += 1) {
       let currentTile
 
       if (y < 0 || x < 0 || y >= core.gameMap.tiles.length || x >= core.gameMap.tiles[y].length) {
-        core.canvas.context.beginPath()
-        core.canvas.context.fillStyle = 'black'
-        core.canvas.context.fillRect(i * 32 - core.player.offset.x, j * 32 - core.player.offset.y, 32, 32)
+        core.canvas.virtualCanvasContext.beginPath()
+        core.canvas.virtualCanvasContext.fillStyle = 'black'
+        core.canvas.virtualCanvasContext.fillRect(i * 32 - core.player.offset.x, j * 32 - core.player.offset.y, 32, 32)
 
         continue
       }
       currentTile = core.gameMap.tiles[y][x]
 
       currentTile.sprites.forEach((sprite) => {
-        core.canvas.context.drawImage(
+        core.canvas.virtualCanvasContext.drawImage(
           core.spriteLibrary[sprite.id].image,
           i * 32 - core.player.offset.x,
           j * 32 - core.player.offset.y,
@@ -36,6 +51,8 @@ export const drawMap = () => {
       })
     }
   }
+
+  cropVirtualMap()
 }
 
 const drawPlayer = (player: Player) => {

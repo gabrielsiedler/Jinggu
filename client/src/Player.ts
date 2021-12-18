@@ -1,5 +1,3 @@
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from './Core'
-
 export enum Direction {
   Up = 'up',
   Down = 'down',
@@ -117,7 +115,7 @@ export class Player {
   }
 
   animateWalk = (property: 'x' | 'y', signal: -1 | 1, movementSpriteBase: number) => {
-    const tick = 32 / 8
+    const tick = 32 / 16
 
     const spr = [movementSpriteBase + 1, movementSpriteBase + 2]
     let sprI = 0
@@ -125,19 +123,22 @@ export class Player {
     this.walking = true
 
     let tickRuns = 0
+
     const runMove = () => {
       this.offset[property] = (this.offset[property] + tick * signal) % 32
 
-      if (sprI === spr.length) {
-        sprI = 0
+      if (tickRuns % 2 === 0) {
+        if (sprI === spr.length) {
+          sprI = 0
+        }
+
+        this.sprite = spr[sprI]
+        sprI += 1
       }
 
-      this.sprite = spr[sprI]
-      sprI += 1
-
       tickRuns += 1
-      if (tickRuns < 8) {
-        setTimeout(runMove, this.speed / 8)
+      if (tickRuns < 16) {
+        setTimeout(runMove, this.speed / 16)
 
         return
       }
@@ -147,7 +148,7 @@ export class Player {
       this.tile[property] += signal * 1
     }
 
-    setTimeout(runMove, this.speed / 8)
+    setTimeout(runMove, this.speed / 16)
   }
 
   // setTravelDestination = (x: number, y: number) => {
