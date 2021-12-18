@@ -1,5 +1,5 @@
-export const VIEW_WIDTH_SQUARE = 24
-export const VIEW_HEIGHT_SQUARE = 20
+export const VIEW_WIDTH_SQUARE = 25 // odd
+export const VIEW_HEIGHT_SQUARE = 17 // odd
 export const SCALE = 1.2
 export const TILE_SQUARE = 32
 

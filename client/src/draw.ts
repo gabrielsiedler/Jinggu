@@ -4,21 +4,18 @@ import { core } from './socket'
 import { Sprite } from './sprites'
 import { Tile } from './Tile'
 
-const viewSquareMinW = VIEW_WIDTH_SQUARE / 2 - 1
-const viewSquareMaxW = VIEW_WIDTH_SQUARE / 2
-
-const viewSquareMinH = VIEW_HEIGHT_SQUARE / 2 - 1
-const viewSquareMaxH = VIEW_HEIGHT_SQUARE / 2
-
-// console.log('viewSquareMinY', viewSquareMinY)
-// console.log('viewSquareMaxX', viewSquareMaxX)
-// console.log('viewSquareMaxY', viewSquareMaxY)
+const viewSquareHalfW = Math.floor(VIEW_WIDTH_SQUARE / 2)
+const viewSquareHalfH = Math.floor(VIEW_HEIGHT_SQUARE / 2)
 export const drawMap = () => {
   // const virtualCanvas =
   const blankTile = new Tile(0, 0, [new Sprite(0, false, core.spriteLibrary[0])])
 
-  for (let y = core.player.tile.y - viewSquareMinH, j = 0; y < core.player.tile.y + viewSquareMaxH; y += 1, j += 1) {
-    for (let x = core.player.tile.x - viewSquareMinW, i = 0; x < core.player.tile.x + viewSquareMaxW; x += 1, i += 1) {
+  for (let y = core.player.tile.y - viewSquareHalfH, j = 0; y <= core.player.tile.y + viewSquareHalfH; y += 1, j += 1) {
+    for (
+      let x = core.player.tile.x - viewSquareHalfW, i = 0;
+      x <= core.player.tile.x + viewSquareHalfW;
+      x += 1, i += 1
+    ) {
       let currentTile
 
       if (y < 0 || x < 0 || y >= core.gameMap.tiles.length || x >= core.gameMap.tiles[y].length) {
@@ -42,7 +39,7 @@ export const drawMap = () => {
 }
 
 const drawPlayer = (player: Player) => {
-  core.canvas.context.drawImage(core.spriteLibrary[player.sprite].image, viewSquareMinW * 32, viewSquareMinH * 32)
+  core.canvas.context.drawImage(core.spriteLibrary[player.sprite].image, viewSquareHalfW * 32, viewSquareHalfH * 32)
 }
 
 export const drawPlayers = () => {
@@ -64,7 +61,7 @@ const getHealthColor = (health: number) => {
 }
 
 const drawHealthBar = (player: Player) => {
-  const healthBarStart = [viewSquareMinW * 32 + 1, viewSquareMinH * 32 - 6]
+  const healthBarStart = [viewSquareHalfW * 32 + 1, viewSquareHalfH * 32 - 6]
 
   const healthColor = getHealthColor(player.health)
   const healthPercent = (30 * player.health) / 100
@@ -84,7 +81,7 @@ const drawHealthBar = (player: Player) => {
   core.canvas.context.lineWidth = 2
 
   const textWidth = core.canvas.context.measureText(player.name).width
-  const textPos = [viewSquareMinW * 32 + 16 - textWidth / 2, viewSquareMinH * 32 - 10]
+  const textPos = [viewSquareHalfW * 32 + 16 - textWidth / 2, viewSquareHalfH * 32 - 10]
   core.canvas.context.strokeText(player.name, textPos[0], textPos[1])
   core.canvas.context.fillStyle = healthColor
   core.canvas.context.fillText(player.name, textPos[0], textPos[1])
