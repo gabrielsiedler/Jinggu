@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useRecoilState } from 'recoil'
 
+import { pickerIdsState, pickerOpenState, pickerPositionState } from '../../recoil/picker'
 import * as s from './tile.s'
 
 interface Props {
@@ -7,21 +8,21 @@ interface Props {
 }
 
 export const Tile = ({ ids }: Props) => {
-  const [tile, setTile]: any = useState(ids)
+  const [_, setPickerOpen] = useRecoilState(pickerOpenState)
+  const [_noop, setPickerPosition] = useRecoilState(pickerPositionState)
+  const [_noop2, setPickerIds] = useRecoilState(pickerIdsState)
 
-  const onOpen = () => {
-    const result = window.prompt('Change to', ids.join(','))
+  const onOpen = (e: any) => {
+    const { clientX, clientY } = e
 
-    if (!result) return
-
-    const trimmedResult = result?.split(',').map((v) => Number(v.trim()))
-
-    setTile(trimmedResult)
+    setPickerIds(ids as any)
+    setPickerPosition([clientX, clientY])
+    setPickerOpen(true)
   }
 
   return (
     <s.Tile onClick={onOpen}>
-      {tile.map((id: number, i: number) => (
+      {ids.map((id: number, i: number) => (
         <s.Sprite key={`${i}-${id}`} src={`sprites/${id}.png`} />
       ))}
     </s.Tile>
