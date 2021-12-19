@@ -1,7 +1,7 @@
 import './App.css'
 
 import map from './map.json'
-import { Tile } from './tile/Tile'
+import { Tile } from './components/tile/Tile'
 
 function App() {
   return (
