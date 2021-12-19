@@ -16,6 +16,7 @@ export const Picker = () => {
 
   const close = () => setPickerOpen(false)
 
+  const [current, setCurrent]: any = useState(pickerIds)
   const [suggestions, setSuggestions]: any = useState([])
 
   const onChangeSearch = (e: any) => {
@@ -31,6 +32,16 @@ export const Picker = () => {
     setSuggestions(found)
   }
 
+  const onRemoveCurrent = (id: any) => {
+    const newCurrent = current.filter((i: any) => i !== id)
+
+    setCurrent(newCurrent)
+  }
+
+  const onAddSuggestion = (id: any) => {
+    setCurrent([...current, id])
+  }
+
   return (
     <s.Picker pos={pickerPosition}>
       <s.Title>
@@ -41,9 +52,9 @@ export const Picker = () => {
         <s.Section>
           <p>Current</p>
           <s.Current>
-            {pickerIds.map((id) => (
-              <div>
-                <s.Sprite src={`sprites/${id}.png`} />
+            {current.map((id: any) => (
+              <div onClick={() => onRemoveCurrent(id)}>
+                <s.Sprite title={id} src={`sprites/${id}.png`} />
                 <FontAwesomeIcon icon={faTimes} />
               </div>
             ))}
@@ -54,8 +65,8 @@ export const Picker = () => {
           <Input placeholder="tile id" onChange={onChangeSearch} />
           <s.Suggestions>
             {suggestions.map((id: any) => (
-              <div>
-                <s.Sprite src={`sprites/${id}.png`} />
+              <div onClick={() => onAddSuggestion(id)}>
+                <s.Sprite title={id} src={`sprites/${id}.png`} />
                 <FontAwesomeIcon icon={faPlus} />
               </div>
             ))}
