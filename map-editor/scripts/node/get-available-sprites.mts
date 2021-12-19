@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const spritesFolder = 'sprites'
+const spritesFolder = 'public/sprites'
 
 fs.readdirSync(spritesFolder).forEach((file) => {
   console.log(file)
