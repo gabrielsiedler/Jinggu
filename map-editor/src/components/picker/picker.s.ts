@@ -6,7 +6,7 @@ interface PickerProps {
 
 export const Picker = styled.div(
   ({ pos }: PickerProps) => `
-  width: 200px;
+  width: 230px;
   height: 300px;
   background-color: white;
   position: absolute;
@@ -21,24 +21,92 @@ export const Picker = styled.div(
 export const Current = styled.div`
   display: flex;
   flex-shrink: 0;
+  overflow-x: auto;
 
-  img {
+  > div {
     margin: 5px 5px 0 0;
+    position: relative;
+    cursor: pointer;
+
+    svg {
+      display: none;
+      color: white;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      filter: drop-shadow(0 0 1px #000);
+    }
 
     &:hover {
-      opacity: 0.5;
+      img {
+        filter: blur(0.5px) brightness(0.5);
+      }
+
+      svg {
+        display: flex;
+      }
+    }
+  }
+`
+
+export const Suggestions = styled.div`
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  max-height: 100px;
+  overflow-y: auto;
+  position: relative;
+
+  > div {
+    margin: 5px 5px 0 0;
+    position: relative;
+    cursor: pointer;
+
+    svg {
+      display: none;
+      color: white;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      filter: drop-shadow(0 0 1px #000);
+    }
+
+    &:hover {
+      img {
+        filter: blur(0.5px) brightness(0.5);
+      }
+
+      svg {
+        display: flex;
+      }
     }
   }
 `
 
 export const Container = styled.div`
   flex: 1;
-  padding: 10px;
+  padding: 10px 10px 0 10px;
+
+  input {
+    margin-bottom: 5px;
+  }
 `
 
 export const Section = styled.div`
   font-size: 14px;
-  margin-bottom: 10px;
+
+  &:not(:first-child) {
+    margin-top: 15px;
+  }
+
+  p {
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
 `
 
 export const Buttons = styled.div`
@@ -63,7 +131,6 @@ export const Title = styled.div`
   text-align: center;
   font-size: 18px;
   font-weight: 300;
-  padding-bottom: 10px;
   padding: 10px;
   color: white;
 

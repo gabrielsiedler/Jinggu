@@ -16,7 +16,7 @@ export const Tile = ({ ids }: Props) => {
     const { clientX, clientY } = e
 
     setPickerIds(ids as any)
-    setPickerPosition([clientX, clientY])
+    setPickerPosition([clientX / 32, clientY])
     setPickerOpen(true)
   }
 
