@@ -1,4 +1,4 @@
-import { SCALE, WINDOW_HEIGHT, WINDOW_WIDTH } from './constants'
+import { SCALE, TILE_SIZE_SCALED, CANVAS_HEIGHT, CANVAS_WIDTH } from './constants'
 
 export class Canvas {
   canvas: HTMLCanvasElement
@@ -34,11 +34,14 @@ export class Canvas {
   }
 
   constructor() {
-    this.canvas = this.createHiDPICanvas(WINDOW_WIDTH, WINDOW_HEIGHT)
+    this.canvas = this.createHiDPICanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
     this.context = this.canvas.getContext('2d')!
     this.context.scale(SCALE, SCALE)
 
-    this.virtualCanvas = this.createHiDPICanvas(WINDOW_WIDTH + 64, WINDOW_HEIGHT + 64)
+    this.virtualCanvas = this.createHiDPICanvas(
+      CANVAS_WIDTH + TILE_SIZE_SCALED * 2,
+      CANVAS_HEIGHT + TILE_SIZE_SCALED * 2,
+    )
     this.virtualCanvasContext = this.virtualCanvas.getContext('2d')!
     this.virtualCanvasContext.scale(SCALE, SCALE)
 

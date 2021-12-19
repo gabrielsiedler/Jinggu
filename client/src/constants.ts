@@ -1,9 +1,14 @@
-export const VIEW_WIDTH_SQUARE = 25 // odd
-export const VIEW_HEIGHT_SQUARE = 17 // odd
 export const SCALE = 1
-export const TILE_SQUARE = 32
 
 // 42 x 24 max
-export const WINDOW_WIDTH = Math.floor(VIEW_WIDTH_SQUARE * TILE_SQUARE * SCALE)
-export const WINDOW_HEIGHT = Math.floor(VIEW_HEIGHT_SQUARE * TILE_SQUARE * SCALE)
+export const TILE_SIZE = 32
+export const TILE_SIZE_SCALED = TILE_SIZE * SCALE
+export const TILES_TOTAL_X = 25 // odd
+export const TILES_TOTAL_Y = 17 // odd
+export const TILES_HALF_X = Math.floor(TILES_TOTAL_X / 2)
+export const TILES_HALF_Y = Math.floor(TILES_TOTAL_Y / 2)
+
+export const CANVAS_WIDTH = Math.floor(TILES_TOTAL_X * TILE_SIZE_SCALED)
+export const CANVAS_HEIGHT = Math.floor(TILES_TOTAL_Y * TILE_SIZE_SCALED)
+
 export const FRAME = 25
