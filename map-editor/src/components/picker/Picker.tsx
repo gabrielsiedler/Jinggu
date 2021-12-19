@@ -1,6 +1,7 @@
 import { useRecoilState } from 'recoil'
 
 import { pickerIdsState, pickerOpenState, pickerPositionState } from '../../recoil/picker'
+import { Button } from '../button/Button'
 import * as s from './picker.s'
 
 export const Picker = () => {
@@ -8,19 +9,37 @@ export const Picker = () => {
   const [pickerIds] = useRecoilState(pickerIdsState)
   const [_, setPickerOpen] = useRecoilState(pickerOpenState)
 
+  const close = () => setPickerOpen(false)
   return (
     <s.Picker pos={pickerPosition}>
+      <s.Title>
+        Tile picker
+        <button onClick={close}>x</button>
+      </s.Title>
       <s.Container>
-        Current:
-        <s.Current>
-          {pickerIds.map((id) => (
-            <img style={{ width: '32', height: '32' }} src={`sprites/${id}.png`} />
-          ))}
-        </s.Current>
+        <s.Section>
+          Current:
+          <s.Current>
+            {pickerIds.map((id) => (
+              <s.Sprite src={`sprites/${id}.png`} />
+            ))}
+          </s.Current>
+        </s.Section>
+        <s.Section>
+          Add:
+          <input />
+          <s.Current>
+            {pickerIds.map((id) => (
+              <s.Sprite src={`sprites/${id}.png`} />
+            ))}
+          </s.Current>
+        </s.Section>
       </s.Container>
       <s.Buttons>
-        <button>Save</button>
-        <button onClick={() => setPickerOpen(false)}>Cancel</button>
+        <Button secondary onClick={close}>
+          Cancel
+        </Button>
+        <Button>Apply</Button>
       </s.Buttons>
     </s.Picker>
   )
