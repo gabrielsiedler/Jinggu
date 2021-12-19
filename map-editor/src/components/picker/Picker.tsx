@@ -42,6 +42,10 @@ export const Picker = () => {
     setCurrent([...current, id])
   }
 
+  const onDrop = (e: any) => {
+    console.log('dropped', e)
+  }
+
   return (
     <s.Picker pos={pickerPosition}>
       <s.Title>
@@ -53,7 +57,14 @@ export const Picker = () => {
           <p>Current</p>
           <s.Current>
             {current.map((id: any) => (
-              <div onClick={() => onRemoveCurrent(id)}>
+              <div
+                onClick={() => onRemoveCurrent(id)}
+                draggable
+                onDrop={onDrop}
+                onDragOver={(e) => {
+                  e.preventDefault()
+                }}
+              >
                 <s.Sprite title={id} src={`sprites/${id}.png`} />
                 <FontAwesomeIcon icon={faTimes} />
               </div>
