@@ -44,8 +44,8 @@ export class Player {
     const { id, x, y, spriteBase, level, health, name } = player
     this.id = id
     this.offset = {
-      x: x % 32,
-      y: y % 32,
+      x: 0,
+      y: 0,
     }
     this.tile = {
       x: x,

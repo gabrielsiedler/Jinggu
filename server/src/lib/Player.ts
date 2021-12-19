@@ -23,8 +23,8 @@ export class Player {
 
   constructor(id: string) {
     this.id = id
-    this.x = 0
-    this.y = 0
+    this.x = 13
+    this.y = 13
     this.spriteBase = possibleSkins[Math.floor(Math.random() * possibleSkins.length)]
     this.level = 150
     this.speed = Math.max(800 - this.level * 5, 200)
