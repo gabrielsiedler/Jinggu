@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import { sprites } from '../../services/loader'
 import * as s from './tile.s'
 
 interface Props {
@@ -23,7 +22,7 @@ export const Tile = ({ ids }: Props) => {
   return (
     <s.Tile onClick={onOpen}>
       {tile.map((id: number, i: number) => (
-        <s.Sprite key={`${i}-${id}`} src={sprites[id]} />
+        <s.Sprite key={`${i}-${id}`} src={`sprites/${id}.png`} />
       ))}
     </s.Tile>
   )
