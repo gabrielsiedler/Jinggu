@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { useRecoilState } from 'recoil'
 
 import availableIds from '../../available-sprite-ids.json'
-import { pickerIdsState, pickerOpenState, pickerPositionState } from '../../recoil/picker'
+import { mapState } from '../../recoil/map'
+import { pickerIdsState, pickerOpenState, pickerPositionState, pickerTileState } from '../../recoil/picker'
 import { Button } from '../button/Button'
 import { Input } from '../input/Input'
 import * as s from './picker.s'
@@ -12,7 +13,9 @@ import * as s from './picker.s'
 export const Picker = () => {
   const [pickerPosition] = useRecoilState(pickerPositionState)
   const [pickerIds] = useRecoilState(pickerIdsState)
+  const [pickerTile]: any = useRecoilState(pickerTileState)
   const [_, setPickerOpen] = useRecoilState(pickerOpenState)
+  const [map, setMap] = useRecoilState(mapState)
 
   const close = () => setPickerOpen(false)
 
@@ -44,6 +47,14 @@ export const Picker = () => {
 
   const onDrop = (e: any) => {
     console.log('dropped', e)
+  }
+
+  const onSave = () => {
+    const newMap = JSON.parse(JSON.stringify(map))
+
+    newMap[pickerTile[1]][pickerTile[0]] = current
+
+    setMap(newMap)
   }
 
   return (
@@ -88,7 +99,7 @@ export const Picker = () => {
         <Button secondary onClick={close}>
           Cancel
         </Button>
-        <Button>Apply</Button>
+        <Button onClick={onSave}>Apply</Button>
       </s.Buttons>
     </s.Picker>
   )
