@@ -1,7 +1,7 @@
-import available from '../../available-sprite-ids.json'
-
-import FileSaver from 'file-saver'
 import * as zip from '@zip.js/zip.js'
+import FileSaver from 'file-saver'
+
+import available from '../../src/available-sprite-ids.json'
 
 export let sprites: any = {}
 

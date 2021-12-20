@@ -4,6 +4,7 @@ interface ButtonProps {
   secondary?: boolean
   onClick?: any
   children: any
+  style?: any
 }
 
 export const Button = ({ secondary, children, onClick, ...props }: ButtonProps) => {
