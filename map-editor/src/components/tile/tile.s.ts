@@ -16,4 +16,15 @@ export const Sprite = styled.img`
   position: absolute;
   left: 0;
   top: 0;
+  pointer-events: none;
+  user-drag: none;
+  user-select: none;
+`
+
+export const Draggable = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 `

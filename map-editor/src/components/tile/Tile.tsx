@@ -1,5 +1,6 @@
 import { useRecoilState } from 'recoil'
 import { mapState } from '../../recoil/map'
+import { TSelectableItemProps, createSelectable } from 'react-selectable-fast'
 
 import { pickerIdsState, pickerOpenState, pickerPositionState, pickerTileState } from '../../recoil/picker'
 import * as s from './tile.s'
@@ -10,7 +11,12 @@ interface Props {
   j: number
 }
 
-export const Tile = ({ ids, i, j }: Props) => {
+interface SelectableProps {
+  selectableRef: any
+  isSelecting: boolean
+}
+
+const TileComponent = ({ ids, i, j, selectableRef, isSelecting }: Props & any) => {
   const setPickerTile = useRecoilState(pickerTileState)[1]
   const setPickerOpen = useRecoilState(pickerOpenState)[1]
   const setPickerPosition = useRecoilState(pickerPositionState)[1]
@@ -27,10 +33,13 @@ export const Tile = ({ ids, i, j }: Props) => {
   }
 
   return (
-    <s.Tile onClick={onOpen}>
+    <s.Tile ref={selectableRef} draggable={false} style={{ opacity: isSelecting ? 0.5 : 1 }}>
       {ids.map((id: number, i: number) => (
-        <s.Sprite key={`${i}-${id}`} src={`sprites/${id}.png`} />
+        <s.Sprite draggable={false} key={`${i}-${j}-${id}`} src={`sprites/${id}.png`} />
       ))}
+      <s.Draggable draggable />
     </s.Tile>
   )
 }
+
+export const Tile = createSelectable(TileComponent)
