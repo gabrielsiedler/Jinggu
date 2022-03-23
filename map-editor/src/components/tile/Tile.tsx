@@ -16,7 +16,7 @@ interface SelectableProps {
   isSelecting: boolean
 }
 
-const TileComponent = ({ ids, i, j, selectableRef, isSelecting }: Props & any) => {
+const TileComponent = ({ ids, i, j, selectableRef, isSelecting, selectedVar }: Props & any) => {
   const setPickerTile = useRecoilState(pickerTileState)[1]
   const setPickerOpen = useRecoilState(pickerOpenState)[1]
   const setPickerPosition = useRecoilState(pickerPositionState)[1]
@@ -32,8 +32,16 @@ const TileComponent = ({ ids, i, j, selectableRef, isSelecting }: Props & any) =
     setPickerTile([i, j])
   }
 
+  if (selectedVar) console.log('selected', i, j)
+
+  let style: any = {}
+
+  if (isSelecting) {
+    style.opacity = 0.5
+  }
+
   return (
-    <s.Tile ref={selectableRef} draggable={false} style={{ opacity: isSelecting ? 0.5 : 1 }}>
+    <s.Tile ref={selectableRef} selected={selectedVar} draggable={false} style={style}>
       {ids.map((id: number, i: number) => (
         <s.Sprite draggable={false} key={`${i}-${j}-${id}`} src={`sprites/${id}.png`} />
       ))}

@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-export const Tile = styled.div`
+interface TileProps {
+  selected?: boolean
+}
+
+export const Tile = styled.div<TileProps>`
   position: relative;
   width: 32px;
   height: 32px;
@@ -10,6 +14,8 @@ export const Tile = styled.div`
   &:hover {
     opacity: 0.8;
   }
+
+  ${({ selected }) => selected && 'opacity: 0.4;'}
 `
 
 export const Sprite = styled.img`

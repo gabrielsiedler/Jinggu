@@ -13,6 +13,7 @@ import { Tile } from './tile/Tile'
 const App = () => {
   const [isPickerOpen] = useRecoilState(pickerOpenState)
   const [map, setMap] = useRecoilState(mapState)
+  const [selectedTiles, setSelectedTiles]: any = useState({})
 
   const onSave = () => {
     const asString = JSON.stringify(map)
@@ -36,15 +37,20 @@ const App = () => {
     console.log(minI, maxI)
     console.log(minJ, maxJ)
 
+    const selected: any = {}
     for (let i = minI; i <= maxI; i += 1) {
       for (let j = minJ; j <= maxJ; j += 1) {
-        newMap[j][i] = [selectedTile]
+        selected[`tile-${i}-${j}`] = true
+        // newMap[j][i] = [selectedTile]
       }
     }
 
-    setMap(newMap)
+    setSelectedTiles(selected)
+
+    // setMap(newMap)
   }
 
+  console.log(selectedTiles)
   return (
     <s.Container>
       <SelectableGroup
@@ -60,7 +66,7 @@ const App = () => {
             {line.map((tile: any, i: number) => {
               const key = `tile-${i}-${j}`
 
-              return <Tile key={key} i={i} j={j} ids={tile} />
+              return <Tile key={key} i={i} j={j} ids={tile} selectedVar={selectedTiles[key]} />
             })}
           </div>
         ))}
