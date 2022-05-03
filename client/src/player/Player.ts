@@ -1,27 +1,7 @@
-export enum Direction {
-  Up = 'up',
-  Down = 'down',
-  Left = 'left',
-  Right = 'right',
-}
+import { Direction, PlayerFromServer, Point } from './player.i'
 
 const possibleSkins = [3398, 3410, 3422, 3434, 3446, 3458, 3470, 3482, 3494]
 
-interface Point {
-  x: number
-  y: number
-}
-
-export interface PlayerFromServer {
-  id: number
-  pos: Point
-  x: number
-  y: number
-  spriteBase: number
-  level: number
-  health: number
-  name: string
-}
 export class Player {
   id: number
   offset: Point

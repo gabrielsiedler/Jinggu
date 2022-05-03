@@ -1,5 +1,5 @@
 import { TILES_HALF_X, TILES_HALF_Y, TILE_SIZE, TILE_SIZE_SCALED } from '../constants'
-import { Player } from '../Player'
+import { Player } from '../player/Player'
 import { core } from '../socket'
 
 const getHealthColor = (health: number) => {

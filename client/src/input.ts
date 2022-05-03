@@ -1,4 +1,4 @@
-import { Direction } from './Player'
+import { Direction } from './player/player.i'
 import { core, emitMove } from './socket'
 
 const keysPressed: any = {}

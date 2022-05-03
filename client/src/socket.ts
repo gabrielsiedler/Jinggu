@@ -1,8 +1,7 @@
 import { io } from 'socket.io-client'
-import { Canvas } from './Canvas'
-import { Core } from './Core'
 
-import { Direction } from './Player'
+import { Core } from './Core'
+import { Direction } from './player/player.i'
 
 const socket = io('http://localhost:3008')
 
@@ -21,6 +20,7 @@ socket.on('disconnect', () => {
 })
 
 socket.on('initial-data', ({ player, map, sprites, entities }) => {
+  console.log('player', player)
   core.startEngine(player, map, sprites, entities)
 })
 
