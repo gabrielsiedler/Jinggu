@@ -1,9 +1,12 @@
+import dotenv from 'dotenv'
 import { io } from 'socket.io-client'
 
 import { Core } from './Core'
 import { Direction } from './player/player.i'
 
-const socket = io('https://4b0c-2804-1b3-8401-f304-5d8-fc1f-81e-5f3.sa.ngrok.io')
+dotenv.config()
+
+const socket = io(process.env.SERVER_URL!)
 
 export let core: Core
 
