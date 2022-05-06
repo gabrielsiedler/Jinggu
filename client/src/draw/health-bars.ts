@@ -18,7 +18,7 @@ interface Gap {
 }
 
 const drawHealthBar = (player: Player, gap: Gap) => {
-  const healthBarStart = [TILES_HALF_X * TILE_SIZE + 1, TILES_HALF_Y * TILE_SIZE - 6]
+  const healthBarStart = [(TILES_HALF_X + gap.gapX) * TILE_SIZE + 1, (TILES_HALF_Y + gap.gapY) * TILE_SIZE - 6]
 
   const healthColor = getHealthColor(player.health)
   const healthPercent = (30 * player.health) / 100
