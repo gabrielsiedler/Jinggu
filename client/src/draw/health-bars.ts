@@ -12,7 +12,12 @@ const getHealthColor = (health: number) => {
   return '#850C0C'
 }
 
-const drawHealthBar = (player: Player) => {
+interface Gap {
+  gapX: number
+  gapY: number
+}
+
+const drawHealthBar = (player: Player, gap: Gap) => {
   const healthBarStart = [TILES_HALF_X * TILE_SIZE + 1, TILES_HALF_Y * TILE_SIZE - 6]
 
   const healthColor = getHealthColor(player.health)
@@ -33,16 +38,24 @@ const drawHealthBar = (player: Player) => {
   core.canvas.context.lineWidth = 2
 
   const textWidth = core.canvas.context.measureText(player.name).width
-  const textPos = [TILES_HALF_X * TILE_SIZE + 16 - textWidth / 2, TILES_HALF_Y * TILE_SIZE - 10]
+  const textPos = [
+    (TILES_HALF_X + gap.gapX) * TILE_SIZE + 16 - textWidth / 2,
+    (TILES_HALF_Y + gap.gapY) * TILE_SIZE - 10,
+  ]
   core.canvas.context.strokeText(player.name, textPos[0], textPos[1])
   core.canvas.context.fillStyle = healthColor
   core.canvas.context.fillText(player.name, textPos[0], textPos[1])
 }
 
 export const drawHealthBars = () => {
-  drawHealthBar(core.player)
+  drawHealthBar(core.player, { gapX: 0, gapY: 0 })
 
   core.entities.forEach((entity: Player) => {
-    drawHealthBar(entity)
+    const gap = {
+      gapX: entity.tile.x - core.player.tile.x - core.player.offset.x / 32,
+      gapY: entity.tile.y - core.player.tile.y - core.player.offset.y / 32,
+    }
+
+    drawHealthBar(entity, gap)
   })
 }
