@@ -1,29 +1,25 @@
-import { TILES_HALF_Y, TILES_HALF_X, TILE_SIZE, TILE_SIZE_SCALED } from '../constants'
+import { TILES_HALF_X, TILES_HALF_Y, TILE_SIZE, TILE_SIZE_SCALED } from '../constants'
 import { Player } from '../player/Player'
 import { core } from '../socket'
+import { Point } from '../types.i'
 
-interface Gap {
-  gapX: number
-  gapY: number
-}
-
-const drawPlayer = (player: Player, { gapX, gapY }: Gap) => {
+const drawPlayer = (player: Player, { x, y }: Point) => {
   core.canvas.context.drawImage(
     core.spriteLibrary[player.sprite].image,
-    (TILES_HALF_X + gapX) * TILE_SIZE,
-    (TILES_HALF_Y + gapY) * TILE_SIZE,
+    (TILES_HALF_X + x) * TILE_SIZE,
+    (TILES_HALF_Y + y) * TILE_SIZE,
     TILE_SIZE_SCALED,
     TILE_SIZE_SCALED,
   )
 }
 
 export const drawPlayers = () => {
-  drawPlayer(core.player, { gapX: 0, gapY: 0 })
+  drawPlayer(core.player, { x: 0, y: 0 })
 
   core.entities.forEach((entity: Player) => {
-    const gap = {
-      gapX: entity.tile.x - core.player.tile.x - core.player.offset.x / 32,
-      gapY: entity.tile.y - core.player.tile.y - core.player.offset.y / 32,
+    const gap: Point = {
+      x: entity.tile.x - core.player.tile.x - core.player.offset.x / 32 + entity.offset.x / 32,
+      y: entity.tile.y - core.player.tile.y - core.player.offset.y / 32 + entity.offset.y / 32,
     }
 
     drawPlayer(entity, gap)

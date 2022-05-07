@@ -55,7 +55,7 @@ export class Core {
     this.entities = this.entities.filter((e: any) => e.id !== entity.id)
   }
   moveEntity = (playerId: any, direction: any) => {
-    let entity
+    let entity: Player
 
     if (this.player.id === playerId) entity = this.player
     else entity = this.entities.find((e: any) => e.id === playerId)

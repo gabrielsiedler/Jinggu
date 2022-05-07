@@ -1,4 +1,5 @@
-import { Direction, PlayerFromServer, Point } from './player.i'
+import { Point } from '../types.i'
+import { Direction, PlayerFromServer } from './player.i'
 
 const possibleSkins = [3398, 3410, 3422, 3434, 3446, 3458, 3470, 3482, 3494]
 
@@ -9,11 +10,6 @@ export class Player {
   health: number
   walking: boolean = false
   dancing: boolean = false
-  // traveling: boolean = false
-  // travelDestination = {
-  //   x: 0,
-  //   y: 0,
-  // }
   spriteBase = possibleSkins[Math.floor(Math.random() * possibleSkins.length)]
   sprite = this.spriteBase
   level: number = 150
@@ -28,8 +24,8 @@ export class Player {
       y: 0,
     }
     this.tile = {
-      x: x,
-      y: y,
+      x,
+      y,
     }
     this.spriteBase = spriteBase
     this.sprite = spriteBase
@@ -42,31 +38,19 @@ export class Player {
   move = (direction: Direction) => {
     switch (direction) {
       case Direction.Up:
-        // if (this.y === 0) return
-
         this.animateWalk('y', -1, this.spriteBase + 3)
-        // this.tile.y -= 1
 
         break
       case Direction.Down:
-        // if (this.y === WINDOW_HEIGHT - 32) return
-
         this.animateWalk('y', 1, this.spriteBase)
-        // this.tile.y += 1
 
         break
       case Direction.Left:
-        // if (this.x === 0) return
-
         this.animateWalk('x', -1, this.spriteBase + 9)
-        // this.tile.x -= 1
 
         break
       case Direction.Right:
-        // if (this.x === WINDOW_WIDTH - 32) return
-
         this.animateWalk('x', 1, this.spriteBase + 6)
-        // this.tile.x += 1
 
         break
     }
@@ -130,25 +114,4 @@ export class Player {
 
     setTimeout(runMove, this.speed / 16)
   }
-
-  // setTravelDestination = (x: number, y: number) => {
-  //   this.travelDestination = { x, y }
-  // }
-
-  // travel = () => {
-  //   const distanceToTarget = getGridDistance(this.travelDestination.x, this.travelDestination.y, this.x, this.y)
-  //   if (distanceToTarget.x === 0 && distanceToTarget.y === 0) {
-  //     this.traveling = false
-  //     return
-  //   } else if (distanceToTarget.x > 0) {
-  //     this.move(Direction.Right)
-  //   } else if (distanceToTarget.x < 0) {
-  //     this.move(Direction.Left)
-  //   } else if (distanceToTarget.y > 0) {
-  //     this.move(Direction.Down)
-  //   } else if (distanceToTarget.y < 0) {
-  //     this.move(Direction.Up)
-  //   }
-  //   return
-  // }
 }

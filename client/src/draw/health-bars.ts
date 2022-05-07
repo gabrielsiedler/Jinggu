@@ -1,6 +1,7 @@
 import { TILES_HALF_X, TILES_HALF_Y, TILE_SIZE, TILE_SIZE_SCALED } from '../constants'
 import { Player } from '../player/Player'
 import { core } from '../socket'
+import { Point } from '../types.i'
 
 const getHealthColor = (health: number) => {
   if (health >= 92) return '#00BC00'
@@ -12,13 +13,11 @@ const getHealthColor = (health: number) => {
   return '#850C0C'
 }
 
-interface Gap {
-  gapX: number
-  gapY: number
-}
+const drawHealthBar = (player: Player, gap: Point) => {
+  const xOffset = (TILES_HALF_X + gap.x) * TILE_SIZE
+  const yOffset = (TILES_HALF_Y + gap.y) * TILE_SIZE
 
-const drawHealthBar = (player: Player, gap: Gap) => {
-  const healthBarStart = [(TILES_HALF_X + gap.gapX) * TILE_SIZE + 1, (TILES_HALF_Y + gap.gapY) * TILE_SIZE - 6]
+  const healthBarStart = [xOffset + 1, yOffset - 6]
 
   const healthColor = getHealthColor(player.health)
   const healthPercent = (30 * player.health) / 100
@@ -38,22 +37,19 @@ const drawHealthBar = (player: Player, gap: Gap) => {
   core.canvas.context.lineWidth = 2
 
   const textWidth = core.canvas.context.measureText(player.name).width
-  const textPos = [
-    (TILES_HALF_X + gap.gapX) * TILE_SIZE + 16 - textWidth / 2,
-    (TILES_HALF_Y + gap.gapY) * TILE_SIZE - 10,
-  ]
+  const textPos = [xOffset + 16 - textWidth / 2, yOffset - 10]
   core.canvas.context.strokeText(player.name, textPos[0], textPos[1])
   core.canvas.context.fillStyle = healthColor
   core.canvas.context.fillText(player.name, textPos[0], textPos[1])
 }
 
 export const drawHealthBars = () => {
-  drawHealthBar(core.player, { gapX: 0, gapY: 0 })
+  drawHealthBar(core.player, { x: 0, y: 0 })
 
   core.entities.forEach((entity: Player) => {
     const gap = {
-      gapX: entity.tile.x - core.player.tile.x - core.player.offset.x / 32,
-      gapY: entity.tile.y - core.player.tile.y - core.player.offset.y / 32,
+      x: entity.tile.x - core.player.tile.x - core.player.offset.x / 32 + entity.offset.x / 32,
+      y: entity.tile.y - core.player.tile.y - core.player.offset.y / 32 + entity.offset.y / 32,
     }
 
     drawHealthBar(entity, gap)

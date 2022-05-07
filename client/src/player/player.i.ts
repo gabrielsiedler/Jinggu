@@ -1,13 +1,10 @@
+import { Point } from '../types.i'
+
 export enum Direction {
   Up = 'up',
   Down = 'down',
   Left = 'left',
   Right = 'right',
-}
-
-export interface Point {
-  x: number
-  y: number
 }
 
 export interface PlayerFromServer {
