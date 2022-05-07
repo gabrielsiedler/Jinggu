@@ -6,25 +6,11 @@ const keysPressed: any = {}
 export const inputsSetup = () => {
   window.addEventListener('keydown', checkKeyPress, false)
   window.addEventListener('keyup', removeKey, false)
-  // window.addEventListener('click', checkClick, false);
 }
 
 const removeKey = (e: any) => {
   delete keysPressed[e.key]
 }
-
-// export const checkClick = (e: MouseEvent) => {
-//   if(Math.floor(player.x/32) === Math.floor(e.clientX / 32) && Math.floor(player.y/32) === Math.floor(e.clientY / 32) ){
-//     return
-//   } else {
-//     if(player.traveling) {
-//       return
-//     }
-//     player.setTravelDestination(e.clientX, e.clientY);
-//     player.traveling = true
-//     player.travel()
-//   }
-// }
 
 const arrayToDirect: any = {
   ArrowUp: Direction.Up,

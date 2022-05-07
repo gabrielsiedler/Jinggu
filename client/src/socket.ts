@@ -3,12 +3,14 @@ import { io } from 'socket.io-client'
 
 import { Core } from './Core'
 import { Direction } from './player/player.i'
+import { StatusMessage } from './StatusMessage'
 
 dotenv.config()
 
 const socket = io(process.env.SERVER_URL!)
 
 export let core: Core
+export const status = new StatusMessage()
 
 socket.on('error', (error) => {
   console.error(error)
@@ -36,6 +38,10 @@ socket.on('player-disconnected', (player) => {
 
 socket.on('player-moved', (playerId: any, direction: any) => {
   core.moveEntity(playerId, direction)
+})
+
+socket.on('status', (message: any) => {
+  status.setMessage(message)
 })
 
 export const emitMove = (direction: Direction) => {
