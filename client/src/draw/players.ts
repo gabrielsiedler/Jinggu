@@ -2,6 +2,7 @@ import { TILES_HALF_X, TILES_HALF_Y, TILE_SIZE, TILE_SIZE_SCALED } from '../cons
 import { Player } from '../player/Player'
 import { core } from '../socket'
 import { Point } from '../types.i'
+import { getRelativePosition } from '../utils/position'
 
 const drawPlayer = (player: Player, { x, y }: Point) => {
   core.canvas.context.drawImage(
@@ -17,11 +18,8 @@ export const drawPlayers = () => {
   drawPlayer(core.player, { x: 0, y: 0 })
 
   core.entities.forEach((entity: Player) => {
-    const gap: Point = {
-      x: entity.tile.x - core.player.tile.x - core.player.offset.x / 32 + entity.offset.x / 32,
-      y: entity.tile.y - core.player.tile.y - core.player.offset.y / 32 + entity.offset.y / 32,
-    }
+    const relativePosition = getRelativePosition(core.player, entity)
 
-    drawPlayer(entity, gap)
+    drawPlayer(entity, relativePosition)
   })
 }

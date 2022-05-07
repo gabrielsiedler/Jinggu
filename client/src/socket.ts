@@ -23,7 +23,6 @@ socket.on('disconnect', () => {
 })
 
 socket.on('initial-data', ({ player, map, sprites, entities }) => {
-  console.log('player', player)
   core.startEngine(player, map, sprites, entities)
 })
 
