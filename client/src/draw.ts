@@ -1,5 +1,6 @@
 import { drawHealthBars } from './draw/health-bars'
 import { drawMap } from './draw/map'
+import { drawMessages } from './draw/messages'
 import { drawPlayers } from './draw/players'
 import { drawStatus } from './draw/status'
 
@@ -8,4 +9,5 @@ export const draw = () => {
   drawPlayers()
   drawHealthBars()
   drawStatus()
+  drawMessages()
 }

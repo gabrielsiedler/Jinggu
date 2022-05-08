@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import { io } from 'socket.io-client'
 
 import { Core } from './Core'
+import { MessageQueue } from './MessageQueue'
 import { Direction } from './player/player.i'
 import { StatusMessage } from './StatusMessage'
 
@@ -11,6 +12,7 @@ const socket = io(process.env.SERVER_URL!)
 
 export let core: Core
 export const status = new StatusMessage()
+export const messageQueue = new MessageQueue()
 
 socket.on('error', (error) => {
   console.error(error)
@@ -44,6 +46,14 @@ socket.on('status', (message: any) => {
   status.setMessage(message)
 })
 
+socket.on('message', (playerId: any, message: string) => {
+  core.handleMessage(playerId, message)
+})
+
 export const emitMove = (direction: Direction) => {
   socket.emit('move', direction)
+}
+
+export const emitMessage = (message: string) => {
+  socket.emit('message', message)
 }

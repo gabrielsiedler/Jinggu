@@ -3,8 +3,10 @@ import { FRAME } from './constants'
 import { draw } from './draw'
 import { GameMap } from './GameMap'
 import { inputsSetup } from './input'
+import { MessageQueue } from './MessageQueue'
 import { Player } from './player/Player'
 import { Direction, PlayerFromServer } from './player/player.i'
+import { messageQueue } from './socket'
 import { loadSprites } from './sprites'
 import { sleep } from './utils'
 
@@ -54,6 +56,7 @@ export class Core {
   removeEntity = (entity: PlayerFromServer) => {
     this.entities = this.entities.filter((e: any) => e.id !== entity.id)
   }
+
   moveEntity = (playerId: any, direction: any) => {
     let entity: Player
 
@@ -77,5 +80,14 @@ export class Core {
     }
 
     entity.move(d as Direction)
+  }
+
+  handleMessage = (playerId: any, message: string) => {
+    let entity: Player
+
+    if (this.player.id === playerId) entity = this.player
+    else entity = this.entities.find((e: any) => e.id === playerId)
+
+    messageQueue.addMessage(entity, message)
   }
 }

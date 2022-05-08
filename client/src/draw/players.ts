@@ -2,7 +2,7 @@ import { TILES_HALF_X, TILES_HALF_Y, TILE_SIZE, TILE_SIZE_SCALED } from '../cons
 import { Player } from '../player/Player'
 import { core } from '../socket'
 import { Point } from '../types.i'
-import { getRelativePosition } from '../utils/position'
+import { getRelativePlayerPosition } from '../utils/position'
 
 const drawPlayer = (player: Player, { x, y }: Point) => {
   core.canvas.context.drawImage(
@@ -18,7 +18,7 @@ export const drawPlayers = () => {
   drawPlayer(core.player, { x: 0, y: 0 })
 
   core.entities.forEach((entity: Player) => {
-    const relativePosition = getRelativePosition(core.player, entity)
+    const relativePosition = getRelativePlayerPosition(core.player, entity)
 
     drawPlayer(entity, relativePosition)
   })

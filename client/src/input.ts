@@ -1,5 +1,5 @@
 import { Direction } from './player/player.i'
-import { core, emitMove } from './socket'
+import { core, emitMessage, emitMove } from './socket'
 
 const keysPressed: any = {}
 
@@ -20,6 +20,14 @@ const arrayToDirect: any = {
 }
 
 export const checkKeyPress = (e: KeyboardEvent) => {
+  if (e.key === 'Enter') {
+    const message = window.prompt('Message')
+
+    if (message) emitMessage(message)
+
+    return
+  }
+
   keysPressed[e.key] = true
 
   const code = e.key

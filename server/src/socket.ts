@@ -14,6 +14,12 @@ const onPlayerMove = (socket: Socket, io: Server, direction: any) => {
   }
 }
 
+const onMessage = (socket: Socket, io: Server, message: string) => {
+  const { player } = socket.data
+
+  io.emit('message', player.id, message)
+}
+
 const onConnection = (socket: Socket) => {
   console.log(`* Connected:`, socket.conn.id)
   const myself = new Player(socket.conn.id)
@@ -49,6 +55,7 @@ export const setupCommunication = (io: Server) => {
     sendInitialData(socket)
 
     socket.on('move', (direction: any) => onPlayerMove(socket, io, direction))
+    socket.on('message', (message: string) => onMessage(socket, io, message))
     socket.on('disconnect', (reason) => onDisconection(reason, socket))
   })
 }
