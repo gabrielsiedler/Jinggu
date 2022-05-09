@@ -4,15 +4,15 @@ import { useRecoilState } from 'recoil'
 import { SelectableGroup } from 'react-selectable-fast'
 
 import { mapState } from '../recoil/map'
-import { pickerOpenState } from '../recoil/picker'
 import * as s from './app.s'
 import { Button } from './button/Button'
 import { Picker } from './picker/Picker'
 import { Tile } from './tile/Tile'
+import { pickerSelectedTileState } from '../recoil/picker'
 
 const App = () => {
-  const [isPickerOpen] = useRecoilState(pickerOpenState)
   const [map, setMap] = useRecoilState(mapState)
+  const [selectedTile] = useRecoilState(pickerSelectedTileState)
   const [selectedTiles, setSelectedTiles]: any = useState({})
 
   const onSave = () => {
@@ -32,27 +32,26 @@ const App = () => {
     const maxI = Math.max(items[0].props.i, items[items.length - 1].props.i)
     const maxJ = Math.max(items[0].props.j, items[items.length - 1].props.j)
 
-    const selectedTile = '339'
-
     console.log(minI, maxI)
     console.log(minJ, maxJ)
 
     const selected: any = {}
     for (let i = minI; i <= maxI; i += 1) {
       for (let j = minJ; j <= maxJ; j += 1) {
-        selected[`tile-${i}-${j}`] = true
-        // newMap[j][i] = [selectedTile]
+        selected[`tile-${i}-${j}`] = false
+        newMap[j][i] = [selectedTile]
       }
     }
 
     setSelectedTiles(selected)
 
-    // setMap(newMap)
+    setMap(newMap)
   }
 
   console.log(selectedTiles)
   return (
     <s.Container>
+      <Picker />
       <SelectableGroup
         className="main"
         clickClassName="tick"
@@ -71,8 +70,7 @@ const App = () => {
           </div>
         ))}
       </SelectableGroup>
-      {isPickerOpen && <Picker />}
-      <Button style={{ position: 'fixed', left: 0, top: 0 }} onClick={onSave}>
+      <Button style={{ position: 'fixed', right: 0, top: 0 }} onClick={onSave}>
         Save map
       </Button>
     </s.Container>
