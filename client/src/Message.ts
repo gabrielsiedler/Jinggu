@@ -17,8 +17,8 @@ export class Message {
 
     this.time = asTime
     this.position = {
-      x: player.tile.x * TILE_SIZE + player.offset.x,
-      y: player.tile.y * TILE_SIZE + player.offset.y,
+      x: player.tile.x + player.offset.x / 32,
+      y: player.tile.y + player.offset.y / 32,
     }
     this.player = player
     this.message = message

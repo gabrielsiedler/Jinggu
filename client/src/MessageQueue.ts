@@ -16,7 +16,7 @@ export class MessageQueue {
   addMessage = (player: Player, message: string) => {
     const newMessage = new Message(player, message)
 
-    this.messages.push(newMessage)
+    this.messages.unshift(newMessage)
 
     setTimeout(() => this.autoClearMessage(newMessage.id), 3000)
   }

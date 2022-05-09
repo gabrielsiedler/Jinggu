@@ -7,6 +7,6 @@ export const getRelativePlayerPosition = (myself: Player, otherPlayer: Player): 
 })
 
 export const getRelativePosition = (myself: Player, point: Point): Point => ({
-  x: point.x / 32 + myself.tile.x - myself.offset.x / 32,
-  y: point.y / 32 - myself.tile.y - myself.offset.y / 32,
+  x: point.x - myself.tile.x - myself.offset.x / 32,
+  y: point.y - myself.tile.y - myself.offset.y / 32,
 })
