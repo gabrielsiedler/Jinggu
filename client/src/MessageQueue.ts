@@ -1,6 +1,5 @@
 import { Message } from './Message'
 import { Player } from './player/Player'
-import { Point } from './types.i'
 
 export class MessageQueue {
   messages: Message[]
@@ -14,7 +13,10 @@ export class MessageQueue {
   }
 
   addMessage = (player: Player, message: string) => {
-    const newMessage = new Message(player, message)
+    const messagesFromPlayer = this.messages.filter((m) => m.player.id === player.id)
+    const offsetY = messagesFromPlayer?.length ?? 0 * 20
+
+    const newMessage = new Message(player, message, offsetY)
 
     this.messages.unshift(newMessage)
 

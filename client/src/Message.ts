@@ -1,4 +1,3 @@
-import { TILE_SIZE } from './constants'
 import { Player } from './player/Player'
 import { Point } from './types.i'
 
@@ -7,9 +6,9 @@ export class Message {
   time: string
   position: Point
   player: Player
-  message: string
+  messages: string[]
 
-  constructor(player: Player, message: string) {
+  constructor(player: Player, message: string, offsetY: number) {
     this.id = Math.floor(Date.now() * Math.random())
 
     const now = new Date()
@@ -18,9 +17,10 @@ export class Message {
     this.time = asTime
     this.position = {
       x: player.tile.x + player.offset.x / 32,
-      y: player.tile.y + player.offset.y / 32,
+      y: player.tile.y + player.offset.y / 32 + offsetY,
     }
     this.player = player
-    this.message = message
+
+    this.messages = [`${player.name} says:`, ...message.match(/.{1,25}/g)!]
   }
 }

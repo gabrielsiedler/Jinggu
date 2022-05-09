@@ -7,8 +7,7 @@ const TEXT_LINE_DISTANCE = 16
 
 export const drawMessages = () => {
   messageQueue.messages.forEach((message: Message) => {
-    const lines = [`${message.player.name} says:`, ...message.message.match(/.{1,25}/g)!]
-    const textWidth = core.canvas.context.measureText(lines[0]).width
+    const textWidth = core.canvas.context.measureText(message.messages[0]).width
 
     const relativePos = getRelativePosition(core.player, message.position)
 
@@ -19,7 +18,7 @@ export const drawMessages = () => {
 
     const textPos = [addedPos.x, addedPos.y]
 
-    lines.forEach((line: string, i: number) => {
+    message.messages.forEach((line: string, i: number) => {
       core.canvas.context.strokeText(line, textPos[0], textPos[1] + i * TEXT_LINE_DISTANCE)
       core.canvas.context.fillStyle = 'yellow'
       core.canvas.context.fillText(line, textPos[0], textPos[1] + i * TEXT_LINE_DISTANCE)
