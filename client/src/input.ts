@@ -40,5 +40,5 @@ export const checkKeyPress = (e: KeyboardEvent) => {
 
   if (core.player.walking) return
 
-  emitMove(direction)
+  if (direction) emitMove(direction)
 }
