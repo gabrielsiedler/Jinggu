@@ -21,7 +21,7 @@ export class Map {
         let tile = new Tile(
           lineI,
           columnI,
-          currentSprite.map((spr: number) => sprites[spr]),
+          currentSprite.map((spr: number | string) => sprites[spr]),
         )
 
         line.push(tile)

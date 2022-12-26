@@ -7,7 +7,8 @@ export enum Direction {
   Right = 'right',
 }
 
-const possibleSkins = [3398, 3410, 3422, 3434, 3446, 3458, 3470, 3482, 3494]
+// const possibleSkins = [3398, 3410, 3422, 3434, 3446, 3458, 3470, 3482, 3494]
+const possibleSkins = [1, 20]
 const possibleNames = ['Allan Dryst', 'Aurea Lee', 'Mephistophelian', 'Lady Florzinha', 'Pademo', 'Dark Chacal']
 
 export class Player {

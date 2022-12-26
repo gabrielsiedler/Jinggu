@@ -1,7 +1,7 @@
 import { Point } from '../types.i'
 import { Direction, PlayerFromServer } from './player.i'
 
-const possibleSkins = [3398, 3410, 3422, 3434, 3446, 3458, 3470, 3482, 3494]
+const possibleSkins = [1, 20]
 
 export class Player {
   id: number
