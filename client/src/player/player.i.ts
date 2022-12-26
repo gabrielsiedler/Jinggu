@@ -12,7 +12,7 @@ export interface PlayerFromServer {
   pos: Point
   x: number
   y: number
-  spriteBase: number
+  spriteBase: string
   level: number
   health: number
   name: string

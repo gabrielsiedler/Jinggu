@@ -1,7 +1,7 @@
 import { Point } from '../types.i'
 import { Direction, PlayerFromServer } from './player.i'
 
-const possibleSkins = [1, 20]
+const possibleSkins = ['creature_man1', 'creature_woman1']
 
 export class Player {
   id: number
@@ -11,7 +11,7 @@ export class Player {
   walking: boolean = false
   dancing: boolean = false
   spriteBase = possibleSkins[Math.floor(Math.random() * possibleSkins.length)]
-  sprite = this.spriteBase
+  sprite = `${this.spriteBase}_down_standing`
   level: number = 150
   speed = Math.max(800 - this.level * 5, 200)
   name: string
@@ -28,7 +28,7 @@ export class Player {
       y,
     }
     this.spriteBase = spriteBase
-    this.sprite = spriteBase
+    this.sprite = `${spriteBase}_down_standing`
     this.level = level
     this.speed = Math.max(800 - level * 5, 200)
     this.health = health
@@ -38,19 +38,19 @@ export class Player {
   move = (direction: Direction) => {
     switch (direction) {
       case Direction.Up:
-        this.animateWalk('y', -1, this.spriteBase + 3)
+        this.animateWalk('y', -1, `${this.spriteBase}_up`)
 
         break
       case Direction.Down:
-        this.animateWalk('y', 1, this.spriteBase)
+        this.animateWalk('y', 1, `${this.spriteBase}_down`)
 
         break
       case Direction.Left:
-        this.animateWalk('x', -1, this.spriteBase + 9)
+        this.animateWalk('x', -1, `${this.spriteBase}_left`)
 
         break
       case Direction.Right:
-        this.animateWalk('x', 1, this.spriteBase + 6)
+        this.animateWalk('x', 1, `${this.spriteBase}_right`)
 
         break
     }
@@ -78,10 +78,10 @@ export class Player {
     setTimeout(() => (this.dancing = false), 50)
   }
 
-  animateWalk = (property: 'x' | 'y', signal: -1 | 1, movementSpriteBase: number) => {
+  animateWalk = (property: 'x' | 'y', signal: -1 | 1, movementSpriteBase: string) => {
     const tick = 32 / 16
 
-    const spr = [movementSpriteBase + 1, movementSpriteBase + 2]
+    const spr = [`${movementSpriteBase}_walking1`, `${movementSpriteBase}_walking2`]
     let sprI = 0
 
     this.walking = true
@@ -107,7 +107,7 @@ export class Player {
         return
       }
 
-      this.sprite = movementSpriteBase
+      this.sprite = `${movementSpriteBase}_standing`
       this.walking = false
       this.tile[property] += signal * 1
     }

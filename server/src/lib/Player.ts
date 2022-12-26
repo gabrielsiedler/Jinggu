@@ -8,7 +8,7 @@ export enum Direction {
 }
 
 // const possibleSkins = [3398, 3410, 3422, 3434, 3446, 3458, 3470, 3482, 3494]
-const possibleSkins = [1, 20]
+const possibleSkins = ['creature_man1', 'creature_woman1']
 const possibleNames = ['Allan Dryst', 'Aurea Lee', 'Mephistophelian', 'Lady Florzinha', 'Pademo', 'Dark Chacal']
 
 export class Player {
@@ -16,7 +16,7 @@ export class Player {
   x: number
   y: number
   walking: boolean = false
-  spriteBase: number
+  spriteBase: string
   level: number
   speed: number
   health: number
