@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRecoilState } from 'recoil'
 
 import availableIds from '../../available-sprite-ids.json'
+import sprites from '../../sprites.json'
 import { pickerSelectedTileState } from '../../recoil/picker'
 import { Input } from '../input/Input'
 import * as s from './picker.s'
