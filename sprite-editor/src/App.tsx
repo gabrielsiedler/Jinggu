@@ -33,29 +33,27 @@ const App = () => {
     },
   }
 
-  const toPath = (id: number) => require(`./sprites/${id}.png`)
-
   return (
     <div className="App">
       {Object.values(spriteLib).map((ct: any) => {
         if (ct.spriteId)
           return (
-            <>
-              <img key={ct.id} src={toPath(ct.spriteId)} />
+            <div key={ct.id}>
+              <img src={`sprites/${ct.spriteId}.png`} />
               <br />
-            </>
+            </div>
           )
 
         return (
-          <>
+          <div key={ct.id}>
             {ct.sprites.map((spr: SpriteContent, idx: number) => (
-              <>
-                <img key={`${ct.id}-${idx}`} src={toPath(spr.spriteId)} />
+              <div key={spr.spriteId}>
+                <img src={`sprites/${spr.spriteId}.png`} />
                 {(idx - 1) % ct.size[0] === 0 && <br />}
-              </>
+              </div>
             ))}
             <br />
-          </>
+          </div>
         )
       })}
     </div>
