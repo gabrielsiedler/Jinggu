@@ -1,4 +1,12 @@
-import { TILES_HALF_Y, TILES_HALF_X, TILE_SIZE_SCALED, TILE_SIZE, CANVAS_HEIGHT, CANVAS_WIDTH } from '../constants'
+import {
+  TILES_HALF_Y,
+  TILES_HALF_X,
+  TILE_SIZE_SCALED,
+  TILE_SIZE,
+  CANVAS_HEIGHT,
+  CANVAS_WIDTH,
+  TILES_BUFFER,
+} from '../constants'
 import { core } from '../socket'
 
 const cropVirtualMap = () => {
@@ -16,8 +24,10 @@ const cropVirtualMap = () => {
 }
 
 export const drawMap = () => {
-  // const blankTile = new Tile(0, 0, [new Sprite(0, false, core.spriteLibrary[0])])
-
+  // const topBoundary = core.player.tile.y - TILES_HALF_Y - TILES_BUFFER
+  // const bottomBoundary = core.player.tile.y + TILES_HALF_Y + TILES_BUFFER
+  // const leftBoundary = core.player.tile.x - TILES_HALF_X - TILES_BUFFER
+  // const rightBoundary = core.player.tile.x + TILES_HALF_X + TILES_BUFFER
   const topBoundary = core.player.tile.y - TILES_HALF_Y
   const bottomBoundary = core.player.tile.y + TILES_HALF_Y
   const leftBoundary = core.player.tile.x - TILES_HALF_X
