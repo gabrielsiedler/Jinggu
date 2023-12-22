@@ -7,7 +7,7 @@ export enum Direction {
   Right = 'right',
 }
 
-const possibleSkins = ['creature_man1', 'creature_woman1', 'creature_rat', 'creature_bigrat']
+const possibleSkins = ['creature_man1', 'creature_woman1']
 const possibleNames = ['Allan Dryst', 'Aurea Lee', 'Mephistophelian', 'Lady Florzinha', 'Pademo', 'Dark Chacal']
 
 export class Player {
@@ -29,7 +29,8 @@ export class Player {
     this.level = 150
     this.speed = Math.max(800 - this.level * 5, 200)
     this.health = Math.floor(Math.random() * 100 + 1)
-    this.name = possibleNames[Math.floor(Math.random() * possibleNames.length)]
+    this.name = `Player ${Math.floor(Math.random() * (10000 - 1000) + 1000)}`
+    // this.name = possibleNames[Math.floor(Math.random() * possibleNames.length)]
   }
 
   move = (direction: Direction) => {

@@ -1,16 +1,14 @@
-export interface SpriteContent {
+export interface SpriteSingle {
+  id: number
   walkable: boolean
+  category: 'terrain' | 'terrain-overlay' | 'overlay' | 'object'
   spriteId: number
 }
 
-interface SpriteSingle extends SpriteContent {
-  id: number
-}
-
 interface SpriteGroup {
-  id: number
-  size: [number, number]
-  sprites: SpriteContent[]
+  groupId: number
+  category: string
+  sprites: SpriteSingle[][]
 }
 
 export type Sprite = SpriteSingle | SpriteGroup

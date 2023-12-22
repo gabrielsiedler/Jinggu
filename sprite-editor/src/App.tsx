@@ -1,41 +1,27 @@
 import React from 'react'
 import './App.css'
-import { SpriteContent, SpriteMap } from './types.i'
+import { Sprite, SpriteMap } from './types.i'
+import * as s from './index.s'
+
+const arrayRange = (start: number, stop: number, step = 1) =>
+  Array.from({ length: (stop - start) / step + 1 }, (value, index) => start + index * step)
+
+const rangeArray = arrayRange(0, 1956)
 
 const App = () => {
-  const spriteLib: SpriteMap = {
-    1: {
-      id: 1,
-      walkable: false,
-      spriteId: 40,
-    },
-    2: {
-      id: 2,
-      size: [2, 2],
-      sprites: [
-        {
-          walkable: true,
-          spriteId: 3139,
-        },
-        {
-          walkable: true,
-          spriteId: 3140,
-        },
-        {
-          walkable: true,
-          spriteId: 3141,
-        },
-        {
-          walkable: true,
-          spriteId: 3142,
-        },
-      ],
-    },
-  }
+  const spriteLib: SpriteMap = {}
 
   return (
-    <div className="App">
-      {Object.values(spriteLib).map((ct: any) => {
+    <s.App>
+      <s.Repository>
+        {}
+        {rangeArray.map((ct: any) => (
+          <s.RepositoryItem key={ct}>
+            <img src={`sprites/${ct}.png`} />
+          </s.RepositoryItem>
+        ))}
+      </s.Repository>
+      {/* {Object.values(spriteLib).map((ct: any) => {
         if (ct.spriteId)
           return (
             <div key={ct.id}>
@@ -46,8 +32,8 @@ const App = () => {
 
         return (
           <div key={ct.id}>
-            {ct.sprites.map((spr: SpriteContent, idx: number) => (
-              <div key={spr.spriteId}>
+            {ct.sprites.map((spr: Sprite, idx: number) => (
+              <div key={spr.id}>
                 <img src={`sprites/${spr.spriteId}.png`} />
                 {(idx - 1) % ct.size[0] === 0 && <br />}
               </div>
@@ -55,8 +41,8 @@ const App = () => {
             <br />
           </div>
         )
-      })}
-    </div>
+      })} */}
+    </s.App>
   )
 }
 
