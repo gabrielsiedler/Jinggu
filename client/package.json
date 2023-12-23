@@ -17,7 +17,6 @@
     "staticPath": "public"
   },
   "dependencies": {
-    "dotenv": "^16.0.0",
     "socket.io-client": "^4.2.0"
   }
 }

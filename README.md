@@ -46,9 +46,11 @@ This game boasts a vast universe of possibilities, with its expansion contingent
 
 ## <a name="setup"></a> Setup
 
-To run it locally, simply execute:
+To run it locally you will need to follow these steps:
 
-`npm start`
+- copy the file ` .env-sample`` on the client folder and rename it to  `.env`
+- at the root folder, execute `npm install`
+- run `npm start`
 
 Have fun!
 

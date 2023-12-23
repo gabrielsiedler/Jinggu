@@ -1,12 +1,9 @@
-import dotenv from 'dotenv'
 import { io } from 'socket.io-client'
 
 import { Core } from './Core'
 import { MessageQueue } from './MessageQueue'
 import { Direction } from './player/player.i'
 import { StatusMessage } from './StatusMessage'
-
-dotenv.config()
 
 const socket = io(process.env.SERVER_URL!)
 
