@@ -48,7 +48,7 @@ This game boasts a vast universe of possibilities, with its expansion contingent
 
 To run it locally you will need to follow these steps:
 
-- copy the file ` .env-sample`` on the client folder and rename it to  `.env`
+- duplicate the file `.env-sample` from the client folder and rename it to `.env`
 - at the root folder, execute `npm install`
 - run `npm start`
 
