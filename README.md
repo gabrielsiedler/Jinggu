@@ -34,7 +34,7 @@ This project encompasses four key services:
 
 ## <a name="features"></a> Features
 
-This game boasts a vast universe of possibilities, with its expansion contingent solely on the investment of time and effort. Already achieved milestones include:
+This game boasts a vast universe of possibilities, with its expansion contingent solely on the investment of time and effort. Already achieved high-level milestones include:
 
 - Dynamic map drawing, adjusting according to the player's relative position;
 - Fluid animated player movement;
