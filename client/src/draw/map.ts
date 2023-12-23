@@ -24,17 +24,13 @@ const cropVirtualMap = () => {
 }
 
 export const drawMap = () => {
-  // const topBoundary = core.player.tile.y - TILES_HALF_Y - TILES_BUFFER
-  // const bottomBoundary = core.player.tile.y + TILES_HALF_Y + TILES_BUFFER
-  // const leftBoundary = core.player.tile.x - TILES_HALF_X - TILES_BUFFER
-  // const rightBoundary = core.player.tile.x + TILES_HALF_X + TILES_BUFFER
   const topBoundary = core.player.tile.y - TILES_HALF_Y
   const bottomBoundary = core.player.tile.y + TILES_HALF_Y
   const leftBoundary = core.player.tile.x - TILES_HALF_X
   const rightBoundary = core.player.tile.x + TILES_HALF_X
 
-  for (let y = topBoundary, j = 0; y <= bottomBoundary; y += 1, j += 1) {
-    for (let x = leftBoundary, i = 0; x <= rightBoundary; x += 1, i += 1) {
+  for (let y = topBoundary - TILES_BUFFER, j = -TILES_BUFFER; y <= bottomBoundary + TILES_BUFFER; y += 1, j += 1) {
+    for (let x = leftBoundary - TILES_BUFFER, i = -TILES_BUFFER; x <= rightBoundary + TILES_BUFFER; x += 1, i += 1) {
       let currentTile
 
       if (y < 0 || x < 0 || y >= core.gameMap.tiles.length || x >= core.gameMap.tiles[y].length) {
