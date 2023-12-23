@@ -1,0 +1,32 @@
+{
+  "name": "jinggu",
+  "version": "1.0.0",
+  "description": "A simple, yet exciting, 2D multiplayer game bedrock made using only typescript, HTML canvas, socket.io, and some infinite loops",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "start:server": "cd server && npm run dev",
+    "start:client": "cd client && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielsiedler/Jinggu.git"
+  },
+  "keywords": [
+    "game",
+    "engine",
+    "tibia"
+  ],
+  "author": "Gabriel Siedler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrielsiedler/Jinggu/issues"
+  },
+  "homepage": "https://github.com/gabrielsiedler/Jinggu#readme",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

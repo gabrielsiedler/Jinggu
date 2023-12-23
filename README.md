@@ -57,10 +57,14 @@ This game boasts a vast universe of possibilities, with its expansion contingent
 
 ## <a name="setup"></a> Setup
 
-### Basic run
-
-For running it locally you only need
+To run it locally, simply execute:
 
 `npm start`
 
 Have fun!
+
+<div style="display: flex; justify-content: flex-end">
+
+<img src="docs/gohorse.png" style="max-width: 300px"/>
+
+</div>
