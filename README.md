@@ -16,9 +16,6 @@ _A simple, yet exciting, 2D multiplayer game bedrock made using only **typescrip
 
 ## <a name="overview"></a> Overview
 
-<div style="display: flex">
-<div style="flex: 1; padding-right: 20px;">
-
 This project encompasses four key services:
 
 - **Sprite Editor**, responsible for mapping images to entities and imparting meaning and responsibilities;
@@ -26,10 +23,8 @@ This project encompasses four key services:
 - **Server**, overseeing all interactions and supplying the client with vital information;
 - **Client**, consistently rendering the application's state and managing user inputs.
 
-</div>
-<div style="">
+<div align="center">
 <img src="docs/flow.png" width="300px" style="margin-bottom: 20px;" />
-</div>
 </div>
 
 ## <a name="features"></a> Features
@@ -41,19 +36,13 @@ This game boasts a vast universe of possibilities, with its expansion contingent
 - Real-time chat and interactive features;
 - Distinguishing walkable and non-walkable tiles.
 
-<div style="display: flex">
-
-<div style="flex: 1; padding-right: 20px;">
+<div align="center">
 <img src="docs/hi.gif" style="margin-bottom: 20px"/>
 </div>
 
-<div style="flex: 1;">
+<div align="center">
 <img src="docs/walking.gif" style="margin-bottom: 20px"/>
 </div>
-
-</div>
-
-<div style="margin-top: 40px" />
 
 ## <a name="setup"></a> Setup
 
@@ -63,7 +52,7 @@ To run it locally, simply execute:
 
 Have fun!
 
-<div style="display: flex; justify-content: flex-end">
+<div align="right">
 
 <img src="docs/gohorse.png" width="200px"/>
 
