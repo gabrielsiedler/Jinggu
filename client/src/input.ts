@@ -38,6 +38,12 @@ export const checkKeyPress = (e: KeyboardEvent) => {
     return
   }
 
+  // if (keysPressed.j) {
+  //   core.player.autoDance()
+
+  //   return
+  // }
+
   if (core.player.walking) return
 
   if (direction) emitMove(direction)

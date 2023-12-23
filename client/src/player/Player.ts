@@ -59,6 +59,14 @@ export class Player {
     }
   }
 
+  // temporary
+  autoDance = () => {
+    const directions = [Direction.Up, Direction.Down, Direction.Left, Direction.Right]
+    setInterval(() => {
+      emitDance(directions[Math.floor(Math.random() * directions.length)])
+    }, 400)
+  }
+
   dance = (direction: Direction) => {
     if (this.walking || this.dancing) return
 
