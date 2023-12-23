@@ -28,7 +28,7 @@ This project encompasses four key services:
 
 </div>
 <div style="">
-<img src="docs/flow.png" style="margin-bottom: 20px; max-width: 300px"/>
+<img src="docs/flow.png" width="300px" style="margin-bottom: 20px;" />
 </div>
 </div>
 
@@ -65,6 +65,6 @@ Have fun!
 
 <div style="display: flex; justify-content: flex-end">
 
-<img src="docs/gohorse.png" style="max-width: 300px"/>
+<img src="docs/gohorse.png" width="200px"/>
 
 </div>
