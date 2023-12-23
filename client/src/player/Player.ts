@@ -1,3 +1,4 @@
+import { emitDance } from '../socket'
 import { Point } from '../types.i'
 import { Direction, PlayerFromServer } from './player.i'
 
@@ -28,6 +29,7 @@ export class Player {
       x,
       y,
     }
+
     this.spriteBase = spriteBase
     this.sprite = `${spriteBase}_down_standing`
     this.level = level
@@ -62,16 +64,16 @@ export class Player {
 
     switch (direction) {
       case Direction.Up:
-        this.sprite = this.spriteBase + 3
+        this.sprite = `${this.spriteBase}_up_standing`
         break
       case Direction.Down:
-        this.sprite = this.spriteBase
+        this.sprite = `${this.spriteBase}_down_standing`
         break
       case Direction.Left:
-        this.sprite = this.spriteBase + 9
+        this.sprite = `${this.spriteBase}_left_standing`
         break
       case Direction.Right:
-        this.sprite = this.spriteBase + 6
+        this.sprite = `${this.spriteBase}_right_standing`
         break
     }
     this.dancing = true

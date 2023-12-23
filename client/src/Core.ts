@@ -82,6 +82,31 @@ export class Core {
     entity.move(d as Direction)
   }
 
+  danceEntity = (playerId: any, direction: any) => {
+    let entity: Player
+
+    if (this.player.id === playerId) entity = this.player
+    else entity = this.entities.find((e: any) => e.id === playerId)
+
+    let d
+    switch (direction) {
+      case 'up':
+        d = Direction.Up
+        break
+      case 'down':
+        d = Direction.Down
+        break
+      case 'left':
+        d = Direction.Left
+        break
+      case 'right':
+        d = Direction.Right
+        break
+    }
+
+    entity.dance(d as Direction)
+  }
+
   handleMessage = (playerId: any, message: string) => {
     let entity: Player
 

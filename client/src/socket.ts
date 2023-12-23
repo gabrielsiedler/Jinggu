@@ -42,6 +42,10 @@ socket.on('player-moved', (playerId: any, direction: any) => {
   core.moveEntity(playerId, direction)
 })
 
+socket.on('player-danced', (playerId: any, direction: any) => {
+  core.danceEntity(playerId, direction)
+})
+
 socket.on('status', (message: any) => {
   status.setMessage(message)
 })
@@ -49,6 +53,10 @@ socket.on('status', (message: any) => {
 socket.on('message', (playerId: any, message: string) => {
   core.handleMessage(playerId, message)
 })
+
+export const emitDance = (direction: Direction) => {
+  socket.emit('dance', direction)
+}
 
 export const emitMove = (direction: Direction) => {
   socket.emit('move', direction)

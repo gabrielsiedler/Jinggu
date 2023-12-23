@@ -1,5 +1,5 @@
 import { Direction } from './player/player.i'
-import { core, emitMessage, emitMove } from './socket'
+import { core, emitDance, emitMessage, emitMove } from './socket'
 
 const keysPressed: any = {}
 
@@ -32,8 +32,8 @@ export const checkKeyPress = (e: KeyboardEvent) => {
 
   const code = e.key
   const direction = arrayToDirect[code]
-  if (keysPressed.Control) {
-    core.player.dance(direction)
+  if (keysPressed.Control || keysPressed.Alt) {
+    emitDance(direction)
 
     return
   }

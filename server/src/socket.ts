@@ -13,6 +13,11 @@ const onPlayerMove = (socket: Socket, io: Server, direction: any) => {
     socket.emit('status', "You can't walk there.")
   }
 }
+const onPlayerDance = (socket: Socket, io: Server, direction: any) => {
+  const { player } = socket.data
+
+  io.emit('player-danced', player.id, direction)
+}
 
 const onMessage = (socket: Socket, io: Server, message: string) => {
   const { player } = socket.data
@@ -55,6 +60,7 @@ export const setupCommunication = (io: Server) => {
     sendInitialData(socket)
 
     socket.on('move', (direction: any) => onPlayerMove(socket, io, direction))
+    socket.on('dance', (direction: any) => onPlayerDance(socket, io, direction))
     socket.on('message', (message: string) => onMessage(socket, io, message))
     socket.on('disconnect', (reason) => onDisconection(reason, socket))
   })
