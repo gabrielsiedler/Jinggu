@@ -1,0 +1,485 @@
+[      89ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_down_standing.png:0
+[      89ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_down_walking1.png:0
+[      89ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_down_walking2.png:0
+[      90ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_down_walking3.png:0
+[      90ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_down_walking4.png:0
+[      90ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_down_walking5.png:0
+[      90ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_down_walking6.png:0
+[      90ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_down_walking7.png:0
+[      90ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_left_standing.png:0
+[      91ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_left_walking1.png:0
+[     113ms] Failed to fetch dynamically imported module: http://localhost:3000/public/sprites/creature_bigrat_down_standing.png
+[      94ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_left_walking2.png:0
+[      97ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_left_walking3.png:0
+[      98ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_left_walking4.png:0
+[     100ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_left_walking5.png:0
+[     101ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_left_walking6.png:0
+[     117ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_left_walking7.png:0
+[     122ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_left_walking8.png:0
+[     126ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_right_standing.png:0
+[     127ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_right_walking1.png:0
+[     133ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_right_walking2.png:0
+[     134ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_right_walking3.png:0
+[     138ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_right_walking5.png:0
+[     141ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_right_walking4.png:0
+[     141ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_right_walking6.png:0
+[     141ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_right_walking7.png:0
+[     141ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_right_walking8.png:0
+[     141ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_up_standing.png:0
+[     141ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_up_walking1.png:0
+[     142ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_up_walking2.png:0
+[     142ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_up_walking3.png:0
+[     143ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_up_walking4.png:0
+[     143ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_up_walking5.png:0
+[     143ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_up_walking6.png:0
+[     143ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_up_walking7.png:0
+[     143ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_bigrat_up_walking8.png:0
+[     143ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_man1_down_walking1.png:0
+[     143ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_man1_down_standing.png:0
+[     143ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_man1_down_walking2.png:0
+[     144ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_man1_left_standing.png:0
+[     144ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_man1_left_walking1.png:0
+[     144ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_man1_left_walking2.png:0
+[     144ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_man1_right_standing.png:0
+[     144ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_man1_right_walking1.png:0
+[     144ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_man1_right_walking2.png:0
+[     144ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_man1_up_standing.png:0
+[     144ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_man1_up_walking1.png:0
+[     144ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_man1_up_walking2.png:0
+[     144ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_down_standing.png:0
+[     145ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_down_walking1.png:0
+[     145ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_down_walking2.png:0
+[     145ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_down_walking3.png:0
+[     145ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_down_walking4.png:0
+[     145ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_down_walking5.png:0
+[     145ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_down_walking6.png:0
+[     145ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_down_walking7.png:0
+[     145ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_down_walking8.png:0
+[     145ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_left_standing.png:0
+[     145ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_left_walking1.png:0
+[     146ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_left_walking2.png:0
+[     146ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_left_walking3.png:0
+[     146ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_left_walking4.png:0
+[     146ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_left_walking5.png:0
+[     146ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_left_walking6.png:0
+[     146ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_left_walking7.png:0
+[     146ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_left_walking8.png:0
+[     146ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_right_standing.png:0
+[     146ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_right_walking1.png:0
+[     146ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_right_walking2.png:0
+[     147ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_right_walking3.png:0
+[     147ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_right_walking4.png:0
+[     147ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_right_walking5.png:0
+[     147ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_right_walking6.png:0
+[     147ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_right_walking7.png:0
+[     147ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_right_walking8.png:0
+[     147ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_up_standing.png:0
+[     147ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_up_walking1.png:0
+[     147ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_up_walking2.png:0
+[     147ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_up_walking3.png:0
+[     148ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_up_walking4.png:0
+[     148ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_up_walking5.png:0
+[     148ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_up_walking6.png:0
+[     148ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_up_walking7.png:0
+[     148ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_woman1_down_standing.png:0
+[     148ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_rat_up_walking8.png:0
+[     148ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_woman1_down_walking1.png:0
+[     149ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_woman1_down_walking2.png:0
+[     149ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_woman1_left_standing.png:0
+[     149ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_woman1_left_walking1.png:0
+[     149ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_woman1_left_walking2.png:0
+[     149ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_woman1_right_standing.png:0
+[     149ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_woman1_right_walking1.png:0
+[     149ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_woman1_right_walking2.png:0
+[     150ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_woman1_up_standing.png:0
+[     150ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_woman1_up_walking1.png:0
+[     150ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/creature_woman1_up_walking2.png:0
+[     150ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_bottomleft_var1.png:0
+[     150ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_bottomleft_var2.png:0
+[     150ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_bottomright_var1.png:0
+[     150ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_bottomright_var2.png:0
+[     151ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_down_var1.png:0
+[     151ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_down_var2.png:0
+[     151ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_innerbottomleft.png:0
+[     151ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_innerbottomright.png:0
+[     151ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_innertopleft.png:0
+[     151ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_innertopright.png:0
+[     151ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_left_var1.png:0
+[     151ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_left_var2.png:0
+[     151ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_right_var1.png:0
+[     152ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_right_var2.png:0
+[     152ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_topleft_var1.png:0
+[     152ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_topleft_var2.png:0
+[     152ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_topright_var1.png:0
+[     152ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_topright_var2.png:0
+[     152ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_up_var1.png:0
+[     152ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay_grassborder_up_var2.png:0
+[     152ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var1.png:0
+[     152ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var10.png:0
+[     152ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var11.png:0
+[     153ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var12.png:0
+[     153ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var13.png:0
+[     153ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var14.png:0
+[     153ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var15.png:0
+[     153ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var16.png:0
+[     153ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var17.png:0
+[     153ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var2.png:0
+[     153ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var3.png:0
+[     154ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var4.png:0
+[     154ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var5.png:0
+[     154ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var6.png:0
+[     154ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var7.png:0
+[     154ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var8.png:0
+[     154ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_grass_var9.png:0
+[     154ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var1.png:0
+[     155ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var10.png:0
+[     155ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var11.png:0
+[     155ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var12.png:0
+[     155ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var13.png:0
+[     155ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var14.png:0
+[     155ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var15.png:0
+[     155ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var16.png:0
+[     155ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var17.png:0
+[     156ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var18.png:0
+[     156ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var19.png:0
+[     156ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var2.png:0
+[     156ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var20.png:0
+[     156ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var21.png:0
+[     156ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var22.png:0
+[     156ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var23.png:0
+[     156ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var24.png:0
+[     157ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var25.png:0
+[     157ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var26.png:0
+[     157ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var27.png:0
+[     157ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var28.png:0
+[     157ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var29.png:0
+[     157ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var3.png:0
+[     157ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var30.png:0
+[     158ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var31.png:0
+[     158ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var32.png:0
+[     158ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var4.png:0
+[     158ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var5.png:0
+[     158ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var6.png:0
+[     158ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var8.png:0
+[     158ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var7.png:0
+[     159ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/terrain_water_var9.png:0
+[     159ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-bucket-slime.png:0
+[     159ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-stonepink-1.png:0
+[     159ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-stonepink-2.png:0
+[     159ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-stonesingle.png:0
+[     159ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-deaddragon-1.png:0
+[     159ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-deaddragon-2.png:0
+[     159ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-deaddragon-3.png:0
+[     159ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-deaddragon-4.png:0
+[     159ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-spikestone-1.png:0
+[     160ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-spikestone-2.png:0
+[     160ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-deadhuman-1.png:0
+[     160ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-bigrock-1.png:0
+[     160ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-bigrock-2.png:0
+[     160ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-bigrock-3.png:0
+[     160ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-bigrock-4.png:0
+[     161ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-bush-1.png:0
+[     161ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-coffin-1.png:0
+[     161ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-coffin-2.png:0
+[     162ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-chair.png:0
+[     162ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-stove-1.png:0
+[     162ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-stove-2.png:0
+[     162ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-knife.png:0
+[     162ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-spoon.png:0
+[     162ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-speeling-1.png:0
+[     162ms] [ERROR] Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html". Strict MIME type checking is enforced for module scripts per HTML spec. @ http://localhost:3000/public/sprites/overlay-speeling-2.png:0
+[   24842ms] Error: Failed to load sprite creature_bigrat_down_walking5
+    at sprite.onerror (http://localhost:3000/client.dd39722d.js:5324:27)
+[   35224ms] [WARNING] [parcel] 🚨 Connection to the HMR server was lost @ http://localhost:3000/client.dd39722d.js:356
+[   38248ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_bigrat_down_standing.png:0
+[   38250ms] Error: Failed to load sprite creature_bigrat_down_standing
+    at sprite.onerror (http://localhost:3000/client.dd39722d.js:5324:27)
+[   38250ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_bigrat_down_walking1.png:0
+[   38251ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_bigrat_down_walking2.png:0
+[   38252ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_bigrat_left_standing.png:0
+[   38252ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_bigrat_left_walking1.png:0
+[   38252ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_bigrat_left_walking2.png:0
+[   38253ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_bigrat_right_standing.png:0
+[   38254ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_bigrat_right_walking1.png:0
+[   38254ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_bigrat_right_walking2.png:0
+[   38255ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_bigrat_up_standing.png:0
+[   38256ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_bigrat_up_walking1.png:0
+[   38256ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_bigrat_up_walking2.png:0
+[   38257ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_man1_down_standing.png:0
+[   38258ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_man1_down_walking1.png:0
+[   38258ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_man1_down_walking2.png:0
+[   38258ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_man1_left_standing.png:0
+[   38258ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_man1_left_walking1.png:0
+[   38258ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_man1_left_walking2.png:0
+[   38259ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_man1_right_standing.png:0
+[   38259ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_man1_right_walking1.png:0
+[   38260ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_man1_right_walking2.png:0
+[   38260ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_man1_up_standing.png:0
+[   38260ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_man1_up_walking1.png:0
+[   38260ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_man1_up_walking2.png:0
+[   38260ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_rat_down_standing.png:0
+[   38261ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_rat_down_walking1.png:0
+[   38261ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_rat_down_walking2.png:0
+[   38267ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_rat_left_standing.png:0
+[   38268ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_rat_left_walking1.png:0
+[   38268ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_rat_left_walking2.png:0
+[   38278ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_rat_right_standing.png:0
+[   38278ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_rat_right_walking1.png:0
+[   38284ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_rat_right_walking2.png:0
+[   38288ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_rat_up_standing.png:0
+[   38288ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_rat_up_walking1.png:0
+[   38295ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_rat_up_walking2.png:0
+[   38302ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_woman1_down_standing.png:0
+[   38302ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_woman1_down_walking1.png:0
+[   38304ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_woman1_down_walking2.png:0
+[   38304ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_woman1_left_standing.png:0
+[   38308ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_woman1_left_walking1.png:0
+[   38308ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_woman1_left_walking2.png:0
+[   38309ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_woman1_right_standing.png:0
+[   38312ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_woman1_right_walking1.png:0
+[   38312ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_woman1_right_walking2.png:0
+[   38313ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_woman1_up_standing.png:0
+[   38316ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_woman1_up_walking1.png:0
+[   38317ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/creature_woman1_up_walking2.png:0
+[   38317ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_bottomleft_var1.png:0
+[   38321ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_bottomleft_var2.png:0
+[   38322ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_bottomright_var1.png:0
+[   38323ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_bottomright_var2.png:0
+[   38327ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_down_var1.png:0
+[   38332ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_down_var2.png:0
+[   38332ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_innerbottomleft.png:0
+[   38333ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_innerbottomright.png:0
+[   38333ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_innertopleft.png:0
+[   38336ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_innertopright.png:0
+[   38336ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_left_var1.png:0
+[   38341ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_left_var2.png:0
+[   38341ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_right_var1.png:0
+[   38342ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_right_var2.png:0
+[   38346ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_topleft_var1.png:0
+[   38346ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_topleft_var2.png:0
+[   38347ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_topright_var1.png:0
+[   38351ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_topright_var2.png:0
+[   38352ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_up_var1.png:0
+[   38352ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay_grassborder_up_var2.png:0
+[   38353ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var1.png:0
+[   38356ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var10.png:0
+[   38356ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var11.png:0
+[   38361ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var12.png:0
+[   38362ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var13.png:0
+[   38362ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var14.png:0
+[   38367ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var15.png:0
+[   38368ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var16.png:0
+[   38369ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var17.png:0
+[   38378ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var2.png:0
+[   38378ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var3.png:0
+[   38379ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var4.png:0
+[   38379ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var5.png:0
+[   38380ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var6.png:0
+[   38382ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var7.png:0
+[   38386ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var8.png:0
+[   38387ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_grass_var9.png:0
+[   38393ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var1.png:0
+[   38394ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var10.png:0
+[   38397ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var11.png:0
+[   38397ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var12.png:0
+[   38401ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var13.png:0
+[   38401ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var14.png:0
+[   38404ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var15.png:0
+[   38409ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var16.png:0
+[   38410ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var17.png:0
+[   38410ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var18.png:0
+[   38410ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var19.png:0
+[   38413ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var2.png:0
+[   38416ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var20.png:0
+[   38423ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var21.png:0
+[   38424ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var22.png:0
+[   38424ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var23.png:0
+[   38429ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var24.png:0
+[   38429ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var25.png:0
+[   38430ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var26.png:0
+[   38434ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var27.png:0
+[   38434ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var28.png:0
+[   38438ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var29.png:0
+[   38439ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var3.png:0
+[   38440ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var30.png:0
+[   38444ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var31.png:0
+[   38444ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var32.png:0
+[   38445ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var4.png:0
+[   38449ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var5.png:0
+[   38449ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var6.png:0
+[   38449ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var7.png:0
+[   38454ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var8.png:0
+[   38455ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/terrain_water_var9.png:0
+[   38456ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-bucket-slime.png:0
+[   38460ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-stonepink-1.png:0
+[   38460ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-stonepink-2.png:0
+[   38462ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-stonesingle.png:0
+[   38467ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-deaddragon-1.png:0
+[   38467ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-deaddragon-2.png:0
+[   38468ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-deaddragon-3.png:0
+[   38471ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-deaddragon-4.png:0
+[   38472ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-spikestone-1.png:0
+[   38472ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-spikestone-2.png:0
+[   38477ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-deadhuman-1.png:0
+[   38477ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-bigrock-1.png:0
+[   38478ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-bigrock-2.png:0
+[   38482ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-bigrock-3.png:0
+[   38482ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-bigrock-4.png:0
+[   38484ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-bush-1.png:0
+[   38488ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-coffin-1.png:0
+[   38488ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-coffin-2.png:0
+[   38489ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-chair.png:0
+[   38493ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-stove-1.png:0
+[   38494ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-stove-2.png:0
+[   38494ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-knife.png:0
+[   38496ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-spoon.png:0
+[   38497ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-speeling-1.png:0
+[   38499ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/sprites/overlay-speeling-2.png:0
+[   61182ms] Error: Failed to load sprite creature_bigrat_down_walking3
+    at sprite.onerror (http://localhost:3000/client.dd39722d.js:5324:27)
+[  104936ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  105476ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  105805ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  106184ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  106664ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  113300ms] Error: Failed to load sprite creature_bigrat_down_walking4
+    at sprite.onerror (http://localhost:3000/client.dd39722d.js:5324:27)
+[  114415ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  115164ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  115496ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  116535ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  116934ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  117304ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  119214ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  119575ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  119924ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  120285ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18
+[  120614ms] TypeError: Cannot read properties of undefined (reading 'id')
+    at Core.moveEntity (http://localhost:3000/client.dd39722d.js:4667:30)
+    at Socket.<anonymous> (http://localhost:3000/client.dd39722d.js:753:10)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at Socket.emitEvent (http://localhost:3000/client.dd39722d.js:3672:20)
+    at Socket.onevent (http://localhost:3000/client.dd39722d.js:3664:34)
+    at Socket.onpacket (http://localhost:3000/client.dd39722d.js:3638:22)
+    at Emitter.emit (http://localhost:3000/client.dd39722d.js:2446:74)
+    at http://localhost:3000/client.dd39722d.js:3077:18

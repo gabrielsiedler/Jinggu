@@ -42,12 +42,13 @@ export class Sprite {
   }
 }
 
-export const loadSprite = async (id: number) => {
-  const url = `./sprites/${id}.png`
-  const sprite = new Image()
-  sprite.src = url
-
-  return sprite
+export const loadSprite = (id: number | string): Promise<HTMLImageElement> => {
+  return new Promise((resolve) => {
+    const sprite = new Image()
+    sprite.onload = () => resolve(sprite)
+    sprite.onerror = () => resolve(sprite)
+    sprite.src = `/sprites/${id}.png`
+  })
 }
 
 export const loadSprites = async (spriteTiles: any) => {

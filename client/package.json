@@ -1,16 +1,17 @@
 {
   "name": "client",
   "version": "1.0.0",
-  "main": "src/index.js",
   "license": "MIT",
   "devDependencies": {
+    "@parcel/resolver-glob": "^2.16.4",
+    "@parcel/transformer-typescript-tsc": "^2.12.0",
     "@types/node": "^17.0.31",
-    "parcel-bundler": "^1.12.5",
-    "parcel-plugin-static-files-copy": "^2.6.0",
+    "parcel": "^2.12.0",
+    "parcel-reporter-static-files-copy": "^1.5.3",
     "typescript": "^4.4.2"
   },
   "scripts": {
-    "dev": "parcel -p 3000 watch index.html",
+    "dev": "parcel serve index.html --port 3000",
     "build": "parcel build index.html"
   },
   "staticFiles": {
