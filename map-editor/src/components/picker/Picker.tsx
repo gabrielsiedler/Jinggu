@@ -1,16 +1,16 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 
 import availableIds from '../../available-sprite-ids.json'
 import sprites from '../../sprites.json'
-import { pickerSelectedTileState } from '../../recoil/picker'
+import { pickerSelectedTileAtom } from '../../atoms/picker'
 import { Input } from '../input/Input'
 import * as s from './picker.s'
 
 export const Picker = () => {
-  const [selectedTile, selectTile] = useRecoilState(pickerSelectedTileState)
+  const [selectedTile, selectTile] = useAtom(pickerSelectedTileAtom)
 
   const [suggestions, setSuggestions]: any = useState(availableIds)
 

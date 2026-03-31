@@ -1,18 +1,18 @@
 import FileSaver from 'file-saver'
 import { useState } from 'react'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 import { SelectableGroup } from 'react-selectable-fast'
 
-import { mapState } from '../recoil/map'
+import { mapAtom } from '../atoms/map'
 import * as s from './app.s'
 import { Button } from './button/Button'
 import { Picker } from './picker/Picker'
 import { Tile } from './tile/Tile'
-import { pickerSelectedTileState } from '../recoil/picker'
+import { pickerSelectedTileAtom } from '../atoms/picker'
 
 const App = () => {
-  const [map, setMap] = useRecoilState(mapState)
-  const [selectedTile] = useRecoilState(pickerSelectedTileState)
+  const [map, setMap] = useAtom(mapAtom)
+  const [selectedTile] = useAtom(pickerSelectedTileAtom)
   const [selectedTiles, setSelectedTiles]: any = useState({})
 
   const onSave = () => {
