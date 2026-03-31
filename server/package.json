@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "http-proxy-middleware": "^2.0.6",
-    "socket.io": "^4.2.0"
+    "socket.io": "^4.8.0"
   },
   "devDependencies": {
     "tsx": "^4.19.0",
