@@ -5,11 +5,11 @@ import { MessageQueue } from './MessageQueue'
 import { Direction } from './player/player.i'
 import { StatusMessage } from './StatusMessage'
 
-if (!process.env.SERVER_URL) {
+if (!import.meta.env.SERVER_URL) {
   throw new Error('SERVER_URL environment variable is not defined. Create a .env file with SERVER_URL=<url>')
 }
 
-const socket = io(process.env.SERVER_URL)
+const socket = io(import.meta.env.SERVER_URL)
 
 export let core: Core
 export const status = new StatusMessage()
