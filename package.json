@@ -1,18 +1,20 @@
 {
   "name": "jinggu",
   "version": "1.0.0",
+  "private": true,
   "description": "A simple, yet exciting, 2D multiplayer game bedrock made using only typescript, HTML canvas, socket.io, and some infinite loops",
   "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "workspaces": [
+    "client",
+    "server",
+    "shared",
+    "map-editor",
+    "sprite-editor"
+  ],
   "scripts": {
     "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
-    "start:server": "cd server && npm run dev",
-    "start:client": "cd client && npm run dev",
-    "postinstall": "concurrently \"npm run install:server\" \"npm run install:client\"",
-    "install:server": "cd server && npm install",
-    "install:client": "cd client && npm install"
+    "start:server": "npm -w server run dev",
+    "start:client": "npm -w client run dev"
   },
   "repository": {
     "type": "git",

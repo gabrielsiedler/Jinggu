@@ -1,6 +1,7 @@
 {
-  "name": "client",
+  "name": "@jinggu/client",
   "version": "1.0.0",
+  "private": true,
   "license": "MIT",
   "devDependencies": {
     "@parcel/resolver-glob": "^2.16.4",
