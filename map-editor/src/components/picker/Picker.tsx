@@ -34,7 +34,7 @@ export const Picker = () => {
         <p>Search</p>
         <Input placeholder="tile id" onChange={onChangeSearch} />
         {suggestions.map((id: any) => (
-          <s.Suggestion onClick={() => selectTile(id)} selected={selectedTile === id}>
+          <s.Suggestion onClick={() => selectTile(id)} $selected={selectedTile === id}>
             <s.Sprite title={id} src={`sprites/${id}.png`} />
             <FontAwesomeIcon icon={faPlus} />
           </s.Suggestion>

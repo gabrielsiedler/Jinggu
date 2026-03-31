@@ -7,10 +7,10 @@ export const Picker = styled.div`
   flex-direction: column;
 `
 
-export const Suggestion = styled.div(
-  ({ selected }: { selected: boolean }) => `
+export const Suggestion = styled.div<{ $selected: boolean }>(
+  ({ $selected }: { $selected: boolean }) => `
   padding: 1px;
-  border: 2px solid ${selected ? 'red' : 'transparent'};
+  border: 2px solid ${$selected ? 'red' : 'transparent'};
 `,
 )
 
