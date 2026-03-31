@@ -1,11 +1,7 @@
+import { Direction } from '@jinggu/shared'
 import { map, VIEW_HEIGHT, VIEW_WIDTH } from '../core'
 
-export enum Direction {
-  Up = 'up',
-  Down = 'down',
-  Left = 'left',
-  Right = 'right',
-}
+export { Direction }
 
 const possibleSkins = ['creature_man1', 'creature_woman1']
 const possibleNames = ['Allan Dryst', 'Aurea Lee', 'Mephistophelian', 'Lady Florzinha', 'Pademo', 'Dark Chacal']

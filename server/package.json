@@ -8,6 +8,7 @@
     "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
+    "@jinggu/shared": "*",
     "socket.io": "^4.8.0"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 import spriteList from './data/sprites.json'
 import { Map } from './lib/Map'
 import { Memory } from './lib/Memory'
-import { Sprites } from './lib/sprite.i'
+import { Sprites } from '@jinggu/shared'
 
 export const VIEW_WIDTH = 42
 export const VIEW_HEIGHT = 24

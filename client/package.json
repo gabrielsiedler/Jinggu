@@ -19,6 +19,7 @@
     "staticPath": "public"
   },
   "dependencies": {
+    "@jinggu/shared": "*",
     "socket.io-client": "^4.8.0"
   }
 }
