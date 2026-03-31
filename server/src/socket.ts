@@ -1,8 +1,8 @@
 import { Server, Socket } from 'socket.io'
 
-import { map, memory } from './core'
-import sprites from './data/sprites.json'
-import { Player } from './lib/Player'
+import { map, memory } from './core.js'
+import sprites from './data/sprites.json' with { type: 'json' }
+import { Player } from './lib/Player.js'
 
 const onPlayerMove = (socket: Socket, io: Server, direction: any) => {
   const { player } = socket.data

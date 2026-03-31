@@ -1,4 +1,4 @@
-import { Sprite } from './sprite.i'
+import type { Sprite } from '@jinggu/shared'
 
 export class Tile {
   x: number

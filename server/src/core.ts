@@ -1,6 +1,6 @@
-import spriteList from './data/sprites.json'
-import { Map } from './lib/Map'
-import { Memory } from './lib/Memory'
+import spriteList from './data/sprites.json' with { type: 'json' }
+import { Map } from './lib/Map.js'
+import { Memory } from './lib/Memory.js'
 import { Sprites } from '@jinggu/shared'
 
 export const VIEW_WIDTH = 42

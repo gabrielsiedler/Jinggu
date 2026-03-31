@@ -1,6 +1,6 @@
 import { Server } from 'socket.io'
 
-import { setupCommunication } from './socket'
+import { setupCommunication } from './socket.js'
 
 const PORT = 3008
 

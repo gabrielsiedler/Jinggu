@@ -1,5 +1,5 @@
 import { Direction } from '@jinggu/shared'
-import { map, VIEW_HEIGHT, VIEW_WIDTH } from '../core'
+import { map, VIEW_HEIGHT, VIEW_WIDTH } from '../core.js'
 
 export { Direction }
 
@@ -32,7 +32,7 @@ export class Player {
   move = (direction: Direction) => {
     if (this.walking) return
 
-    let destinationTilePos: [number, number]
+    let destinationTilePos!: [number, number]
 
     switch (direction) {
       case Direction.Up:

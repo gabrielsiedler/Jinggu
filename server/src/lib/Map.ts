@@ -1,6 +1,6 @@
-import { sprites, VIEW_HEIGHT, VIEW_WIDTH } from '../core'
-import spriteMap from '../data/map.json'
-import { Tile } from './Tile'
+import { sprites, VIEW_HEIGHT, VIEW_WIDTH } from '../core.js'
+import spriteMap from '../data/map.json' with { type: 'json' }
+import { Tile } from './Tile.js'
 
 export class Map {
   tiles: Tile[][]
