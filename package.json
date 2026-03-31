@@ -30,6 +30,6 @@
   },
   "homepage": "https://github.com/gabrielsiedler/Jinggu#readme",
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^9.0.0"
   }
 }
