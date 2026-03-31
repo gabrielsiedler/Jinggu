@@ -26,8 +26,8 @@ const onMessage = (socket: Socket, io: Server, message: string) => {
 }
 
 const onConnection = (socket: Socket) => {
-  console.log(`* Connected:`, socket.conn.id)
-  const myself = new Player(socket.conn.id)
+  console.log(`* Connected:`, socket.id)
+  const myself = new Player(socket.id)
 
   socket.data.player = myself
   memory.connected(myself)
@@ -47,7 +47,7 @@ const sendInitialData = (socket: Socket) => {
 }
 
 const onDisconection = (reason: string, socket: Socket) => {
-  console.log(`* Disconnected: ${socket.conn.id} ${reason}`)
+  console.log(`* Disconnected: ${socket.id} ${reason}`)
 
   memory.disconnected(socket.data.player.id)
 
