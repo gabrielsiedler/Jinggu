@@ -1,9 +1,11 @@
+import { buildSpriteLookup, SpriteRegistryV2 } from '@jinggu/shared'
+
 export class Sprite {
-  id: number
+  id: string | number
   walkable: boolean
   image: any
 
-  constructor(id: number, walkable: boolean, image: any) {
+  constructor(id: string | number, walkable: boolean, image: any) {
     this.id = id
     this.walkable = walkable
     this.image = image
@@ -51,16 +53,18 @@ export const loadSprite = (id: number | string): Promise<HTMLImageElement> => {
   })
 }
 
-export const loadSprites = async (spriteTiles: any) => {
-  let sprites: Sprite[]
-
-  const spritesPromise = Object.values(spriteTiles).map(
-    async (spriteTile: any) => new Sprite(spriteTile.id, spriteTile.walkable ?? true, await loadSprite(spriteTile.id)),
-  )
-
-  sprites = await Promise.all(spritesPromise)
+export const loadSprites = async (spriteRegistry: SpriteRegistryV2) => {
+  const flatLookup = buildSpriteLookup(spriteRegistry)
 
   const spritesAsObject: any = {}
+
+  const entries = Object.values(flatLookup)
+  const spritePromises = entries.map(async (spriteTile: any) => {
+    const image = await loadSprite(spriteTile.id)
+    return new Sprite(spriteTile.id, spriteTile.walkable ?? true, image)
+  })
+
+  const sprites = await Promise.all(spritePromises)
 
   const blankTile = await loadSprite(0)
 

@@ -1,7 +1,6 @@
 import { Server, Socket } from 'socket.io'
 
-import { map, memory } from './core.js'
-import sprites from './data/sprites.json' with { type: 'json' }
+import { map, memory, registry } from './core.js'
 import { Player } from './lib/Player.js'
 
 const onPlayerMove = (socket: Socket, io: Server, direction: any) => {
@@ -41,7 +40,7 @@ const sendInitialData = (socket: Socket) => {
   socket.emit('initial-data', {
     player,
     map,
-    sprites,
+    sprites: registry,
     entities: memory.listOtherPlayers(player.id),
   })
 }

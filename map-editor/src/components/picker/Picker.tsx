@@ -3,14 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import { useAtom } from 'jotai'
 
-import availableIds from '../../available-sprite-ids.json'
-import sprites from '../../sprites.json'
-import { pickerSelectedTileAtom } from '../../atoms/picker'
+import { availableSpriteIdsAtom, pickerSelectedTileAtom } from '../../atoms/picker'
 import { Input } from '../input/Input'
 import * as s from './picker.s'
 
 export const Picker = () => {
   const [selectedTile, selectTile] = useAtom(pickerSelectedTileAtom)
+  const [availableIds] = useAtom(availableSpriteIdsAtom)
 
   const [suggestions, setSuggestions]: any = useState(availableIds)
 
