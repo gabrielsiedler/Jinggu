@@ -1,109 +1,66 @@
-import { useState } from 'react'
-import './App.css'
-import * as s from './index.s'
-import { SpriteRegistryV2 } from '@jinggu/shared'
-import spriteRegistry from '@jinggu/shared/data/sprites.json'
-
-const registry = spriteRegistry as unknown as SpriteRegistryV2
+import { useEffect, useState } from 'react'
+import { useSetAtom } from 'jotai'
+import { registryAtom } from './atoms/registry'
+import { allImageFilenamesAtom } from './atoms/images'
+import { loadRegistry, listImages } from './api/spriteApi'
+import StatusBar from './components/shared/StatusBar'
+import Sidebar from './components/sidebar/Sidebar'
+import EditorPanel from './components/editor/EditorPanel'
+import CreateSpriteDialog from './components/sidebar/CreateSpriteDialog'
+import ImagePicker from './components/picker/ImagePicker'
+import * as s from './App.s'
 
 const App = () => {
-  const [expandedEntry, setExpandedEntry] = useState<string | null>(null)
+  const setRegistry = useSetAtom(registryAtom)
+  const setAllImages = useSetAtom(allImageFilenamesAtom)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const toggleEntry = (key: string) => {
-    setExpandedEntry(expandedEntry === key ? null : key)
+  useEffect(() => {
+    const init = async () => {
+      try {
+        const [registry, images] = await Promise.all([loadRegistry(), listImages()])
+        setRegistry(registry)
+        setAllImages(images)
+        setLoading(false)
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Failed to load data'
+        console.error('[App] Initialization error:', message)
+        setError(message)
+        setLoading(false)
+      }
+    }
+    init()
+  }, [setRegistry, setAllImages])
+
+  if (loading) {
+    return <s.LoadingContainer>Loading sprite registry...</s.LoadingContainer>
+  }
+
+  if (error) {
+    return (
+      <s.ErrorContainer>
+        <div>Failed to load sprite editor</div>
+        <div>{error}</div>
+        <button onClick={() => window.location.reload()}>Retry</button>
+      </s.ErrorContainer>
+    )
   }
 
   return (
-    <s.App>
-      <s.Section>
-        <s.SectionTitle>Terrain</s.SectionTitle>
-        <s.Repository>
-          {Object.entries(registry.tiles.terrain).map(([key, def]) => (
-            <s.EntryGroup key={key} onClick={() => toggleEntry(`terrain-${key}`)}>
-              <s.EntryHeader>
-                <s.Sprite src={`sprites/${def.render.base}.png`} />
-                <s.EntryLabel>{key}</s.EntryLabel>
-                {def.render.variants && <s.VariantCount>{def.render.variants.length} variants</s.VariantCount>}
-              </s.EntryHeader>
-              {expandedEntry === `terrain-${key}` && def.render.variants && (
-                <s.VariantGrid>
-                  {def.render.variants.map((v) => (
-                    <s.RepositoryItem key={v} title={v}>
-                      <img src={`sprites/${v}.png`} />
-                    </s.RepositoryItem>
-                  ))}
-                </s.VariantGrid>
-              )}
-            </s.EntryGroup>
-          ))}
-        </s.Repository>
-      </s.Section>
-
-      <s.Section>
-        <s.SectionTitle>Terrain Overlays</s.SectionTitle>
-        <s.Repository>
-          {Object.entries(registry.tiles.terrainOverlays).map(([key, def]) => (
-            <s.EntryGroup key={key} onClick={() => toggleEntry(`overlay-${key}`)}>
-              <s.EntryHeader>
-                <s.Sprite src={`sprites/${def.render.base}.png`} />
-                <s.EntryLabel>{key}</s.EntryLabel>
-                {def.render.variants && <s.VariantCount>{def.render.variants.length} variants</s.VariantCount>}
-              </s.EntryHeader>
-              {expandedEntry === `overlay-${key}` && def.render.variants && (
-                <s.VariantGrid>
-                  {def.render.variants.map((v) => (
-                    <s.RepositoryItem key={v} title={v}>
-                      <img src={`sprites/${v}.png`} />
-                    </s.RepositoryItem>
-                  ))}
-                </s.VariantGrid>
-              )}
-            </s.EntryGroup>
-          ))}
-        </s.Repository>
-      </s.Section>
-
-      <s.Section>
-        <s.SectionTitle>Objects</s.SectionTitle>
-        <s.Repository>
-          {Object.entries(registry.tiles.objects).map(([key, def]) => (
-            <s.EntryGroup key={key}>
-              <s.EntryHeader>
-                <s.Sprite src={`sprites/${def.render.base}.png`} />
-                <s.EntryLabel>{key}</s.EntryLabel>
-              </s.EntryHeader>
-            </s.EntryGroup>
-          ))}
-        </s.Repository>
-      </s.Section>
-
-      <s.Section>
-        <s.SectionTitle>Entities</s.SectionTitle>
-        <s.Repository>
-          {Object.entries(registry.entities).map(([key, def]) => (
-            <s.EntryGroup key={key} onClick={() => toggleEntry(`entity-${key}`)}>
-              <s.EntryHeader>
-                <s.Sprite src={`sprites/${def.render.base}.png`} />
-                <s.EntryLabel>{key}</s.EntryLabel>
-              </s.EntryHeader>
-              {expandedEntry === `entity-${key}` && def.render.animations && (
-                <s.VariantGrid>
-                  {Object.entries(def.render.animations).map(([animName, directions]) =>
-                    Object.entries(directions).map(([dir, frames]) =>
-                      (frames as string[]).map((frame) => (
-                        <s.RepositoryItem key={frame} title={`${animName} ${dir}: ${frame}`}>
-                          <img src={`sprites/${frame}.png`} />
-                        </s.RepositoryItem>
-                      )),
-                    ),
-                  )}
-                </s.VariantGrid>
-              )}
-            </s.EntryGroup>
-          ))}
-        </s.Repository>
-      </s.Section>
-    </s.App>
+    <s.AppContainer>
+      <StatusBar />
+      <s.MainLayout>
+        <s.SidebarPanel>
+          <Sidebar />
+        </s.SidebarPanel>
+        <s.EditorArea>
+          <EditorPanel />
+        </s.EditorArea>
+      </s.MainLayout>
+      <CreateSpriteDialog />
+      <ImagePicker />
+    </s.AppContainer>
   )
 }
 

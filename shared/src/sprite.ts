@@ -17,6 +17,7 @@ export interface SpriteRender {
     idle: DirectionalFrames
     walk: DirectionalFrames
   }
+  grid?: { cols: number; rows: number }
 }
 
 export interface DirectionalFrames {
