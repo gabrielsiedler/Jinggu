@@ -38,6 +38,7 @@ export const CategorySection = styled.div`
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   overflow: hidden;
+  flex-shrink: 0;
 `
 
 export const CategoryHeader = styled.button`
@@ -81,6 +82,8 @@ export const Count = styled.span`
 export const SpriteListContainer = styled.div`
   display: flex;
   flex-direction: column;
+  max-height: 300px;
+  overflow-y: auto;
 `
 
 export const ItemRow = styled.button<{ $selected: boolean }>`
@@ -122,6 +125,30 @@ export const ThumbnailPlaceholder = styled.div`
   justify-content: center;
   font-size: 10px;
   color: #999;
+`
+
+export const GridThumbnail = styled.div<{ $cols: number }>`
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: repeat(${(p) => p.$cols}, 1fr);
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+`
+
+export const GridThumbnailCell = styled.img`
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  display: block;
+`
+
+export const GridThumbnailEmpty = styled.div`
+  width: 100%;
+  height: 100%;
+  background: #e8e8e8;
 `
 
 export const ItemName = styled.span`

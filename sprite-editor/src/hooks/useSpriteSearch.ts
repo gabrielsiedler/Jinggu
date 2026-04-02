@@ -30,12 +30,28 @@ export const useSpriteSearch = (): SpriteEntry[] => {
   return filterEntries(registry, debouncedQuery)
 }
 
+/** Collect keys of all sprites that have a grid defined */
+const getGridChildKeys = (defs: Record<string, SpriteDef>): Set<string> => {
+  const childKeys = new Set<string>()
+  for (const [key, def] of Object.entries(defs)) {
+    const grid = def.render.grid
+    if (grid) {
+      for (let i = 1; i <= grid.cols * grid.rows; i++) {
+        childKeys.add(`${key}-${i}`)
+      }
+    }
+  }
+  return childKeys
+}
+
 const filterEntries = (registry: SpriteRegistryV2, query: string): SpriteEntry[] => {
   const entries: SpriteEntry[] = []
   const lowerQuery = query.toLowerCase()
 
   const addCategory = (category: SpriteCategory, defs: Record<string, SpriteDef>) => {
+    const childKeys = getGridChildKeys(defs)
     for (const [key, definition] of Object.entries(defs)) {
+      if (childKeys.has(key)) continue
       if (!query || key.toLowerCase().includes(lowerQuery)) {
         entries.push({ category, key, definition })
       }

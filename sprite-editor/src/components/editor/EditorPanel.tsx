@@ -37,11 +37,18 @@ const EditorPanel = () => {
 
     setRegistry((prev) => {
       const next = structuredClone(prev)
-      if (category === 'entities') {
-        delete next.entities[spriteKey]
-      } else {
-        delete next.tiles[category][spriteKey]
+      const collection = category === 'entities' ? next.entities : next.tiles[category]
+      const def = collection[spriteKey]
+
+      // Also delete related grid child entries (e.g., "spritename-1", "spritename-2")
+      if (def?.render?.grid) {
+        const { cols, rows } = def.render.grid
+        for (let i = 1; i <= cols * rows; i++) {
+          delete collection[`${spriteKey}-${i}`]
+        }
       }
+
+      delete collection[spriteKey]
       return next
     })
 
