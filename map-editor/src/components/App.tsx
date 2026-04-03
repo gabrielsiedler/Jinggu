@@ -8,13 +8,11 @@ import { mapModelAtom, mapDirtyAtom, saveStatusAtom } from '../atoms/map'
 import { selectedSpriteKeyAtom, selectedCategoryAtom } from '../atoms/picker'
 import { loadSprites, loadMap, saveMap } from '../api/mapApi'
 import { MapModel } from '../lib/MapModel'
-import type { MapTile as MapTileType } from '../lib/MapModel'
-import { MapTile } from './tile/Tile'
+import { useCanvasRenderer } from '../hooks/useCanvasRenderer'
 import { StatusBar } from './statusBar/StatusBar'
 import * as s from './app.s'
 
 const TILE_SIZE = 32
-const BUFFER = 2
 
 const App = () => {
   const [registry, setRegistry] = useAtom(registryAtom)
@@ -67,12 +65,13 @@ const App = () => {
     cameraYRef.current = cameraY
   }, [cameraY])
 
-  const canvasRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
 
   // Measure container size with ResizeObserver
   useEffect(() => {
-    const el = canvasRef.current
+    const el = containerRef.current
     if (!el) return
     const observer = new ResizeObserver(([entry]) => {
       setContainerSize({
@@ -86,15 +85,16 @@ const App = () => {
 
   // Native wheel handler for cursor-centered zoom
   useEffect(() => {
-    const el = canvasRef.current
+    const el = containerRef.current
     if (!el) return
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault()
 
-      const delta = e.deltaY > 0 ? -25 : 25
       const currentZoom = zoomPercentRef.current
-      const newZoom = Math.max(50, Math.min(400, currentZoom + delta))
+      // Multiplicative zoom: ~5% per 100px of deltaY, smooth across all mice
+      const zoomFactor = Math.pow(1.0015, -e.deltaY)
+      const newZoom = Math.round(Math.max(50, Math.min(400, currentZoom * zoomFactor)))
       if (newZoom === currentZoom) return
 
       const rect = el.getBoundingClientRect()
@@ -109,14 +109,19 @@ const App = () => {
       const worldY = cursorScreenY / oldZoomF + cameraYRef.current
 
       // Adjust camera so the same world point stays under cursor
-      setCameraX(worldX - cursorScreenX / newZoomF)
-      setCameraY(worldY - cursorScreenY / newZoomF)
+      const newCamX = worldX - cursorScreenX / newZoomF
+      const newCamY = worldY - cursorScreenY / newZoomF
+      cameraXRef.current = newCamX
+      cameraYRef.current = newCamY
+      zoomPercentRef.current = newZoom
+      setCameraX(newCamX)
+      setCameraY(newCamY)
       setZoomPercent(newZoom)
     }
 
     el.addEventListener('wheel', handleWheel, { passive: false })
     return () => el.removeEventListener('wheel', handleWheel)
-  }, [loading]) // re-attach after loading completes and canvasRef is available
+  }, [loading]) // re-attach after loading completes and containerRef is available
 
   const handleResetZoom = useCallback(() => {
     setZoomPercent(100)
@@ -347,7 +352,7 @@ const App = () => {
 
       if (e.button === 0 && !isPanning) {
         // Left click: compute tile coordinates for click or drag-fill start
-        const rect = canvasRef.current?.getBoundingClientRect()
+        const rect = containerRef.current?.getBoundingClientRect()
         if (!rect) return
         const { worldX, worldY } = screenToWorld(e.clientX, e.clientY, rect)
         const { tileX, tileY } = worldToTile(worldX, worldY)
@@ -374,8 +379,8 @@ const App = () => {
       }
 
       // Update hovered tile from mouse position
-      if (canvasRef.current) {
-        const rect = canvasRef.current.getBoundingClientRect()
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect()
         const { worldX, worldY } = screenToWorld(e.clientX, e.clientY, rect)
         const { tileX, tileY } = worldToTile(worldX, worldY)
 
@@ -414,7 +419,7 @@ const App = () => {
           handleMouseUp()
         } else {
           // Single click -- compute tile and click
-          const rect = canvasRef.current?.getBoundingClientRect()
+          const rect = containerRef.current?.getBoundingClientRect()
           if (rect) {
             const { worldX, worldY } = screenToWorld(e.clientX, e.clientY, rect)
             const { tileX, tileY } = worldToTile(worldX, worldY)
@@ -427,34 +432,6 @@ const App = () => {
     },
     [isPanning, dragStart, dragEnd, cameraX, cameraY, handleMouseUp, handleTileClick, screenToWorld],
   )
-
-  // Compute visible tile range (accounting for zoom)
-  const zoom = zoomPercent / 100
-  const viewportWorldWidth = containerSize.width / zoom
-  const viewportWorldHeight = containerSize.height / zoom
-
-  const startCol = Math.floor(cameraX / TILE_SIZE) - BUFFER
-  const startRow = Math.floor(cameraY / TILE_SIZE) - BUFFER
-  const endCol = Math.floor(cameraX / TILE_SIZE) + Math.ceil(viewportWorldWidth / TILE_SIZE) + BUFFER
-  const endRow = Math.floor(cameraY / TILE_SIZE) + Math.ceil(viewportWorldHeight / TILE_SIZE) + BUFFER
-
-  // Build visible tiles array (memoized to avoid rebuilding on unrelated state changes)
-  const visibleTiles = useMemo(() => {
-    const tiles: Array<{ x: number; y: number; tile: MapTileType | undefined }> = []
-    for (let row = startRow; row <= endRow; row++) {
-      for (let col = startCol; col <= endCol; col++) {
-        tiles.push({
-          x: col,
-          y: row,
-          tile: mapModel.getTile(col, row),
-        })
-      }
-    }
-    return tiles
-  }, [startRow, startCol, endRow, endCol, mapModel])
-
-  // Stable noop for MapTile onClick
-  const noopClick = useCallback(() => {}, [])
 
   // Compute ghost overlay info for grid sprites (use Map for O(1) lookups)
   const ghostDef = getSelectedSpriteDef()
@@ -492,6 +469,32 @@ const App = () => {
     return set
   }, [ghostConflicts])
 
+  // Compute drag selection rectangle
+  const dragRect =
+    dragStart && dragEnd
+      ? {
+          minX: Math.min(dragStart.x, dragEnd.x),
+          maxX: Math.max(dragStart.x, dragEnd.x),
+          minY: Math.min(dragStart.y, dragEnd.y),
+          maxY: Math.max(dragStart.y, dragEnd.y),
+        }
+      : null
+
+  // Wire canvas rendering via hook
+  useCanvasRenderer({
+    canvasRef,
+    cameraX,
+    cameraY,
+    zoomPercent,
+    mapModel,
+    hoveredTile,
+    selectedTile,
+    dragRect,
+    ghostMap,
+    ghostOverlapSet,
+    containerSize,
+  })
+
   if (loading) {
     return <s.LoadingScreen>Loading sprites and map data...</s.LoadingScreen>
   }
@@ -515,17 +518,6 @@ const App = () => {
           : mapDirty
             ? 'Unsaved changes'
             : ''
-
-  // Compute drag selection rectangle
-  const dragRect =
-    dragStart && dragEnd
-      ? {
-          minX: Math.min(dragStart.x, dragEnd.x),
-          maxX: Math.max(dragStart.x, dragEnd.x),
-          minY: Math.min(dragStart.y, dragEnd.y),
-          maxY: Math.max(dragStart.y, dragEnd.y),
-        }
-      : null
 
   // Layer inspector for selected tile
   const selectedTileData = selectedTile ? mapModel.getTile(selectedTile.x, selectedTile.y) : undefined
@@ -584,7 +576,7 @@ const App = () => {
             })()}
         </s.Toolbar>
         <s.CanvasContainer
-          ref={canvasRef}
+          ref={containerRef}
           $isPanning={isPanning}
           $negativeZone={hoveredTile ? hoveredTile.x < 0 || hoveredTile.y < 0 : false}
           onContextMenu={(e) => e.preventDefault()}
@@ -601,88 +593,11 @@ const App = () => {
             if (dragStart) handleMouseUp()
           }}
         >
-          <s.InnerCanvas
-            style={{
-              transform: `scale(${zoomPercent / 100})`,
-            }}
-          >
-            {visibleTiles.map(({ x: col, y: row, tile }) => {
-              const key = `${col},${row}`
-              const ghostChild = ghostMap?.get(key)
-              const isOverlap = ghostOverlapSet?.has(key)
-
-              return (
-                <div
-                  key={key}
-                  style={{
-                    position: 'absolute',
-                    left: col * TILE_SIZE - cameraX,
-                    top: row * TILE_SIZE - cameraY,
-                    width: TILE_SIZE,
-                    height: TILE_SIZE,
-                  }}
-                >
-                  {tile ? (
-                    <MapTile
-                      tile={tile}
-                      x={col}
-                      y={row}
-                      onClick={noopClick}
-                      isSelected={selectedTile?.x === col && selectedTile?.y === row}
-                    />
-                  ) : (
-                    <s.EmptyTile />
-                  )}
-                  {ghostChild && ghostChild.resolvedId && (
-                    <img
-                      src={`/sprites/${ghostChild.resolvedId}.png`}
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        top: 0,
-                        width: TILE_SIZE,
-                        height: TILE_SIZE,
-                        pointerEvents: 'none',
-                        opacity: 0.5,
-                        imageRendering: 'pixelated',
-                      }}
-                      draggable={false}
-                    />
-                  )}
-                  {ghostChild && isOverlap && (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        top: 0,
-                        width: TILE_SIZE,
-                        height: TILE_SIZE,
-                        pointerEvents: 'none',
-                        border: '2px solid #ffaa00',
-                        boxSizing: 'border-box',
-                      }}
-                    />
-                  )}
-                </div>
-              )
-            })}
-            {dragRect && (
-              <div
-                style={{
-                  position: 'absolute',
-                  left: dragRect.minX * TILE_SIZE - cameraX,
-                  top: dragRect.minY * TILE_SIZE - cameraY,
-                  width: (dragRect.maxX - dragRect.minX + 1) * TILE_SIZE,
-                  height: (dragRect.maxY - dragRect.minY + 1) * TILE_SIZE,
-                  background: 'rgba(80, 120, 255, 0.2)',
-                  border: '2px solid rgba(80, 120, 255, 0.6)',
-                  pointerEvents: 'none',
-                }}
-              />
-            )}
-            <s.OriginLineVertical style={{ left: -cameraX }} />
-            <s.OriginLineHorizontal style={{ top: -cameraY }} />
-          </s.InnerCanvas>
+          <canvas
+            ref={canvasRef}
+            aria-label="Map editor canvas"
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+          />
         </s.CanvasContainer>
         <StatusBar hoveredTile={hoveredTile} zoomPercent={zoomPercent} onResetZoom={handleResetZoom} />
       </s.Main>

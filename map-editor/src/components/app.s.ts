@@ -67,41 +67,6 @@ export const CanvasContainer = styled.div<{ $negativeZone?: boolean; $isPanning?
   cursor: ${(p) => (p.$isPanning ? 'grabbing' : p.$negativeZone ? 'not-allowed' : 'default')};
 `
 
-export const EmptyTile = styled.div`
-  width: 100%;
-  height: 100%;
-  background: transparent;
-`
-
-export const InnerCanvas = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-origin: 0 0;
-  will-change: transform;
-  image-rendering: pixelated;
-`
-
-export const OriginLineVertical = styled.div`
-  position: absolute;
-  top: -50000px;
-  height: 100000px;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.3);
-  pointer-events: none;
-  z-index: 5;
-`
-
-export const OriginLineHorizontal = styled.div`
-  position: absolute;
-  left: -50000px;
-  width: 100000px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.3);
-  pointer-events: none;
-  z-index: 5;
-`
-
 export const LoadingScreen = styled.div`
   display: flex;
   flex-direction: column;
