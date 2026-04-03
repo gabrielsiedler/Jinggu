@@ -1,15 +1,19 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useAtom } from 'jotai'
 import { SpritePicker } from '@jinggu/sprite-picker'
-import type { SpriteCategory, SpriteRegistryV2 } from '@jinggu/shared'
+import type { SpriteCategory } from '@jinggu/shared'
 
 import { registryAtom } from '../atoms/registry'
 import { mapModelAtom, mapDirtyAtom, saveStatusAtom } from '../atoms/map'
 import { selectedSpriteKeyAtom, selectedCategoryAtom } from '../atoms/picker'
 import { loadSprites, loadMap, saveMap } from '../api/mapApi'
 import { MapModel } from '../lib/MapModel'
+import type { MapTile as MapTileType } from '../lib/MapModel'
 import { MapTile } from './tile/Tile'
 import * as s from './app.s'
+
+const TILE_SIZE = 32
+const BUFFER = 2
 
 const App = () => {
   const [registry, setRegistry] = useAtom(registryAtom)
@@ -36,6 +40,29 @@ const App = () => {
   const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null)
   const [dragEnd, setDragEnd] = useState<{ x: number; y: number } | null>(null)
 
+  // Camera state
+  const [cameraX, setCameraX] = useState(0)
+  const [cameraY, setCameraY] = useState(0)
+  const [isPanning, setIsPanning] = useState(false)
+  const panAnchorRef = useRef<{ mouseX: number; mouseY: number; camX: number; camY: number } | null>(null)
+
+  const canvasRef = useRef<HTMLDivElement>(null)
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
+
+  // Measure container size with ResizeObserver
+  useEffect(() => {
+    const el = canvasRef.current
+    if (!el) return
+    const observer = new ResizeObserver(([entry]) => {
+      setContainerSize({
+        width: entry.contentRect.width,
+        height: entry.contentRect.height,
+      })
+    })
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [loading])
+
   const initialize = useCallback(async () => {
     setLoading(true)
     setError(null)
@@ -51,8 +78,8 @@ const App = () => {
         setMapModel(MapModel.fromMapData(mapData))
         console.log('[App] Map loaded from API')
       } else {
-        setMapModel(new MapModel(42, 24))
-        console.log('[App] Initialized empty 42x24 map')
+        setMapModel(new MapModel())
+        console.log('[App] Initialized empty map')
       }
     } catch (err) {
       console.error('[App] Init failed:', err)
@@ -97,6 +124,9 @@ const App = () => {
 
   const handleTileClick = useCallback(
     (x: number, y: number) => {
+      if (isPanning) return
+      if (x < 0 || y < 0) return
+
       if (!selectedKey || !selectedCategory) {
         // Pointer mode: select tile for inspection / deletion
         setSelectedTile((prev) => {
@@ -119,26 +149,7 @@ const App = () => {
       setMapModel(newModel)
       setMapDirty(true)
     },
-    [selectedKey, selectedCategory, registry, mapModel, setMapModel, setMapDirty, getSelectedSpriteDef],
-  )
-
-  const handleMouseDown = useCallback(
-    (x: number, y: number) => {
-      if (!selectedKey || !selectedCategory || isGridSprite()) return
-      setDragStart({ x, y })
-      setDragEnd({ x, y })
-    },
-    [selectedKey, selectedCategory, isGridSprite],
-  )
-
-  const handleMouseEnter = useCallback(
-    (x: number, y: number) => {
-      setHoveredTile({ x, y })
-      if (dragStart) {
-        setDragEnd({ x, y })
-      }
-    },
-    [dragStart],
+    [isPanning, selectedKey, selectedCategory, registry, mapModel, setMapModel, setMapDirty, getSelectedSpriteDef],
   )
 
   const handleMouseUp = useCallback(() => {
@@ -174,14 +185,18 @@ const App = () => {
     try {
       const data = mapModel.toMapData()
       await saveMap(data)
+      // Rebase editor to normalized coordinates
+      setMapModel(MapModel.fromMapData(data))
+      setCameraX(0)
+      setCameraY(0)
       setSaveStatus('success')
       setMapDirty(false)
       setTimeout(() => setSaveStatus('idle'), 2000)
     } catch (err) {
       setSaveStatus('error')
-      console.error('[App] Save failed:', err)
+      console.error('[App] Save failed:', err instanceof Error ? err.message : err)
     }
-  }, [mapModel, setSaveStatus, setMapDirty])
+  }, [mapModel, setSaveStatus, setMapDirty, setMapModel])
 
   const handleDeleteSelectedLayer = useCallback(() => {
     if (!selectedTile) return
@@ -192,7 +207,8 @@ const App = () => {
       setMapModel(newModel)
       setMapDirty(true)
       // After deletion, check if tile still has layers
-      const remainingLayers = newModel.tiles[selectedTile.y]?.[selectedTile.x]?.layers.length ?? 0
+      const updatedTile = newModel.getTile(selectedTile.x, selectedTile.y)
+      const remainingLayers = updatedTile?.layers.length ?? 0
       if (remainingLayers === 0) {
         setSelectedTile(null)
         setSelectedLayerIndex(null)
@@ -209,17 +225,140 @@ const App = () => {
     }
   }, [selectedTile, selectedLayerIndex, mapModel, setMapModel, setMapDirty])
 
-  // Keyboard handler for deletion
+  // Keyboard handler for deletion and panning
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.key === 'Delete' || e.key === 'Backspace') && selectedTile) {
         e.preventDefault()
         handleDeleteSelectedLayer()
+        return
+      }
+
+      const step = e.shiftKey ? TILE_SIZE * 10 : TILE_SIZE
+      switch (e.key) {
+        case 'ArrowUp':
+          setCameraY((v) => v - step)
+          e.preventDefault()
+          break
+        case 'ArrowDown':
+          setCameraY((v) => v + step)
+          e.preventDefault()
+          break
+        case 'ArrowLeft':
+          setCameraX((v) => v - step)
+          e.preventDefault()
+          break
+        case 'ArrowRight':
+          setCameraX((v) => v + step)
+          e.preventDefault()
+          break
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [selectedTile, handleDeleteSelectedLayer])
+
+  // Canvas panning handlers
+  const handleCanvasMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      if (e.button === 2) {
+        // Right click: start panning
+        setIsPanning(true)
+        panAnchorRef.current = { mouseX: e.clientX, mouseY: e.clientY, camX: cameraX, camY: cameraY }
+        e.preventDefault()
+        return
+      }
+
+      if (e.button === 0 && !isPanning) {
+        // Left click: compute tile coordinates for click or drag-fill start
+        const rect = canvasRef.current?.getBoundingClientRect()
+        if (!rect) return
+        const tileX = Math.floor((e.clientX - rect.left + cameraX) / TILE_SIZE)
+        const tileY = Math.floor((e.clientY - rect.top + cameraY) / TILE_SIZE)
+
+        // Handle drag-fill start for non-grid sprites
+        if (selectedKey && selectedCategory && !isGridSprite()) {
+          if (tileX < 0 || tileY < 0) return
+          setDragStart({ x: tileX, y: tileY })
+          setDragEnd({ x: tileX, y: tileY })
+        }
+      }
+    },
+    [cameraX, cameraY, isPanning, selectedKey, selectedCategory, isGridSprite],
+  )
+
+  const handleCanvasMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (isPanning && panAnchorRef.current) {
+        const dx = e.clientX - panAnchorRef.current.mouseX
+        const dy = e.clientY - panAnchorRef.current.mouseY
+        setCameraX(panAnchorRef.current.camX - dx)
+        setCameraY(panAnchorRef.current.camY - dy)
+      }
+
+      // Update hovered tile from mouse position
+      if (canvasRef.current) {
+        const rect = canvasRef.current.getBoundingClientRect()
+        const worldX = e.clientX - rect.left + cameraX
+        const worldY = e.clientY - rect.top + cameraY
+        const tileX = Math.floor(worldX / TILE_SIZE)
+        const tileY = Math.floor(worldY / TILE_SIZE)
+        setHoveredTile({ x: tileX, y: tileY })
+
+        // Update drag end if dragging (clamp to non-negative)
+        if (dragStart && !isPanning) {
+          setDragEnd({ x: Math.max(0, tileX), y: Math.max(0, tileY) })
+        }
+      }
+    },
+    [isPanning, cameraX, cameraY, dragStart],
+  )
+
+  const handleCanvasMouseUp = useCallback(
+    (e: React.MouseEvent) => {
+      if (e.button === 2) {
+        setIsPanning(false)
+        panAnchorRef.current = null
+        return
+      }
+
+      if (e.button === 0 && !isPanning) {
+        // Left click release: if we had a drag, do fill; otherwise do tile click
+        if (dragStart && dragEnd && (dragStart.x !== dragEnd.x || dragStart.y !== dragEnd.y)) {
+          handleMouseUp()
+        } else {
+          // Single click -- compute tile and click
+          const rect = canvasRef.current?.getBoundingClientRect()
+          if (rect) {
+            const tileX = Math.floor((e.clientX - rect.left + cameraX) / TILE_SIZE)
+            const tileY = Math.floor((e.clientY - rect.top + cameraY) / TILE_SIZE)
+            handleTileClick(tileX, tileY)
+          }
+          setDragStart(null)
+          setDragEnd(null)
+        }
+      }
+    },
+    [isPanning, dragStart, dragEnd, cameraX, cameraY, handleMouseUp, handleTileClick],
+  )
+
+  // Compute visible tile range
+  const startCol = Math.floor(cameraX / TILE_SIZE) - BUFFER
+  const startRow = Math.floor(cameraY / TILE_SIZE) - BUFFER
+  const endCol = Math.floor(cameraX / TILE_SIZE) + Math.ceil(containerSize.width / TILE_SIZE) + BUFFER
+  const endRow = Math.floor(cameraY / TILE_SIZE) + Math.ceil(containerSize.height / TILE_SIZE) + BUFFER
+
+  // Build visible tiles array
+  const visibleTiles: Array<{ x: number; y: number; tile: MapTileType | undefined }> = []
+  for (let row = startRow; row <= endRow; row++) {
+    for (let col = startCol; col <= endCol; col++) {
+      visibleTiles.push({
+        x: col,
+        y: row,
+        tile: mapModel.getTile(col, row),
+      })
+    }
+  }
 
   if (loading) {
     return <s.LoadingScreen>Loading sprites and map data...</s.LoadingScreen>
@@ -290,6 +429,9 @@ const App = () => {
       ? mapModel.checkGridConflicts(hoveredTile.x, hoveredTile.y, ghostGrid.cols, ghostGrid.rows)
       : null
 
+  // Layer inspector for selected tile
+  const selectedTileData = selectedTile ? mapModel.getTile(selectedTile.x, selectedTile.y) : undefined
+
   return (
     <s.Container>
       <s.Sidebar>
@@ -311,105 +453,133 @@ const App = () => {
           <s.PointerButton $active={!selectedKey && !selectedCategory} onClick={handlePointerMode}>
             Pointer
           </s.PointerButton>
-          {selectedTile && !selectedKey && (() => {
-            const tile = mapModel.tiles[selectedTile.y]?.[selectedTile.x]
-            if (!tile || tile.layers.length === 0) return <s.LayerInspector>Empty tile</s.LayerInspector>
-            return (
-              <s.LayerInspector>
-                Tile ({selectedTile.x}, {selectedTile.y}):
-                {tile.layers.map((layer, i) => (
-                  <s.LayerChip
-                    key={i}
-                    $selected={selectedLayerIndex === i}
-                    onClick={() => setSelectedLayerIndex((prev) => (prev === i ? null : i))}
-                    title={`${layer.spriteKey} (${layer.category})`}
-                  >
-                    <s.LayerChipImage src={`/sprites/${layer.resolvedId}.png`} draggable={false} />
-                    <s.LayerChipLabel>{layer.spriteKey}</s.LayerChipLabel>
-                  </s.LayerChip>
-                ))}
-                {selectedLayerIndex !== null && (
-                  <s.DeleteLayerButton onClick={handleDeleteSelectedLayer}>Delete</s.DeleteLayerButton>
-                )}
-              </s.LayerInspector>
-            )
-          })()}
+          <s.TileCount>
+            {mapModel.tiles.size.toLocaleString()} tiles
+            {mapModel.tiles.size > 8000 && (
+              <s.TileCountWarning> (large map -- may affect performance)</s.TileCountWarning>
+            )}
+          </s.TileCount>
+          {selectedTile &&
+            !selectedKey &&
+            (() => {
+              if (!selectedTileData || selectedTileData.layers.length === 0)
+                return <s.LayerInspector>Empty tile</s.LayerInspector>
+              return (
+                <s.LayerInspector>
+                  Tile ({selectedTile.x}, {selectedTile.y}):
+                  {selectedTileData.layers.map((layer, i) => (
+                    <s.LayerChip
+                      key={i}
+                      $selected={selectedLayerIndex === i}
+                      onClick={() => setSelectedLayerIndex((prev) => (prev === i ? null : i))}
+                      title={`${layer.spriteKey} (${layer.category})`}
+                    >
+                      <s.LayerChipImage src={`/sprites/${layer.resolvedId}.png`} draggable={false} />
+                      <s.LayerChipLabel>{layer.spriteKey}</s.LayerChipLabel>
+                    </s.LayerChip>
+                  ))}
+                  {selectedLayerIndex !== null && (
+                    <s.DeleteLayerButton onClick={handleDeleteSelectedLayer}>Delete</s.DeleteLayerButton>
+                  )}
+                </s.LayerInspector>
+              )
+            })()}
         </s.Toolbar>
         <s.CanvasContainer
+          ref={canvasRef}
+          $negativeZone={hoveredTile ? hoveredTile.x < 0 || hoveredTile.y < 0 : false}
+          onContextMenu={(e) => e.preventDefault()}
+          onMouseDown={handleCanvasMouseDown}
+          onMouseMove={handleCanvasMouseMove}
+          onMouseUp={handleCanvasMouseUp}
           onMouseLeave={() => {
             setHoveredTile(null)
+            if (isPanning) {
+              setIsPanning(false)
+              panAnchorRef.current = null
+            }
             if (dragStart) handleMouseUp()
           }}
-          onMouseUp={handleMouseUp}
         >
-          <s.MapGrid>
-            {mapModel.tiles.map((row, y) => (
-              <s.MapRow key={y}>
-                {row.map((tile, x) => {
-                  // Check if this tile is part of a ghost overlay
-                  const ghostChild = ghostChildren?.find((c) => c.x === x && c.y === y)
-                  const isOverlap = ghostConflicts?.overlappingTiles.some((t) => t.x === x && t.y === y)
+          {visibleTiles.map(({ x: col, y: row, tile }) => {
+            const ghostChild = ghostChildren?.find((c) => c.x === col && c.y === row)
+            const isOverlap = ghostConflicts?.overlappingTiles.some((t) => t.x === col && t.y === row)
 
-                  return (
-                    <div key={x} style={{ position: 'relative', width: 32, height: 32, flexShrink: 0 }}>
-                      <MapTile
-                        tile={tile}
-                        x={x}
-                        y={y}
-                        onClick={handleTileClick}
-                        onMouseDown={handleMouseDown}
-                        onMouseEnter={handleMouseEnter}
-                        isSelected={selectedTile?.x === x && selectedTile?.y === y}
-                      />
-                      {ghostChild && ghostChild.resolvedId && (
-                        <img
-                          src={`/sprites/${ghostChild.resolvedId}.png`}
-                          style={{
-                            position: 'absolute',
-                            left: 0,
-                            top: 0,
-                            width: 32,
-                            height: 32,
-                            pointerEvents: 'none',
-                            opacity: 0.5,
-                            imageRendering: 'pixelated',
-                          }}
-                          draggable={false}
-                        />
-                      )}
-                      {ghostChild && isOverlap && (
-                        <div
-                          style={{
-                            position: 'absolute',
-                            left: 0,
-                            top: 0,
-                            width: 32,
-                            height: 32,
-                            pointerEvents: 'none',
-                            border: '2px solid #ffaa00',
-                            boxSizing: 'border-box',
-                          }}
-                        />
-                      )}
-                    </div>
-                  )
-                })}
-              </s.MapRow>
-            ))}
-          </s.MapGrid>
+            return (
+              <div
+                key={`${col},${row}`}
+                style={{
+                  position: 'absolute',
+                  left: col * TILE_SIZE - cameraX,
+                  top: row * TILE_SIZE - cameraY,
+                  width: TILE_SIZE,
+                  height: TILE_SIZE,
+                }}
+              >
+                {tile ? (
+                  <MapTile
+                    tile={tile}
+                    x={col}
+                    y={row}
+                    onClick={() => {}}
+                    isSelected={selectedTile?.x === col && selectedTile?.y === row}
+                  />
+                ) : (
+                  <s.EmptyTile />
+                )}
+                {ghostChild && ghostChild.resolvedId && (
+                  <img
+                    src={`/sprites/${ghostChild.resolvedId}.png`}
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      top: 0,
+                      width: TILE_SIZE,
+                      height: TILE_SIZE,
+                      pointerEvents: 'none',
+                      opacity: 0.5,
+                      imageRendering: 'pixelated',
+                    }}
+                    draggable={false}
+                  />
+                )}
+                {ghostChild && isOverlap && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      top: 0,
+                      width: TILE_SIZE,
+                      height: TILE_SIZE,
+                      pointerEvents: 'none',
+                      border: '2px solid #ffaa00',
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                )}
+              </div>
+            )
+          })}
           {dragRect && (
             <div
               style={{
                 position: 'absolute',
-                left: dragRect.minX * 32,
-                top: dragRect.minY * 32,
-                width: (dragRect.maxX - dragRect.minX + 1) * 32,
-                height: (dragRect.maxY - dragRect.minY + 1) * 32,
+                left: dragRect.minX * TILE_SIZE - cameraX,
+                top: dragRect.minY * TILE_SIZE - cameraY,
+                width: (dragRect.maxX - dragRect.minX + 1) * TILE_SIZE,
+                height: (dragRect.maxY - dragRect.minY + 1) * TILE_SIZE,
                 background: 'rgba(80, 120, 255, 0.2)',
                 border: '2px solid rgba(80, 120, 255, 0.6)',
                 pointerEvents: 'none',
               }}
             />
+          )}
+          <s.OriginLineVertical style={{ left: -cameraX }} />
+          <s.OriginLineHorizontal style={{ top: -cameraY }} />
+          {hoveredTile && (
+            <s.CoordinateHUD role="status" aria-live="polite" aria-label="Current tile coordinates" tabIndex={0}>
+              ({hoveredTile.x}, {hoveredTile.y})
+            </s.CoordinateHUD>
           )}
         </s.CanvasContainer>
       </s.Main>

@@ -42,13 +42,7 @@ export const SaveButton = styled.button<{ $status?: string }>`
   border-radius: 4px;
   cursor: pointer;
   background: ${(p) =>
-    p.$status === 'saving'
-      ? '#eee'
-      : p.$status === 'success'
-        ? '#d4edda'
-        : p.$status === 'error'
-          ? '#f8d7da'
-          : '#fff'};
+    p.$status === 'saving' ? '#eee' : p.$status === 'success' ? '#d4edda' : p.$status === 'error' ? '#f8d7da' : '#fff'};
 
   &:hover {
     background: #f0f0f0;
@@ -62,23 +56,61 @@ export const SaveButton = styled.button<{ $status?: string }>`
 
 export const StatusText = styled.span<{ $status?: string }>`
   font-size: 12px;
-  color: ${(p) =>
-    p.$status === 'success' ? '#28a745' : p.$status === 'error' ? '#dc3545' : '#888'};
+  color: ${(p) => (p.$status === 'success' ? '#28a745' : p.$status === 'error' ? '#dc3545' : '#888')};
 `
 
-export const CanvasContainer = styled.div`
+export const CanvasContainer = styled.div<{ $negativeZone?: boolean }>`
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
+  background-color: black;
+  cursor: ${(p) => (p.$negativeZone ? 'not-allowed' : 'default')};
 `
 
-export const MapGrid = styled.div`
-  display: inline-flex;
-  flex-direction: column;
+export const EmptyTile = styled.div`
+  width: 100%;
+  height: 100%;
+  background: transparent;
 `
 
-export const MapRow = styled.div`
-  display: flex;
+export const CoordinateHUD = styled.div`
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-family: monospace;
+  font-size: 13px;
+  border-radius: 4px;
+  pointer-events: auto;
+  z-index: 10;
+  user-select: none;
+
+  &:focus {
+    outline: 2px solid #4488ff;
+    outline-offset: 2px;
+  }
+`
+
+export const OriginLineVertical = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  z-index: 5;
+`
+
+export const OriginLineHorizontal = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  z-index: 5;
 `
 
 export const LoadingScreen = styled.div`
@@ -174,6 +206,17 @@ export const LayerChipLabel = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+`
+
+export const TileCount = styled.span`
+  font-size: 12px;
+  color: #888;
+  margin-left: auto;
+`
+
+export const TileCountWarning = styled.span`
+  color: #e67e22;
+  font-weight: 500;
 `
 
 export const DeleteLayerButton = styled.button`

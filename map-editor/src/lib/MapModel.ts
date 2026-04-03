@@ -34,6 +34,8 @@ export interface MapData {
   serverTiles: string[][][]
 }
 
+export type TileKey = `${number},${number}`
+
 export interface ConflictResult {
   outOfBounds: boolean
   overlappingTiles: Array<{ x: number; y: number }>
@@ -45,26 +47,22 @@ const getSpriteDef = (key: string, category: SpriteCategory, registry: SpriteReg
 }
 
 export class MapModel {
-  readonly width: number
-  readonly height: number
-  readonly tiles: MapGrid
+  readonly tiles: ReadonlyMap<TileKey, MapTile>
 
-  constructor(width: number, height: number, tiles?: MapGrid) {
-    this.width = width
-    this.height = height
-    this.tiles = tiles ?? MapModel.createEmptyGrid(width, height)
+  constructor(tiles?: Map<TileKey, MapTile>) {
+    this.tiles = tiles ?? new Map()
   }
 
-  private static createEmptyGrid(width: number, height: number): MapGrid {
-    const grid: MapGrid = []
-    for (let row = 0; row < height; row++) {
-      const rowArr: MapTile[] = []
-      for (let col = 0; col < width; col++) {
-        rowArr.push({ layers: [] })
-      }
-      grid.push(rowArr)
-    }
-    return grid
+  static key(x: number, y: number): TileKey {
+    return `${x},${y}`
+  }
+
+  getTile(x: number, y: number): MapTile | undefined {
+    return this.tiles.get(MapModel.key(x, y))
+  }
+
+  hasTile(x: number, y: number): boolean {
+    return this.tiles.has(MapModel.key(x, y))
   }
 
   /**
@@ -77,30 +75,35 @@ export class MapModel {
     category: SpriteCategory,
     registry: SpriteRegistryV2,
   ): MapModel {
-    if (x < 0 || x >= this.width || y < 0 || y >= this.height) return this
+    if (x < 0 || y < 0) return this
 
     const def = getSpriteDef(spriteKey, category, registry)
     if (!def) return this
 
     const resolvedId = selectVariant(def.render)
 
-    const newTiles = structuredClone(this.tiles)
+    const newTiles = new Map(this.tiles)
+    const key = MapModel.key(x, y)
+    const existing = newTiles.get(key)
+    const tile: MapTile = { layers: [...(existing?.layers ?? [])] }
+
     // Terrain is single-slot: replace any existing terrain layer
     if (category === 'terrain') {
-      newTiles[y][x].layers = newTiles[y][x].layers.filter((l) => l.category !== 'terrain')
+      tile.layers = tile.layers.filter((l) => l.category !== 'terrain')
     }
     const layer: TileLayer = {
       spriteKey,
       category,
       resolvedId,
     }
-    newTiles[y][x].layers.push(layer)
-    return new MapModel(this.width, this.height, newTiles)
+    tile.layers.push(layer)
+    newTiles.set(key, tile)
+    return new MapModel(newTiles)
   }
 
   /**
    * Place a grid sprite anchored at (x, y) -- top-left corner.
-   * OOB tiles are silently clipped.
+   * OOB tiles (negative coords) are silently clipped.
    */
   placeGrid(
     x: number,
@@ -120,13 +123,13 @@ export class MapModel {
 
     const { cols, rows } = grid
     const children = getGridChildren(spriteKey, cols, rows)
-    const newTiles = structuredClone(this.tiles)
+    const newTiles = new Map(this.tiles)
 
     for (const child of children) {
       const tileX = x + child.dx
       const tileY = y + child.dy
-      // Silently clip OOB tiles
-      if (tileX < 0 || tileX >= this.width || tileY < 0 || tileY >= this.height) continue
+      // Silently clip tiles with negative coords
+      if (tileX < 0 || tileY < 0) continue
 
       const childResolvedId = resolveChildImage(child.childKey, category, registry)
       const isAnchor = child.dx === 0 && child.dy === 0
@@ -139,10 +142,14 @@ export class MapModel {
         ...(isAnchor ? { parentKey: spriteKey } : { anchor: { x, y } }),
       }
 
-      newTiles[tileY][tileX].layers.push(layer)
+      const key = MapModel.key(tileX, tileY)
+      const existing = newTiles.get(key)
+      const tile: MapTile = { layers: [...(existing?.layers ?? [])] }
+      tile.layers.push(layer)
+      newTiles.set(key, tile)
     }
 
-    return new MapModel(this.width, this.height, newTiles)
+    return new MapModel(newTiles)
   }
 
   /**
@@ -150,12 +157,12 @@ export class MapModel {
    * remove the entire grid sprite from all tiles it occupies.
    */
   deleteTile(x: number, y: number): MapModel {
-    if (x < 0 || x >= this.width || y < 0 || y >= this.height) return this
+    if (x < 0 || y < 0) return this
 
-    const tile = this.tiles[y][x]
-    if (tile.layers.length === 0) return this
+    const tile = this.tiles.get(MapModel.key(x, y))
+    if (!tile || tile.layers.length === 0) return this
 
-    const newTiles = structuredClone(this.tiles)
+    const newTiles = new Map(this.tiles)
 
     // Collect all grid sprite anchors that need full removal
     const gridAnchorsToRemove: Array<{ anchorX: number; anchorY: number; cols: number; rows: number }> = []
@@ -191,24 +198,42 @@ export class MapModel {
         for (let dx = 0; dx < cols; dx++) {
           const tx = anchorX + dx
           const ty = anchorY + dy
-          if (tx < 0 || tx >= this.width || ty < 0 || ty >= this.height) continue
+          if (tx < 0 || ty < 0) continue
 
-          // Remove grid layers from this tile that belong to this grid sprite
-          newTiles[ty][tx].layers = newTiles[ty][tx].layers.filter((l) => {
+          const tKey = MapModel.key(tx, ty)
+          const tTile = newTiles.get(tKey)
+          if (!tTile) continue
+
+          const filteredLayers = tTile.layers.filter((l) => {
             if (!l.grid) return true
             // Check if this layer belongs to the grid anchored at (anchorX, anchorY)
             if (l.parentKey && tx === anchorX && ty === anchorY) return false
             if (l.anchor && l.anchor.x === anchorX && l.anchor.y === anchorY) return false
             return true
           })
+
+          if (filteredLayers.length === 0) {
+            newTiles.delete(tKey)
+          } else {
+            newTiles.set(tKey, { layers: filteredLayers })
+          }
         }
       }
     }
 
     // Remove all non-grid layers at the clicked tile
-    newTiles[y][x].layers = newTiles[y][x].layers.filter((l) => l.grid !== undefined)
+    const key = MapModel.key(x, y)
+    const currentTile = newTiles.get(key)
+    if (currentTile) {
+      const remainingLayers = currentTile.layers.filter((l) => l.grid !== undefined)
+      if (remainingLayers.length === 0) {
+        newTiles.delete(key)
+      } else {
+        newTiles.set(key, { layers: remainingLayers })
+      }
+    }
 
-    return new MapModel(this.width, this.height, newTiles)
+    return new MapModel(newTiles)
   }
 
   /**
@@ -216,13 +241,14 @@ export class MapModel {
    * If the layer is part of a grid sprite, the entire grid sprite is removed.
    */
   deleteLayer(x: number, y: number, layerIndex: number): MapModel {
-    if (x < 0 || x >= this.width || y < 0 || y >= this.height) return this
+    if (x < 0 || y < 0) return this
 
-    const tile = this.tiles[y][x]
+    const tile = this.tiles.get(MapModel.key(x, y))
+    if (!tile) return this
     if (layerIndex < 0 || layerIndex >= tile.layers.length) return this
 
     const layer = tile.layers[layerIndex]
-    const newTiles = structuredClone(this.tiles)
+    const newTiles = new Map(this.tiles)
 
     if (layer.grid) {
       // Grid sprite: find anchor and remove all tiles belonging to this grid
@@ -236,8 +262,15 @@ export class MapModel {
         anchorY = layer.anchor.y
       } else {
         // Fallback: just remove the single layer
-        newTiles[y][x].layers.splice(layerIndex, 1)
-        return new MapModel(this.width, this.height, newTiles)
+        const key = MapModel.key(x, y)
+        const newLayers = [...tile.layers]
+        newLayers.splice(layerIndex, 1)
+        if (newLayers.length === 0) {
+          newTiles.delete(key)
+        } else {
+          newTiles.set(key, { layers: newLayers })
+        }
+        return new MapModel(newTiles)
       }
 
       const { cols, rows } = layer.grid
@@ -245,53 +278,151 @@ export class MapModel {
         for (let dx = 0; dx < cols; dx++) {
           const tx = anchorX + dx
           const ty = anchorY + dy
-          if (tx < 0 || tx >= this.width || ty < 0 || ty >= this.height) continue
+          if (tx < 0 || ty < 0) continue
 
-          newTiles[ty][tx].layers = newTiles[ty][tx].layers.filter((l) => {
+          const tKey = MapModel.key(tx, ty)
+          const tTile = newTiles.get(tKey)
+          if (!tTile) continue
+
+          const filteredLayers = tTile.layers.filter((l) => {
             if (!l.grid) return true
             if (l.parentKey && tx === anchorX && ty === anchorY) return false
             if (l.anchor && l.anchor.x === anchorX && l.anchor.y === anchorY) return false
             return true
           })
+
+          if (filteredLayers.length === 0) {
+            newTiles.delete(tKey)
+          } else {
+            newTiles.set(tKey, { layers: filteredLayers })
+          }
         }
       }
     } else {
       // Simple layer: just remove by index
-      newTiles[y][x].layers.splice(layerIndex, 1)
+      const key = MapModel.key(x, y)
+      const newLayers = [...tile.layers]
+      newLayers.splice(layerIndex, 1)
+      if (newLayers.length === 0) {
+        newTiles.delete(key)
+      } else {
+        newTiles.set(key, { layers: newLayers })
+      }
     }
 
-    return new MapModel(this.width, this.height, newTiles)
+    return new MapModel(newTiles)
+  }
+
+  /**
+   * Compute the bounding rectangle of all occupied tiles.
+   * Returns null if no tiles exist.
+   */
+  getBounds(): { minX: number; minY: number; maxX: number; maxY: number } | null {
+    if (this.tiles.size === 0) return null
+
+    let minX = Infinity,
+      minY = Infinity,
+      maxX = -Infinity,
+      maxY = -Infinity
+
+    for (const key of this.tiles.keys()) {
+      const [x, y] = key.split(',').map(Number)
+      if (x < minX) minX = x
+      if (y < minY) minY = y
+      if (x > maxX) maxX = x
+      if (y > maxY) maxY = y
+    }
+
+    return { minX, minY, maxX, maxY }
   }
 
   /**
    * Export to dual-format MapData for persistence.
+   * Computes bounding rectangle and normalizes all coordinates so top-left becomes (0,0).
    */
   toMapData(): MapData {
+    const bounds = this.getBounds()
+    if (!bounds) {
+      throw new Error('Cannot save an empty map. Place at least one tile before saving.')
+    }
+
+    const { minX, minY, maxX, maxY } = bounds
+    const width = maxX - minX + 1
+    const height = maxY - minY + 1
+
+    const shouldTime = this.tiles.size > 1000
+    if (shouldTime) console.time('[MapModel] toMapData normalization')
+
+    console.log(`[MapModel] Normalization offset: dx=${minX}, dy=${minY}`)
+
+    const editorTiles: MapGrid = []
     const serverTiles: string[][][] = []
 
-    for (let row = 0; row < this.height; row++) {
+    for (let row = 0; row < height; row++) {
+      const editorRow: MapTile[] = []
       const serverRow: string[][] = []
-      for (let col = 0; col < this.width; col++) {
-        const tile = this.tiles[row][col]
-        serverRow.push(tile.layers.map((l) => l.resolvedId))
+
+      for (let col = 0; col < width; col++) {
+        const worldX = col + minX
+        const worldY = row + minY
+        const tile = this.tiles.get(MapModel.key(worldX, worldY))
+
+        if (tile) {
+          // Clone tile and normalize anchor references
+          const normalizedLayers = tile.layers.map((layer) => {
+            if (layer.anchor) {
+              return {
+                ...layer,
+                anchor: {
+                  x: layer.anchor.x - minX,
+                  y: layer.anchor.y - minY,
+                },
+              }
+            }
+            return { ...layer }
+          })
+          editorRow.push({ layers: normalizedLayers })
+          serverRow.push(normalizedLayers.map((l) => l.resolvedId))
+        } else {
+          editorRow.push({ layers: [] })
+          serverRow.push([])
+        }
       }
+
+      editorTiles.push(editorRow)
       serverTiles.push(serverRow)
     }
 
+    if (shouldTime) console.timeEnd('[MapModel] toMapData normalization')
+    console.log(`[MapModel] Saved: bounds (${minX},${minY})->(${maxX},${maxY}), normalized to ${width}x${height}`)
+
     return {
       version: 2,
-      width: this.width,
-      height: this.height,
-      editorTiles: this.tiles,
+      width,
+      height,
+      editorTiles,
       serverTiles,
     }
   }
 
   /**
-   * Reconstruct from loaded MapData.
+   * Reconstruct from loaded MapData into sparse model.
+   * Only stores tiles with layers.length > 0.
    */
   static fromMapData(data: MapData): MapModel {
-    return new MapModel(data.width, data.height, data.editorTiles)
+    const tiles = new Map<TileKey, MapTile>()
+
+    for (let row = 0; row < data.height; row++) {
+      for (let col = 0; col < data.width; col++) {
+        const tile = data.editorTiles[row][col]
+        if (tile && tile.layers.length > 0) {
+          tiles.set(MapModel.key(col, row), tile)
+        }
+      }
+    }
+
+    console.log(`[MapModel] Loaded map: ${data.width}x${data.height}, ${tiles.size} occupied tiles`)
+    return new MapModel(tiles)
   }
 
   /**
@@ -305,11 +436,12 @@ export class MapModel {
       for (let dx = 0; dx < cols; dx++) {
         const tx = x + dx
         const ty = y + dy
-        if (tx < 0 || tx >= this.width || ty < 0 || ty >= this.height) {
+        if (tx < 0 || ty < 0) {
           outOfBounds = true
           continue
         }
-        if (this.tiles[ty][tx].layers.length > 0) {
+        const tile = this.tiles.get(MapModel.key(tx, ty))
+        if (tile && tile.layers.length > 0) {
           overlappingTiles.push({ x: tx, y: ty })
         }
       }
