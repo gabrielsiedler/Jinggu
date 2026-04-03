@@ -59,12 +59,12 @@ export const StatusText = styled.span<{ $status?: string }>`
   color: ${(p) => (p.$status === 'success' ? '#28a745' : p.$status === 'error' ? '#dc3545' : '#888')};
 `
 
-export const CanvasContainer = styled.div<{ $negativeZone?: boolean }>`
+export const CanvasContainer = styled.div<{ $negativeZone?: boolean; $isPanning?: boolean }>`
   flex: 1;
   overflow: hidden;
   position: relative;
   background-color: black;
-  cursor: ${(p) => (p.$negativeZone ? 'not-allowed' : 'default')};
+  cursor: ${(p) => (p.$isPanning ? 'grabbing' : p.$negativeZone ? 'not-allowed' : 'default')};
 `
 
 export const EmptyTile = styled.div`
@@ -73,30 +73,19 @@ export const EmptyTile = styled.div`
   background: transparent;
 `
 
-export const CoordinateHUD = styled.div`
+export const InnerCanvas = styled.div`
   position: absolute;
-  bottom: 12px;
-  right: 12px;
-  padding: 4px 10px;
-  background: rgba(0, 0, 0, 0.75);
-  color: #fff;
-  font-family: monospace;
-  font-size: 13px;
-  border-radius: 4px;
-  pointer-events: auto;
-  z-index: 10;
-  user-select: none;
-
-  &:focus {
-    outline: 2px solid #4488ff;
-    outline-offset: 2px;
-  }
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+  image-rendering: pixelated;
 `
 
 export const OriginLineVertical = styled.div`
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: -50000px;
+  height: 100000px;
   width: 1px;
   background: rgba(255, 255, 255, 0.3);
   pointer-events: none;
@@ -105,8 +94,8 @@ export const OriginLineVertical = styled.div`
 
 export const OriginLineHorizontal = styled.div`
   position: absolute;
-  left: 0;
-  right: 0;
+  left: -50000px;
+  width: 100000px;
   height: 1px;
   background: rgba(255, 255, 255, 0.3);
   pointer-events: none;

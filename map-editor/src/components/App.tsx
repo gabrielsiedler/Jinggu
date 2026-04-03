@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useAtom } from 'jotai'
 import { SpritePicker } from '@jinggu/sprite-picker'
 import type { SpriteCategory } from '@jinggu/shared'
@@ -10,6 +10,7 @@ import { loadSprites, loadMap, saveMap } from '../api/mapApi'
 import { MapModel } from '../lib/MapModel'
 import type { MapTile as MapTileType } from '../lib/MapModel'
 import { MapTile } from './tile/Tile'
+import { StatusBar } from './statusBar/StatusBar'
 import * as s from './app.s'
 
 const TILE_SIZE = 32
@@ -27,8 +28,10 @@ const App = () => {
   const [error, setError] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
 
-  // Ghost overlay state
+  // Ghost overlay state — ref for immediate reads, state throttled for StatusBar
+  const hoveredTileRef = useRef<{ x: number; y: number } | null>(null)
   const [hoveredTile, setHoveredTile] = useState<{ x: number; y: number } | null>(null)
+  const hoveredRafRef = useRef<number | null>(null)
 
   // Selected tile for deletion / inspection
   const [selectedTile, setSelectedTile] = useState<{ x: number; y: number } | null>(null)
@@ -46,6 +49,24 @@ const App = () => {
   const [isPanning, setIsPanning] = useState(false)
   const panAnchorRef = useRef<{ mouseX: number; mouseY: number; camX: number; camY: number } | null>(null)
 
+  // Zoom state
+  const [zoomPercent, setZoomPercent] = useState(100)
+
+  // Refs for use in native event listeners (avoid stale closures)
+  const zoomPercentRef = useRef(zoomPercent)
+  const cameraXRef = useRef(cameraX)
+  const cameraYRef = useRef(cameraY)
+
+  useEffect(() => {
+    zoomPercentRef.current = zoomPercent
+  }, [zoomPercent])
+  useEffect(() => {
+    cameraXRef.current = cameraX
+  }, [cameraX])
+  useEffect(() => {
+    cameraYRef.current = cameraY
+  }, [cameraY])
+
   const canvasRef = useRef<HTMLDivElement>(null)
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
 
@@ -62,6 +83,44 @@ const App = () => {
     observer.observe(el)
     return () => observer.disconnect()
   }, [loading])
+
+  // Native wheel handler for cursor-centered zoom
+  useEffect(() => {
+    const el = canvasRef.current
+    if (!el) return
+
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault()
+
+      const delta = e.deltaY > 0 ? -25 : 25
+      const currentZoom = zoomPercentRef.current
+      const newZoom = Math.max(50, Math.min(400, currentZoom + delta))
+      if (newZoom === currentZoom) return
+
+      const rect = el.getBoundingClientRect()
+      const cursorScreenX = e.clientX - rect.left
+      const cursorScreenY = e.clientY - rect.top
+
+      const oldZoomF = currentZoom / 100
+      const newZoomF = newZoom / 100
+
+      // World point under cursor before zoom
+      const worldX = cursorScreenX / oldZoomF + cameraXRef.current
+      const worldY = cursorScreenY / oldZoomF + cameraYRef.current
+
+      // Adjust camera so the same world point stays under cursor
+      setCameraX(worldX - cursorScreenX / newZoomF)
+      setCameraY(worldY - cursorScreenY / newZoomF)
+      setZoomPercent(newZoom)
+    }
+
+    el.addEventListener('wheel', handleWheel, { passive: false })
+    return () => el.removeEventListener('wheel', handleWheel)
+  }, [loading]) // re-attach after loading completes and canvasRef is available
+
+  const handleResetZoom = useCallback(() => {
+    setZoomPercent(100)
+  }, [])
 
   const initialize = useCallback(async () => {
     setLoading(true)
@@ -225,6 +284,23 @@ const App = () => {
     }
   }, [selectedTile, selectedLayerIndex, mapModel, setMapModel, setMapDirty])
 
+  // Coordinate transform helpers
+  const screenToWorld = useCallback(
+    (screenX: number, screenY: number, rect: DOMRect) => {
+      const zoom = zoomPercent / 100
+      return {
+        worldX: (screenX - rect.left) / zoom + cameraX,
+        worldY: (screenY - rect.top) / zoom + cameraY,
+      }
+    },
+    [zoomPercent, cameraX, cameraY],
+  )
+
+  const worldToTile = (worldX: number, worldY: number) => ({
+    tileX: Math.floor(worldX / TILE_SIZE),
+    tileY: Math.floor(worldY / TILE_SIZE),
+  })
+
   // Keyboard handler for deletion and panning
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -261,8 +337,8 @@ const App = () => {
   // Canvas panning handlers
   const handleCanvasMouseDown = useCallback(
     (e: React.MouseEvent) => {
-      if (e.button === 2) {
-        // Right click: start panning
+      if (e.button === 1) {
+        // Middle click: start panning
         setIsPanning(true)
         panAnchorRef.current = { mouseX: e.clientX, mouseY: e.clientY, camX: cameraX, camY: cameraY }
         e.preventDefault()
@@ -273,8 +349,8 @@ const App = () => {
         // Left click: compute tile coordinates for click or drag-fill start
         const rect = canvasRef.current?.getBoundingClientRect()
         if (!rect) return
-        const tileX = Math.floor((e.clientX - rect.left + cameraX) / TILE_SIZE)
-        const tileY = Math.floor((e.clientY - rect.top + cameraY) / TILE_SIZE)
+        const { worldX, worldY } = screenToWorld(e.clientX, e.clientY, rect)
+        const { tileX, tileY } = worldToTile(worldX, worldY)
 
         // Handle drag-fill start for non-grid sprites
         if (selectedKey && selectedCategory && !isGridSprite()) {
@@ -284,7 +360,7 @@ const App = () => {
         }
       }
     },
-    [cameraX, cameraY, isPanning, selectedKey, selectedCategory, isGridSprite],
+    [cameraX, cameraY, isPanning, selectedKey, selectedCategory, isGridSprite, screenToWorld],
   )
 
   const handleCanvasMouseMove = useCallback(
@@ -292,18 +368,28 @@ const App = () => {
       if (isPanning && panAnchorRef.current) {
         const dx = e.clientX - panAnchorRef.current.mouseX
         const dy = e.clientY - panAnchorRef.current.mouseY
-        setCameraX(panAnchorRef.current.camX - dx)
-        setCameraY(panAnchorRef.current.camY - dy)
+        const zoom = zoomPercent / 100
+        setCameraX(panAnchorRef.current.camX - dx / zoom)
+        setCameraY(panAnchorRef.current.camY - dy / zoom)
       }
 
       // Update hovered tile from mouse position
       if (canvasRef.current) {
         const rect = canvasRef.current.getBoundingClientRect()
-        const worldX = e.clientX - rect.left + cameraX
-        const worldY = e.clientY - rect.top + cameraY
-        const tileX = Math.floor(worldX / TILE_SIZE)
-        const tileY = Math.floor(worldY / TILE_SIZE)
-        setHoveredTile({ x: tileX, y: tileY })
+        const { worldX, worldY } = screenToWorld(e.clientX, e.clientY, rect)
+        const { tileX, tileY } = worldToTile(worldX, worldY)
+
+        const prev = hoveredTileRef.current
+        if (!prev || prev.x !== tileX || prev.y !== tileY) {
+          hoveredTileRef.current = { x: tileX, y: tileY }
+          // Throttle state update to once per animation frame
+          if (hoveredRafRef.current === null) {
+            hoveredRafRef.current = requestAnimationFrame(() => {
+              setHoveredTile(hoveredTileRef.current)
+              hoveredRafRef.current = null
+            })
+          }
+        }
 
         // Update drag end if dragging (clamp to non-negative)
         if (dragStart && !isPanning) {
@@ -311,12 +397,12 @@ const App = () => {
         }
       }
     },
-    [isPanning, cameraX, cameraY, dragStart],
+    [isPanning, cameraX, cameraY, dragStart, zoomPercent, screenToWorld],
   )
 
   const handleCanvasMouseUp = useCallback(
     (e: React.MouseEvent) => {
-      if (e.button === 2) {
+      if (e.button === 1) {
         setIsPanning(false)
         panAnchorRef.current = null
         return
@@ -330,8 +416,8 @@ const App = () => {
           // Single click -- compute tile and click
           const rect = canvasRef.current?.getBoundingClientRect()
           if (rect) {
-            const tileX = Math.floor((e.clientX - rect.left + cameraX) / TILE_SIZE)
-            const tileY = Math.floor((e.clientY - rect.top + cameraY) / TILE_SIZE)
+            const { worldX, worldY } = screenToWorld(e.clientX, e.clientY, rect)
+            const { tileX, tileY } = worldToTile(worldX, worldY)
             handleTileClick(tileX, tileY)
           }
           setDragStart(null)
@@ -339,26 +425,72 @@ const App = () => {
         }
       }
     },
-    [isPanning, dragStart, dragEnd, cameraX, cameraY, handleMouseUp, handleTileClick],
+    [isPanning, dragStart, dragEnd, cameraX, cameraY, handleMouseUp, handleTileClick, screenToWorld],
   )
 
-  // Compute visible tile range
+  // Compute visible tile range (accounting for zoom)
+  const zoom = zoomPercent / 100
+  const viewportWorldWidth = containerSize.width / zoom
+  const viewportWorldHeight = containerSize.height / zoom
+
   const startCol = Math.floor(cameraX / TILE_SIZE) - BUFFER
   const startRow = Math.floor(cameraY / TILE_SIZE) - BUFFER
-  const endCol = Math.floor(cameraX / TILE_SIZE) + Math.ceil(containerSize.width / TILE_SIZE) + BUFFER
-  const endRow = Math.floor(cameraY / TILE_SIZE) + Math.ceil(containerSize.height / TILE_SIZE) + BUFFER
+  const endCol = Math.floor(cameraX / TILE_SIZE) + Math.ceil(viewportWorldWidth / TILE_SIZE) + BUFFER
+  const endRow = Math.floor(cameraY / TILE_SIZE) + Math.ceil(viewportWorldHeight / TILE_SIZE) + BUFFER
 
-  // Build visible tiles array
-  const visibleTiles: Array<{ x: number; y: number; tile: MapTileType | undefined }> = []
-  for (let row = startRow; row <= endRow; row++) {
-    for (let col = startCol; col <= endCol; col++) {
-      visibleTiles.push({
-        x: col,
-        y: row,
-        tile: mapModel.getTile(col, row),
-      })
+  // Build visible tiles array (memoized to avoid rebuilding on unrelated state changes)
+  const visibleTiles = useMemo(() => {
+    const tiles: Array<{ x: number; y: number; tile: MapTileType | undefined }> = []
+    for (let row = startRow; row <= endRow; row++) {
+      for (let col = startCol; col <= endCol; col++) {
+        tiles.push({
+          x: col,
+          y: row,
+          tile: mapModel.getTile(col, row),
+        })
+      }
     }
-  }
+    return tiles
+  }, [startRow, startCol, endRow, endCol, mapModel])
+
+  // Stable noop for MapTile onClick
+  const noopClick = useCallback(() => {}, [])
+
+  // Compute ghost overlay info for grid sprites (use Map for O(1) lookups)
+  const ghostDef = getSelectedSpriteDef()
+  const ghostGrid = ghostDef?.render.grid
+  const ghostMap = useMemo(() => {
+    if (!ghostGrid || !hoveredTile || !selectedKey) return null
+    const map = new Map<string, { childKey: string; resolvedId: string }>()
+    let index = 1
+    for (let dy = 0; dy < ghostGrid.rows; dy++) {
+      for (let dx = 0; dx < ghostGrid.cols; dx++) {
+        const childKey = `${selectedKey}-${index}`
+        const category = selectedCategory!
+        const collection = category === 'entities' ? registry.entities : registry.tiles[category]
+        const childDef = collection[childKey]
+        const resolvedId = childDef?.render.base || ''
+        map.set(`${hoveredTile.x + dx},${hoveredTile.y + dy}`, { childKey, resolvedId })
+        index++
+      }
+    }
+    return map
+  }, [ghostGrid, hoveredTile, selectedKey, selectedCategory, registry])
+
+  // Compute conflict info for ghost overlay
+  const ghostConflicts = useMemo(() => {
+    if (!ghostGrid || !hoveredTile) return null
+    return mapModel.checkGridConflicts(hoveredTile.x, hoveredTile.y, ghostGrid.cols, ghostGrid.rows)
+  }, [ghostGrid, hoveredTile, mapModel])
+
+  const ghostOverlapSet = useMemo(() => {
+    if (!ghostConflicts) return null
+    const set = new Set<string>()
+    for (const t of ghostConflicts.overlappingTiles) {
+      set.add(`${t.x},${t.y}`)
+    }
+    return set
+  }, [ghostConflicts])
 
   if (loading) {
     return <s.LoadingScreen>Loading sprites and map data...</s.LoadingScreen>
@@ -393,40 +525,6 @@ const App = () => {
           minY: Math.min(dragStart.y, dragEnd.y),
           maxY: Math.max(dragStart.y, dragEnd.y),
         }
-      : null
-
-  // Compute ghost overlay info for grid sprites
-  const ghostDef = getSelectedSpriteDef()
-  const ghostGrid = ghostDef?.render.grid
-  const ghostChildren =
-    ghostGrid && hoveredTile && selectedKey
-      ? (() => {
-          const children: Array<{ x: number; y: number; childKey: string; resolvedId: string }> = []
-          let index = 1
-          for (let dy = 0; dy < ghostGrid.rows; dy++) {
-            for (let dx = 0; dx < ghostGrid.cols; dx++) {
-              const childKey = `${selectedKey}-${index}`
-              const category = selectedCategory!
-              const collection = category === 'entities' ? registry.entities : registry.tiles[category]
-              const childDef = collection[childKey]
-              const resolvedId = childDef?.render.base || ''
-              children.push({
-                x: hoveredTile.x + dx,
-                y: hoveredTile.y + dy,
-                childKey,
-                resolvedId,
-              })
-              index++
-            }
-          }
-          return children
-        })()
-      : null
-
-  // Compute conflict info for ghost overlay
-  const ghostConflicts =
-    ghostGrid && hoveredTile
-      ? mapModel.checkGridConflicts(hoveredTile.x, hoveredTile.y, ghostGrid.cols, ghostGrid.rows)
       : null
 
   // Layer inspector for selected tile
@@ -487,12 +585,14 @@ const App = () => {
         </s.Toolbar>
         <s.CanvasContainer
           ref={canvasRef}
+          $isPanning={isPanning}
           $negativeZone={hoveredTile ? hoveredTile.x < 0 || hoveredTile.y < 0 : false}
           onContextMenu={(e) => e.preventDefault()}
           onMouseDown={handleCanvasMouseDown}
           onMouseMove={handleCanvasMouseMove}
           onMouseUp={handleCanvasMouseUp}
           onMouseLeave={() => {
+            hoveredTileRef.current = null
             setHoveredTile(null)
             if (isPanning) {
               setIsPanning(false)
@@ -501,87 +601,90 @@ const App = () => {
             if (dragStart) handleMouseUp()
           }}
         >
-          {visibleTiles.map(({ x: col, y: row, tile }) => {
-            const ghostChild = ghostChildren?.find((c) => c.x === col && c.y === row)
-            const isOverlap = ghostConflicts?.overlappingTiles.some((t) => t.x === col && t.y === row)
+          <s.InnerCanvas
+            style={{
+              transform: `scale(${zoomPercent / 100})`,
+            }}
+          >
+            {visibleTiles.map(({ x: col, y: row, tile }) => {
+              const key = `${col},${row}`
+              const ghostChild = ghostMap?.get(key)
+              const isOverlap = ghostOverlapSet?.has(key)
 
-            return (
+              return (
+                <div
+                  key={key}
+                  style={{
+                    position: 'absolute',
+                    left: col * TILE_SIZE - cameraX,
+                    top: row * TILE_SIZE - cameraY,
+                    width: TILE_SIZE,
+                    height: TILE_SIZE,
+                  }}
+                >
+                  {tile ? (
+                    <MapTile
+                      tile={tile}
+                      x={col}
+                      y={row}
+                      onClick={noopClick}
+                      isSelected={selectedTile?.x === col && selectedTile?.y === row}
+                    />
+                  ) : (
+                    <s.EmptyTile />
+                  )}
+                  {ghostChild && ghostChild.resolvedId && (
+                    <img
+                      src={`/sprites/${ghostChild.resolvedId}.png`}
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: 0,
+                        width: TILE_SIZE,
+                        height: TILE_SIZE,
+                        pointerEvents: 'none',
+                        opacity: 0.5,
+                        imageRendering: 'pixelated',
+                      }}
+                      draggable={false}
+                    />
+                  )}
+                  {ghostChild && isOverlap && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: 0,
+                        width: TILE_SIZE,
+                        height: TILE_SIZE,
+                        pointerEvents: 'none',
+                        border: '2px solid #ffaa00',
+                        boxSizing: 'border-box',
+                      }}
+                    />
+                  )}
+                </div>
+              )
+            })}
+            {dragRect && (
               <div
-                key={`${col},${row}`}
                 style={{
                   position: 'absolute',
-                  left: col * TILE_SIZE - cameraX,
-                  top: row * TILE_SIZE - cameraY,
-                  width: TILE_SIZE,
-                  height: TILE_SIZE,
+                  left: dragRect.minX * TILE_SIZE - cameraX,
+                  top: dragRect.minY * TILE_SIZE - cameraY,
+                  width: (dragRect.maxX - dragRect.minX + 1) * TILE_SIZE,
+                  height: (dragRect.maxY - dragRect.minY + 1) * TILE_SIZE,
+                  background: 'rgba(80, 120, 255, 0.2)',
+                  border: '2px solid rgba(80, 120, 255, 0.6)',
+                  pointerEvents: 'none',
                 }}
-              >
-                {tile ? (
-                  <MapTile
-                    tile={tile}
-                    x={col}
-                    y={row}
-                    onClick={() => {}}
-                    isSelected={selectedTile?.x === col && selectedTile?.y === row}
-                  />
-                ) : (
-                  <s.EmptyTile />
-                )}
-                {ghostChild && ghostChild.resolvedId && (
-                  <img
-                    src={`/sprites/${ghostChild.resolvedId}.png`}
-                    style={{
-                      position: 'absolute',
-                      left: 0,
-                      top: 0,
-                      width: TILE_SIZE,
-                      height: TILE_SIZE,
-                      pointerEvents: 'none',
-                      opacity: 0.5,
-                      imageRendering: 'pixelated',
-                    }}
-                    draggable={false}
-                  />
-                )}
-                {ghostChild && isOverlap && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      left: 0,
-                      top: 0,
-                      width: TILE_SIZE,
-                      height: TILE_SIZE,
-                      pointerEvents: 'none',
-                      border: '2px solid #ffaa00',
-                      boxSizing: 'border-box',
-                    }}
-                  />
-                )}
-              </div>
-            )
-          })}
-          {dragRect && (
-            <div
-              style={{
-                position: 'absolute',
-                left: dragRect.minX * TILE_SIZE - cameraX,
-                top: dragRect.minY * TILE_SIZE - cameraY,
-                width: (dragRect.maxX - dragRect.minX + 1) * TILE_SIZE,
-                height: (dragRect.maxY - dragRect.minY + 1) * TILE_SIZE,
-                background: 'rgba(80, 120, 255, 0.2)',
-                border: '2px solid rgba(80, 120, 255, 0.6)',
-                pointerEvents: 'none',
-              }}
-            />
-          )}
-          <s.OriginLineVertical style={{ left: -cameraX }} />
-          <s.OriginLineHorizontal style={{ top: -cameraY }} />
-          {hoveredTile && (
-            <s.CoordinateHUD role="status" aria-live="polite" aria-label="Current tile coordinates" tabIndex={0}>
-              ({hoveredTile.x}, {hoveredTile.y})
-            </s.CoordinateHUD>
-          )}
+              />
+            )}
+            <s.OriginLineVertical style={{ left: -cameraX }} />
+            <s.OriginLineHorizontal style={{ top: -cameraY }} />
+          </s.InnerCanvas>
         </s.CanvasContainer>
+        <StatusBar hoveredTile={hoveredTile} zoomPercent={zoomPercent} onResetZoom={handleResetZoom} />
       </s.Main>
     </s.Container>
   )
