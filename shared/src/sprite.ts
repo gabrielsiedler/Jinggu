@@ -66,6 +66,10 @@ export interface SpriteRegistryV2 {
  * Build a flat sprite lookup from the v2 registry.
  * Maps each individual sprite ID (e.g. "terrain_grass_var1") to { id, walkable }.
  */
+export type SpriteCategory = 'terrain' | 'terrainOverlays' | 'objects' | 'entities'
+
+export type SpriteDef = TerrainDefinition | TerrainOverlayDefinition | ObjectDefinition | EntityDefinition
+
 export const buildSpriteLookup = (registry: SpriteRegistryV2): Sprites => {
   const lookup: Sprites = {}
 

@@ -10,6 +10,8 @@ export type {
   TerrainOverlayDefinition,
   ObjectDefinition,
   EntityDefinition,
+  SpriteCategory,
+  SpriteDef,
 } from './sprite.js'
 export { buildSpriteLookup } from './sprite.js'
 export type { PlayerFromServer } from './player.js'

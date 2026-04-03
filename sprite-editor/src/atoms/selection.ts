@@ -1,10 +1,8 @@
 import { atom } from 'jotai'
-import type { TerrainDefinition, TerrainOverlayDefinition, ObjectDefinition, EntityDefinition } from '@jinggu/shared'
+import type { SpriteCategory, SpriteDef } from '@jinggu/shared'
 import { registryAtom } from './registry'
 
-export type SpriteCategory = 'terrain' | 'terrainOverlays' | 'objects' | 'entities'
-
-export type SpriteDef = TerrainDefinition | TerrainOverlayDefinition | ObjectDefinition | EntityDefinition
+export type { SpriteCategory, SpriteDef }
 
 export const selectedCategoryAtom = atom<SpriteCategory | null>(null)
 export const selectedSpriteKeyAtom = atom<string | null>(null)

@@ -1,33 +1,35 @@
 import { useCallback, useMemo, useState } from 'react'
-import { useAtomValue, useSetAtom } from 'jotai'
-import { registryAtom } from '../../atoms/registry'
-import { selectedCategoryAtom, selectedSpriteKeyAtom } from '../../atoms/selection'
-import type { SpriteCategory, SpriteDef } from '../../atoms/selection'
-import * as s from './sidebar.s'
+import type { SpriteCategory, SpriteDef, SpriteRegistryV2 } from '@jinggu/shared'
+import * as s from './picker.s'
 
 interface SpriteListItemProps {
   category: SpriteCategory
   spriteKey: string
   definition: SpriteDef
+  registry: SpriteRegistryV2
+  isSelected: boolean
+  onSelect: (category: SpriteCategory, key: string) => void
+  renderActions?: React.ReactNode
 }
 
-const SpriteListItem = ({ category, spriteKey, definition }: SpriteListItemProps) => {
-  const registry = useAtomValue(registryAtom)
-  const selectedKey = useAtomValue(selectedSpriteKeyAtom)
-  const selectedCategory = useAtomValue(selectedCategoryAtom)
-  const setSelectedKey = useSetAtom(selectedSpriteKeyAtom)
-  const setSelectedCategory = useSetAtom(selectedCategoryAtom)
+export const SpriteListItem = ({
+  category,
+  spriteKey,
+  definition,
+  registry,
+  isSelected,
+  onSelect,
+  renderActions,
+}: SpriteListItemProps) => {
   const [imgError, setImgError] = useState(false)
 
-  const isSelected = selectedCategory === category && selectedKey === spriteKey
   const grid = definition.render.grid
   const base = definition.render.base
   const variantCount = definition.render.variants?.length ?? 0
 
   const handleClick = useCallback(() => {
-    setSelectedCategory(category)
-    setSelectedKey(spriteKey)
-  }, [category, spriteKey, setSelectedCategory, setSelectedKey])
+    onSelect(category, spriteKey)
+  }, [category, spriteKey, onSelect])
 
   const handleImgError = useCallback(() => {
     setImgError(true)
@@ -74,8 +76,7 @@ const SpriteListItem = ({ category, spriteKey, definition }: SpriteListItemProps
       <s.ItemName title={spriteKey}>{spriteKey}</s.ItemName>
       {grid && <s.TypeIndicator>grid</s.TypeIndicator>}
       {variantCount > 0 && <s.Badge>{variantCount}v</s.Badge>}
+      {renderActions}
     </s.ItemRow>
   )
 }
-
-export default SpriteListItem

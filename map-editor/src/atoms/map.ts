@@ -1,5 +1,6 @@
 import { atom } from 'jotai'
+import { MapModel } from '../lib/MapModel'
 
-import map from '../map.json'
-
-export const mapAtom = atom(map)
+export const mapModelAtom = atom<MapModel>(new MapModel(42, 24))
+export const mapDirtyAtom = atom(false)
+export const saveStatusAtom = atom<'idle' | 'saving' | 'success' | 'error'>('idle')

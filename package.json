@@ -9,7 +9,8 @@
     "server",
     "shared",
     "map-editor",
-    "sprite-editor"
+    "sprite-editor",
+    "packages/*"
   ],
   "scripts": {
     "start": "concurrently \"npm run start:server\" \"npm run start:client\"",

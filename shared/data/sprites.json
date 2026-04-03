@@ -393,28 +393,28 @@
         "render": {
           "layer": "object",
           "orderMode": "mapOrder",
-          "base": "1441"
+          "base": "overlay-bigrock-1"
         }
       },
       "bigrock-2": {
         "render": {
           "layer": "object",
           "orderMode": "mapOrder",
-          "base": "1442"
+          "base": "overlay-bigrock-2"
         }
       },
       "bigrock-3": {
         "render": {
           "layer": "object",
           "orderMode": "mapOrder",
-          "base": "1443"
+          "base": "overlay-bigrock-3"
         }
       },
       "bigrock-4": {
         "render": {
           "layer": "object",
           "orderMode": "mapOrder",
-          "base": "1445"
+          "base": "overlay-bigrock-4"
         }
       },
       "stonepink": {

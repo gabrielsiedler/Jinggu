@@ -1,30 +1,32 @@
-import { createSelectable } from 'react-selectable-fast'
-
+import { memo } from 'react'
+import type { MapTile as MapTileType } from '../../lib/MapModel'
 import * as s from './tile.s'
 
 interface Props {
-  ids: number[]
-  i: number
-  j: number
+  tile: MapTileType
+  x: number
+  y: number
+  onClick: (x: number, y: number) => void
+  onMouseDown?: (x: number, y: number) => void
+  onMouseEnter?: (x: number, y: number) => void
+  isSelected?: boolean
 }
 
-const TileComponent = ({ ids, i, j, selectableRef, isSelecting, selectedVar }: Props & any) => {
-  if (selectedVar) console.log('selected', i, j)
-
-  let style: any = {}
-
-  if (isSelecting) {
-    style.opacity = 0.5
-  }
-
+export const MapTile = memo(({ tile, x, y, onClick, onMouseDown, onMouseEnter, isSelected }: Props) => {
   return (
-    <s.Tile ref={selectableRef} selected={selectedVar} draggable={false} style={style}>
-      {ids.map((id: number, i: number) => (
-        <s.Sprite draggable={false} key={`${i}-${j}-${id}`} src={`sprites/${id}.png`} />
+    <s.Tile
+      onClick={() => onClick(x, y)}
+      onMouseDown={(e) => {
+        if (e.button === 0 && onMouseDown) onMouseDown(x, y)
+      }}
+      onMouseEnter={() => onMouseEnter?.(x, y)}
+    >
+      {tile.layers.map((layer, i) => (
+        <s.Sprite key={i} src={`/sprites/${layer.resolvedId}.png`} draggable={false} />
       ))}
-      <s.Draggable draggable />
+      {isSelected && <s.SelectedOverlay />}
     </s.Tile>
   )
-}
+})
 
-export const Tile = createSelectable(TileComponent)
+MapTile.displayName = 'MapTile'
