@@ -72,9 +72,4 @@ export class Player {
     return true
   }
 
-  dance = (direction: Direction) => {
-    if (this.walking) return
-
-    // emit player dance
-  }
 }

@@ -1,5 +1,5 @@
 import { Direction } from './player/player.i'
-import { core, emitDance, emitMessage, emitMove } from './socket'
+import { core, emitMessage, emitMove } from './socket'
 
 const keysPressed: any = {}
 
@@ -36,17 +36,6 @@ export const checkKeyPress = (e: KeyboardEvent) => {
 
   const direction = arrayToDirect[e.key]
   if (direction) e.preventDefault()
-  if (e.ctrlKey || e.altKey) {
-    if (direction) emitDance(direction)
-
-    return
-  }
-
-  // if (keysPressed.j) {
-  //   core.player.autoDance()
-
-  //   return
-  // }
 
   if (core.player.walking) return
 
