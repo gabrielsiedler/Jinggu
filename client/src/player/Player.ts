@@ -36,6 +36,10 @@ export class Player {
     this.name = name
   }
 
+  face = (direction: Direction) => {
+    this.sprite = `${this.spriteBase}_${direction}_standing`
+  }
+
   move = (direction: Direction) => {
     switch (direction) {
       case Direction.Up:

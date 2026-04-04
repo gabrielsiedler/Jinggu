@@ -43,6 +43,10 @@ socket.on('player-moved', (playerId: any, direction: any) => {
   core.moveEntity(playerId, direction)
 })
 
+socket.on('player-faced', (playerId: any, direction: any) => {
+  core.faceEntity(playerId, direction)
+})
+
 socket.on('status', (message: any) => {
   status.setMessage(message)
 })

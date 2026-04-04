@@ -9,6 +9,7 @@ const onPlayerMove = (socket: Socket, io: Server, direction: any) => {
   if (player.move(direction)) {
     io.emit('player-moved', player.id, direction)
   } else {
+    io.emit('player-faced', player.id, direction)
     socket.emit('status', "You can't walk there.")
   }
 }
