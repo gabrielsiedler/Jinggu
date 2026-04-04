@@ -15,3 +15,4 @@ export type {
 } from './sprite.js'
 export { buildSpriteLookup } from './sprite.js'
 export type { PlayerFromServer } from './player.js'
+export type { MapData, EditorTile, EditorTileLayer } from './map.js'

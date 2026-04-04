@@ -13,3 +13,4 @@ dist
 
 .claude
 .playwright-mcp
+claude/tasks/

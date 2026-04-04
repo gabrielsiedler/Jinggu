@@ -1,5 +1,5 @@
 import { Direction } from '@jinggu/shared'
-import { map, VIEW_HEIGHT, VIEW_WIDTH } from '../core.js'
+import { map } from '../core.js'
 
 export { Direction }
 
@@ -53,8 +53,8 @@ export class Player {
       !destinationTilePos || //TODO: check why this is necessary
       destinationTilePos[0] < 0 ||
       destinationTilePos[1] < 0 ||
-      destinationTilePos[0] >= VIEW_WIDTH ||
-      destinationTilePos[1] >= VIEW_HEIGHT
+      destinationTilePos[0] >= map.width ||
+      destinationTilePos[1] >= map.height
     )
       return false
 
