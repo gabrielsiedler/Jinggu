@@ -35,8 +35,12 @@ export class Canvas {
 
   constructor() {
     this.canvas = this.createHiDPICanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
-    this.canvas.style.width = '100vw'
-    this.canvas.style.height = `${(CANVAS_HEIGHT / CANVAS_WIDTH) * 100}vw`
+    const aspect = CANVAS_WIDTH / CANVAS_HEIGHT
+    this.canvas.style.maxWidth = '100vw'
+    this.canvas.style.maxHeight = '100vh'
+    this.canvas.style.width = `${aspect * 100}vh`
+    this.canvas.style.height = `${(1 / aspect) * 100}vw`
+    this.canvas.style.boxSizing = 'border-box'
     this.context = this.canvas.getContext('2d')!
     this.context.scale(SCALE, SCALE)
 
