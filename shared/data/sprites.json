@@ -387,6 +387,9 @@
             "cols": 2,
             "rows": 2
           }
+        },
+        "collision": {
+          "walkableOverride": false
         }
       },
       "bigrock-1": {

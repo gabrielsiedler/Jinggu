@@ -219,26 +219,6 @@
           "walkableOverride": false
         }
       },
-      "stonepink-1": {
-        "render": {
-          "layer": "object",
-          "orderMode": "mapOrder",
-          "base": "overlay-stonepink-1"
-        },
-        "collision": {
-          "walkableOverride": false
-        }
-      },
-      "stonepink-2": {
-        "render": {
-          "layer": "object",
-          "orderMode": "mapOrder",
-          "base": "overlay-stonepink-2"
-        },
-        "collision": {
-          "walkableOverride": false
-        }
-      },
       "stonesingle": {
         "render": {
           "layer": "object",
@@ -302,46 +282,6 @@
           "layer": "object",
           "orderMode": "mapOrder",
           "base": "overlay-deadhuman-1"
-        }
-      },
-      "bigrock-1": {
-        "render": {
-          "layer": "object",
-          "orderMode": "mapOrder",
-          "base": "overlay-bigrock-1"
-        },
-        "collision": {
-          "walkableOverride": false
-        }
-      },
-      "bigrock-2": {
-        "render": {
-          "layer": "object",
-          "orderMode": "mapOrder",
-          "base": "overlay-bigrock-2"
-        },
-        "collision": {
-          "walkableOverride": false
-        }
-      },
-      "bigrock-3": {
-        "render": {
-          "layer": "object",
-          "orderMode": "mapOrder",
-          "base": "overlay-bigrock-3"
-        },
-        "collision": {
-          "walkableOverride": false
-        }
-      },
-      "bigrock-4": {
-        "render": {
-          "layer": "object",
-          "orderMode": "mapOrder",
-          "base": "overlay-bigrock-4"
-        },
-        "collision": {
-          "walkableOverride": false
         }
       },
       "bush-1": {
@@ -436,6 +376,73 @@
         },
         "collision": {
           "walkableOverride": false
+        }
+      },
+      "bigrock": {
+        "render": {
+          "layer": "object",
+          "orderMode": "mapOrder",
+          "base": "",
+          "grid": {
+            "cols": 2,
+            "rows": 2
+          }
+        },
+        "collision": {
+          "walkableOverride": true
+        }
+      },
+      "bigrock-1": {
+        "render": {
+          "layer": "object",
+          "orderMode": "mapOrder",
+          "base": "overlay-bigrock-1"
+        }
+      },
+      "bigrock-2": {
+        "render": {
+          "layer": "object",
+          "orderMode": "mapOrder",
+          "base": "overlay-bigrock-2"
+        }
+      },
+      "bigrock-3": {
+        "render": {
+          "layer": "object",
+          "orderMode": "mapOrder",
+          "base": "overlay-bigrock-3"
+        }
+      },
+      "bigrock-4": {
+        "render": {
+          "layer": "object",
+          "orderMode": "mapOrder",
+          "base": "overlay-bigrock-4"
+        }
+      },
+      "stonepink": {
+        "render": {
+          "layer": "object",
+          "orderMode": "mapOrder",
+          "base": "",
+          "grid": {
+            "cols": 2,
+            "rows": 1
+          }
+        }
+      },
+      "stonepink-1": {
+        "render": {
+          "layer": "object",
+          "orderMode": "mapOrder",
+          "base": "overlay-stonepink-1"
+        }
+      },
+      "stonepink-2": {
+        "render": {
+          "layer": "object",
+          "orderMode": "mapOrder",
+          "base": "overlay-stonepink-2"
         }
       }
     }

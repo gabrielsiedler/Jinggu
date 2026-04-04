@@ -35,6 +35,8 @@ export class Canvas {
 
   constructor() {
     this.canvas = this.createHiDPICanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
+    this.canvas.style.width = '100vw'
+    this.canvas.style.height = `${(CANVAS_HEIGHT / CANVAS_WIDTH) * 100}vw`
     this.context = this.canvas.getContext('2d')!
     this.context.scale(SCALE, SCALE)
 

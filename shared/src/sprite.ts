@@ -96,9 +96,25 @@ export const buildSpriteLookup = (registry: SpriteRegistryV2): Sprites => {
   }
 
   // Objects (walkable by default unless walkableOverride is false)
-  for (const def of Object.values(registry.tiles.objects)) {
-    const walkable = def.collision?.walkableOverride ?? true
-    lookup[def.render.base] = { id: def.render.base, walkable }
+  // Grid children (e.g. "bigrock-1") inherit walkability from their parent ("bigrock")
+  const objects = registry.tiles.objects
+  const gridParentWalkable: Record<string, boolean> = {}
+  for (const [key, def] of Object.entries(objects)) {
+    if (def.render.grid) {
+      gridParentWalkable[key] = def.collision?.walkableOverride ?? true
+    }
+  }
+  for (const [key, def] of Object.entries(objects)) {
+    let walkable: boolean
+    if (def.collision) {
+      walkable = def.collision.walkableOverride ?? true
+    } else {
+      const parentKey = key.slice(0, key.lastIndexOf('-'))
+      walkable = parentKey in gridParentWalkable ? gridParentWalkable[parentKey] : true
+    }
+    if (def.render.base) {
+      lookup[def.render.base] = { id: def.render.base, walkable }
+    }
     if (def.render.variants) {
       for (const v of def.render.variants) {
         lookup[v] = { id: v, walkable }
