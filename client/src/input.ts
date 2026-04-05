@@ -1,5 +1,5 @@
 import { Direction } from './player/player.i'
-import { core, emitDance, emitMessage, emitMove } from './socket'
+import { core, emitAttack, emitMessage, emitMove } from './socket'
 
 const keysPressed: any = {}
 
@@ -17,9 +17,21 @@ const arrayToDirect: any = {
   ArrowDown: Direction.Down,
   ArrowLeft: Direction.Left,
   ArrowRight: Direction.Right,
+  w: Direction.Up,
+  s: Direction.Down,
+  a: Direction.Left,
+  d: Direction.Right,
 }
 
 export const checkKeyPress = (e: KeyboardEvent) => {
+  if (!core.player.alive) return
+
+  if (e.key === ' ') {
+    e.preventDefault()
+    if (!core.player.walking) emitAttack()
+    return
+  }
+
   if (e.key === 'Enter') {
     const message = window.prompt('Message')
 
@@ -30,19 +42,8 @@ export const checkKeyPress = (e: KeyboardEvent) => {
 
   keysPressed[e.key] = true
 
-  const code = e.key
-  const direction = arrayToDirect[code]
-  if (keysPressed.Control || keysPressed.Alt) {
-    emitDance(direction)
-
-    return
-  }
-
-  // if (keysPressed.j) {
-  //   core.player.autoDance()
-
-  //   return
-  // }
+  const direction = arrayToDirect[e.key]
+  if (direction) e.preventDefault()
 
   if (core.player.walking) return
 

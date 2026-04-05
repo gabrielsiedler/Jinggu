@@ -5,11 +5,11 @@ import { MessageQueue } from './MessageQueue'
 import { Direction } from './player/player.i'
 import { StatusMessage } from './StatusMessage'
 
-if (!process.env.SERVER_URL) {
+if (!import.meta.env.SERVER_URL) {
   throw new Error('SERVER_URL environment variable is not defined. Create a .env file with SERVER_URL=<url>')
 }
 
-const socket = io(process.env.SERVER_URL)
+const socket = io(import.meta.env.SERVER_URL)
 
 export let core: Core
 export const status = new StatusMessage()
@@ -27,8 +27,8 @@ socket.on('disconnect', () => {
   core.canvas.clear()
 })
 
-socket.on('initial-data', ({ player, map, sprites, entities }) => {
-  core.startEngine(player, map, sprites, entities)
+socket.on('initial-data', ({ player, map, sprites, entities, corpses }) => {
+  core.startEngine(player, map, sprites, entities, corpses)
 })
 
 socket.on('player-connected', (player) => {
@@ -43,8 +43,8 @@ socket.on('player-moved', (playerId: any, direction: any) => {
   core.moveEntity(playerId, direction)
 })
 
-socket.on('player-danced', (playerId: any, direction: any) => {
-  core.danceEntity(playerId, direction)
+socket.on('player-faced', (playerId: any, direction: any) => {
+  core.faceEntity(playerId, direction)
 })
 
 socket.on('status', (message: any) => {
@@ -55,9 +55,13 @@ socket.on('message', (playerId: any, message: string) => {
   core.handleMessage(playerId, message)
 })
 
-export const emitDance = (direction: Direction) => {
-  socket.emit('dance', direction)
-}
+socket.on('player-attacked', (data: any) => {
+  core.handleAttack(data)
+})
+
+socket.on('player-died', (data: any) => {
+  core.handleDeath(data)
+})
 
 export const emitMove = (direction: Direction) => {
   socket.emit('move', direction)
@@ -65,4 +69,8 @@ export const emitMove = (direction: Direction) => {
 
 export const emitMessage = (message: string) => {
   socket.emit('message', message)
+}
+
+export const emitAttack = () => {
+  socket.emit('attack')
 }

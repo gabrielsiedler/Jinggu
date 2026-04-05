@@ -2,20 +2,21 @@
 <html lang="en">
   <head>
     <title>Jinggu - 脛骨</title>
-    <link rel="stylesheet" href="public/reset.css" />
-    <link rel="icon" type="image/png" href="public/favicon.png" />
+    <link rel="stylesheet" href="/reset.css" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <style>
       html,
       body {
         min-height: 100vh;
         height: 100vh;
-        background: url('./public/bg.png');
+        background: url('/bg.png');
       }
 
       body {
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow: hidden;
       }
 
       canvas {
@@ -24,6 +25,7 @@
         border-left-color: #403f3f;
         border-right-color: #747474;
         border-bottom-color: #747474;
+        image-rendering: pixelated;
       }
     </style>
   </head>

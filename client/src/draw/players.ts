@@ -15,9 +15,12 @@ const drawPlayer = (player: Player, { x, y }: Point) => {
 }
 
 export const drawPlayers = () => {
-  drawPlayer(core.player, { x: 0, y: 0 })
+  if (core.player.alive) {
+    drawPlayer(core.player, { x: 0, y: 0 })
+  }
 
   core.entities.forEach((entity: Player) => {
+    if (!entity.alive) return
     const relativePosition = getRelativePlayerPosition(core.player, entity)
 
     drawPlayer(entity, relativePosition)

@@ -1,4 +1,3 @@
-import { emitDance } from '../socket'
 import { Point } from '../types.i'
 import { Direction, PlayerFromServer } from './player.i'
 
@@ -11,7 +10,7 @@ export class Player {
   tile: Point
   health: number
   walking: boolean = false
-  dancing: boolean = false
+  alive: boolean = true
   spriteBase = possibleSkins[Math.floor(Math.random() * possibleSkins.length)]
   sprite = `${this.spriteBase}_down_standing`
   level: number = 150
@@ -36,6 +35,11 @@ export class Player {
     this.speed = Math.max(800 - level * 5, 200)
     this.health = health
     this.name = name
+    this.alive = player.alive ?? true
+  }
+
+  face = (direction: Direction) => {
+    this.sprite = `${this.spriteBase}_${direction}_standing`
   }
 
   move = (direction: Direction) => {
@@ -57,36 +61,6 @@ export class Player {
 
         break
     }
-  }
-
-  // temporary
-  autoDance = () => {
-    const directions = [Direction.Up, Direction.Down, Direction.Left, Direction.Right]
-    setInterval(() => {
-      emitDance(directions[Math.floor(Math.random() * directions.length)])
-    }, 400)
-  }
-
-  dance = (direction: Direction) => {
-    if (this.walking || this.dancing) return
-
-    switch (direction) {
-      case Direction.Up:
-        this.sprite = `${this.spriteBase}_up_standing`
-        break
-      case Direction.Down:
-        this.sprite = `${this.spriteBase}_down_standing`
-        break
-      case Direction.Left:
-        this.sprite = `${this.spriteBase}_left_standing`
-        break
-      case Direction.Right:
-        this.sprite = `${this.spriteBase}_right_standing`
-        break
-    }
-    this.dancing = true
-
-    setTimeout(() => (this.dancing = false), 50)
   }
 
   animateWalk = (property: 'x' | 'y', signal: -1 | 1, movementSpriteBase: string) => {

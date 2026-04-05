@@ -10,3 +10,7 @@ yarn-error.log*
 # client
 .cache
 dist
+
+.claude
+.playwright-mcp
+claude/tasks/

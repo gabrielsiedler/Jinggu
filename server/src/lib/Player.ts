@@ -1,11 +1,7 @@
-import { map, VIEW_HEIGHT, VIEW_WIDTH } from '../core'
+import { Direction } from '@jinggu/shared'
+import { map } from '../core.js'
 
-export enum Direction {
-  Up = 'up',
-  Down = 'down',
-  Left = 'left',
-  Right = 'right',
-}
+export { Direction }
 
 const possibleSkins = ['creature_man1', 'creature_woman1']
 const possibleNames = ['Allan Dryst', 'Aurea Lee', 'Mephistophelian', 'Lady Florzinha', 'Pademo', 'Dark Chacal']
@@ -20,6 +16,9 @@ export class Player {
   speed: number
   health: number
   name: string
+  facing: Direction = Direction.Down
+  alive: boolean = true
+  lastAttackTime: number = 0
 
   constructor(id: string) {
     this.id = id
@@ -34,9 +33,11 @@ export class Player {
   }
 
   move = (direction: Direction) => {
+    this.facing = direction
+
     if (this.walking) return
 
-    let destinationTilePos: [number, number]
+    let destinationTilePos!: [number, number]
 
     switch (direction) {
       case Direction.Up:
@@ -57,8 +58,8 @@ export class Player {
       !destinationTilePos || //TODO: check why this is necessary
       destinationTilePos[0] < 0 ||
       destinationTilePos[1] < 0 ||
-      destinationTilePos[0] >= VIEW_WIDTH ||
-      destinationTilePos[1] >= VIEW_HEIGHT
+      destinationTilePos[0] >= map.width ||
+      destinationTilePos[1] >= map.height
     )
       return false
 
@@ -76,9 +77,34 @@ export class Player {
     return true
   }
 
-  dance = (direction: Direction) => {
-    if (this.walking) return
-
-    // emit player dance
+  getAttackZone = (): [number, number][] => {
+    const { x, y } = this
+    switch (this.facing) {
+      case Direction.Right:
+        return [[x + 1, y - 1], [x + 1, y], [x + 1, y + 1]]
+      case Direction.Left:
+        return [[x - 1, y - 1], [x - 1, y], [x - 1, y + 1]]
+      case Direction.Down:
+        return [[x - 1, y + 1], [x, y + 1], [x + 1, y + 1]]
+      case Direction.Up:
+        return [[x - 1, y - 1], [x, y - 1], [x + 1, y - 1]]
+    }
   }
+
+  toJSON = () => {
+    return {
+      id: this.id,
+      x: this.x,
+      y: this.y,
+      walking: this.walking,
+      spriteBase: this.spriteBase,
+      level: this.level,
+      speed: this.speed,
+      health: this.health,
+      name: this.name,
+      facing: this.facing,
+      alive: this.alive,
+    }
+  }
+
 }

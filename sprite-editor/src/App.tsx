@@ -1,48 +1,66 @@
-import React from 'react'
-import './App.css'
-import { Sprite, SpriteMap } from './types.i'
-import * as s from './index.s'
-
-const arrayRange = (start: number, stop: number, step = 1) =>
-  Array.from({ length: (stop - start) / step + 1 }, (value, index) => start + index * step)
-
-const rangeArray = arrayRange(0, 1956)
+import { useEffect, useState } from 'react'
+import { useSetAtom } from 'jotai'
+import { registryAtom } from './atoms/registry'
+import { allImageFilenamesAtom } from './atoms/images'
+import { loadRegistry, listImages } from './api/spriteApi'
+import StatusBar from './components/shared/StatusBar'
+import Sidebar from './components/sidebar/Sidebar'
+import EditorPanel from './components/editor/EditorPanel'
+import CreateSpriteDialog from './components/sidebar/CreateSpriteDialog'
+import ImagePicker from './components/picker/ImagePicker'
+import * as s from './App.s'
 
 const App = () => {
-  const spriteLib: SpriteMap = {}
+  const setRegistry = useSetAtom(registryAtom)
+  const setAllImages = useSetAtom(allImageFilenamesAtom)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const init = async () => {
+      try {
+        const [registry, images] = await Promise.all([loadRegistry(), listImages()])
+        setRegistry(registry)
+        setAllImages(images)
+        setLoading(false)
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Failed to load data'
+        console.error('[App] Initialization error:', message)
+        setError(message)
+        setLoading(false)
+      }
+    }
+    init()
+  }, [setRegistry, setAllImages])
+
+  if (loading) {
+    return <s.LoadingContainer>Loading sprite registry...</s.LoadingContainer>
+  }
+
+  if (error) {
+    return (
+      <s.ErrorContainer>
+        <div>Failed to load sprite editor</div>
+        <div>{error}</div>
+        <button onClick={() => window.location.reload()}>Retry</button>
+      </s.ErrorContainer>
+    )
+  }
 
   return (
-    <s.App>
-      <s.Repository>
-        {}
-        {rangeArray.map((ct: any) => (
-          <s.RepositoryItem key={ct}>
-            <img src={`sprites/${ct}.png`} />
-          </s.RepositoryItem>
-        ))}
-      </s.Repository>
-      {/* {Object.values(spriteLib).map((ct: any) => {
-        if (ct.spriteId)
-          return (
-            <div key={ct.id}>
-              <img src={`sprites/${ct.spriteId}.png`} />
-              <br />
-            </div>
-          )
-
-        return (
-          <div key={ct.id}>
-            {ct.sprites.map((spr: Sprite, idx: number) => (
-              <div key={spr.id}>
-                <img src={`sprites/${spr.spriteId}.png`} />
-                {(idx - 1) % ct.size[0] === 0 && <br />}
-              </div>
-            ))}
-            <br />
-          </div>
-        )
-      })} */}
-    </s.App>
+    <s.AppContainer>
+      <StatusBar />
+      <s.MainLayout>
+        <s.SidebarPanel>
+          <Sidebar />
+        </s.SidebarPanel>
+        <s.EditorArea>
+          <EditorPanel />
+        </s.EditorArea>
+      </s.MainLayout>
+      <CreateSpriteDialog />
+      <ImagePicker />
+    </s.AppContainer>
   )
 }
 

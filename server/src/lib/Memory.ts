@@ -1,4 +1,4 @@
-import { Player } from './Player'
+import { Player } from './Player.js'
 
 export class Memory {
   players: Player[]
@@ -17,5 +17,11 @@ export class Memory {
 
   listOtherPlayers = (myPlayerId: string) => {
     return this.players.filter((e: any) => e.id !== myPlayerId)
+  }
+
+  getPlayersAtPositions = (positions: [number, number][], excludeId: string): Player[] => {
+    return this.players.filter(
+      (p) => p.alive && p.id !== excludeId && positions.some(([px, py]) => p.x === px && p.y === py),
+    )
   }
 }
