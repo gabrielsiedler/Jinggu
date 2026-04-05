@@ -45,9 +45,12 @@ const drawHealthBar = (player: Player, gap: Point) => {
 }
 
 export const drawHealthBars = () => {
-  drawHealthBar(core.player, { x: 0, y: 0 })
+  if (core.player.alive) {
+    drawHealthBar(core.player, { x: 0, y: 0 })
+  }
 
   core.entities.forEach((entity: Player) => {
+    if (!entity.alive) return
     const relativePosition = getRelativePlayerPosition(core.player, entity)
 
     drawHealthBar(entity, relativePosition)

@@ -9,4 +9,6 @@ export interface PlayerFromServer {
   level: number
   health: number
   name: string
+  facing: string
+  alive: boolean
 }

@@ -27,8 +27,8 @@ socket.on('disconnect', () => {
   core.canvas.clear()
 })
 
-socket.on('initial-data', ({ player, map, sprites, entities }) => {
-  core.startEngine(player, map, sprites, entities)
+socket.on('initial-data', ({ player, map, sprites, entities, corpses }) => {
+  core.startEngine(player, map, sprites, entities, corpses)
 })
 
 socket.on('player-connected', (player) => {
@@ -55,10 +55,22 @@ socket.on('message', (playerId: any, message: string) => {
   core.handleMessage(playerId, message)
 })
 
+socket.on('player-attacked', (data: any) => {
+  core.handleAttack(data)
+})
+
+socket.on('player-died', (data: any) => {
+  core.handleDeath(data)
+})
+
 export const emitMove = (direction: Direction) => {
   socket.emit('move', direction)
 }
 
 export const emitMessage = (message: string) => {
   socket.emit('message', message)
+}
+
+export const emitAttack = () => {
+  socket.emit('attack')
 }

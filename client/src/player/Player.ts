@@ -10,6 +10,7 @@ export class Player {
   tile: Point
   health: number
   walking: boolean = false
+  alive: boolean = true
   spriteBase = possibleSkins[Math.floor(Math.random() * possibleSkins.length)]
   sprite = `${this.spriteBase}_down_standing`
   level: number = 150
@@ -34,6 +35,7 @@ export class Player {
     this.speed = Math.max(800 - level * 5, 200)
     this.health = health
     this.name = name
+    this.alive = player.alive ?? true
   }
 
   face = (direction: Direction) => {

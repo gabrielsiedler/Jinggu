@@ -1,5 +1,5 @@
 import { Direction } from './player/player.i'
-import { core, emitMessage, emitMove } from './socket'
+import { core, emitAttack, emitMessage, emitMove } from './socket'
 
 const keysPressed: any = {}
 
@@ -24,6 +24,14 @@ const arrayToDirect: any = {
 }
 
 export const checkKeyPress = (e: KeyboardEvent) => {
+  if (!core.player.alive) return
+
+  if (e.key === ' ') {
+    e.preventDefault()
+    if (!core.player.walking) emitAttack()
+    return
+  }
+
   if (e.key === 'Enter') {
     const message = window.prompt('Message')
 

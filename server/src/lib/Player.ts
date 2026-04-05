@@ -16,6 +16,9 @@ export class Player {
   speed: number
   health: number
   name: string
+  facing: Direction = Direction.Down
+  alive: boolean = true
+  lastAttackTime: number = 0
 
   constructor(id: string) {
     this.id = id
@@ -30,6 +33,8 @@ export class Player {
   }
 
   move = (direction: Direction) => {
+    this.facing = direction
+
     if (this.walking) return
 
     let destinationTilePos!: [number, number]
@@ -70,6 +75,36 @@ export class Player {
     }, this.speed)
 
     return true
+  }
+
+  getAttackZone = (): [number, number][] => {
+    const { x, y } = this
+    switch (this.facing) {
+      case Direction.Right:
+        return [[x + 1, y - 1], [x + 1, y], [x + 1, y + 1]]
+      case Direction.Left:
+        return [[x - 1, y - 1], [x - 1, y], [x - 1, y + 1]]
+      case Direction.Down:
+        return [[x - 1, y + 1], [x, y + 1], [x + 1, y + 1]]
+      case Direction.Up:
+        return [[x - 1, y - 1], [x, y - 1], [x + 1, y - 1]]
+    }
+  }
+
+  toJSON = () => {
+    return {
+      id: this.id,
+      x: this.x,
+      y: this.y,
+      walking: this.walking,
+      spriteBase: this.spriteBase,
+      level: this.level,
+      speed: this.speed,
+      health: this.health,
+      name: this.name,
+      facing: this.facing,
+      alive: this.alive,
+    }
   }
 
 }
